@@ -3,7 +3,12 @@ use_frameworks!
 
 target 'SocketIOIOSDemo' do
 pod 'AFNetworking', '~> 3.0'
+pod 'Masonry'
 pod 'MLeaksFinder'
 pod 'MJExtension'
 pod 'Socket.IO-Client-Swift', '~> 8.2.0'
+pod 'Realm'
+pod 'SVProgressHUD'
+pod 'SDWebImage'
+pod 'UITableView+FDTemplateLayoutCell'
 end

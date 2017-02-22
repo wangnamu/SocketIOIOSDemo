@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-@import SocketIO;
+#import "SocketIOManager.h"
+#import "MJExtension.h"
 
 @interface ViewController ()
 
@@ -19,31 +20,44 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSURL* url = [[NSURL alloc] initWithString:@"http://192.168.19.71:3000"];
-    SocketIOClient* socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @YES}];
+    UIButton* btn1 = [[UIButton alloc] initWithFrame:CGRectMake(20, 100, self.view.frame.size.width - 40, 140)];
+    [btn1 setTitle:@"notifyOtherPlatforms" forState:UIControlStateNormal];
+    [btn1 setBackgroundColor:[UIColor blackColor]];
+    [btn1 addTarget:self action:@selector(notify:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        
-        NSString *str = @"{\"DeviceToken\":\"3asd1053-fb9c-4f99-8bee-505e6da0c9d1\",\"DeviceType\":\"ios\",\"IsOnline\":false,\"LoginTime\":1482729320827,\"NickName\":\"ios\",\"Project\":\"IOSDemo\",\"SID\":\"3\",\"UserName\":\"ios\"}";
-        
-        if (socket != nil) {
-            [[socket emitWithAck:@"login" with:@[str]] timingOutAfter:0 callback:^(NSArray* args) {
-                NSLog(@"%@",args);
-            }];
-        }
-        
-    }];
+    [self.view addSubview:btn1];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNews:) name:Notification_socketio_news object:nil];
     
-    [socket connect];
 }
 
+- (void)notify:(id)sender {
+    SocketIONotify* socketIONotify = [[SocketIONotify alloc] init];
+    [socketIONotify setUserID:@"001"];
+    [socketIONotify setSourceDeviceType:@"IOS"];
+    [[SocketIOManager sharedClient] notifyOtherPlatforms:socketIONotify];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)onNews:(NSNotification*)notification {
+    NSLog(@"1-%@",notification);
+    
+    NSDictionary *dic = [[notification userInfo] mj_JSONObject];
+    NSLog(@"2-%@",dic);
+    
+    SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:msg.Title message:msg.Body delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

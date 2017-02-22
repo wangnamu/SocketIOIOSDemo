@@ -88,12 +88,22 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FBRetainCycleDetector/FBRetainCycleDetector.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJExtension/MJExtension.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MLeaksFinder/MLeaksFinder.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Socket.IO-Client-Swift/SocketIO.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBRetainCycleDetector/FBRetainCycleDetector.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJExtension/MJExtension.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MLeaksFinder/MLeaksFinder.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Socket.IO-Client-Swift/SocketIO.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
 fi

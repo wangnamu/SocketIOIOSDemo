@@ -8,14 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		6F63998902C75DBEC050BFE6 /* Pods_SocketIOIOSDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */; };
+		BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0613611E5ABDFD00E0455A /* InsetsLabel.m */; };
+		BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */ = {isa = PBXBuildFile; fileRef = BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */; };
+		BB476E301E519D3F00A7F8C7 /* RealmConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */; };
+		BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */; };
+		BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */; };
+		BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F7E1E5553850023C5B6 /* ChatViewController.m */; };
+		BB517F821E5577250023C5B6 /* ChatBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F811E5577250023C5B6 /* ChatBean.m */; };
+		BB517F881E557B6C0023C5B6 /* MessageBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F871E557B6C0023C5B6 /* MessageBean.m */; };
+		BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F8A1E558EB40023C5B6 /* ChatHostTableViewCell.m */; };
+		BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F8D1E558F760023C5B6 /* ChatGuestTableViewCell.m */; };
+		BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F921E55945F0023C5B6 /* ChatPresenter.m */; };
+		BB7714A41E2C9B220015CFA3 /* SocketIOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7714A31E2C9B220015CFA3 /* SocketIOManager.m */; };
+		BB7714A71E2CB1290015CFA3 /* SocketIOUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7714A61E2CB1290015CFA3 /* SocketIOUserInfo.m */; };
 		BB7984F81E260B1D00552F88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984F71E260B1D00552F88 /* main.m */; };
 		BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984FA1E260B1D00552F88 /* AppDelegate.m */; };
 		BB7984FE1E260B1D00552F88 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984FD1E260B1D00552F88 /* ViewController.m */; };
-		BB7985011E260B1D00552F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7984FF1E260B1D00552F88 /* Main.storyboard */; };
 		BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7985021E260B1D00552F88 /* Assets.xcassets */; };
 		BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */; };
 		BB7985111E260B1D00552F88 /* SocketIOIOSDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7985101E260B1D00552F88 /* SocketIOIOSDemoTests.m */; };
 		BB79851C1E260B1D00552F88 /* SocketIOIOSDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB79851B1E260B1D00552F88 /* SocketIOIOSDemoUITests.m */; };
+		BBA6EFBA1E53F57F0050756C /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFB91E53F57F0050756C /* MessageViewController.m */; };
+		BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC11E53F5F10050756C /* SettingViewController.m */; };
+		BBA6EFC51E5419F20050756C /* PersonBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC41E5419F20050756C /* PersonBean.m */; };
+		BBA6EFC91E541E090050756C /* PersonListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC81E541E090050756C /* PersonListPresenter.m */; };
+		BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */; };
+		BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */; };
+		BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8DA1E4C178F007980D0 /* UserInfoBean.m */; };
+		BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8DD1E4C3E41007980D0 /* LoginViewController.m */; };
+		BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8E01E4C3FA7007980D0 /* UserInfoRepository.m */; };
+		BBAFF8E51E4C4041007980D0 /* LoginPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8E41E4C4041007980D0 /* LoginPresenter.m */; };
+		BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D121E4D633600241CEF /* AFNetworkingClient.m */; };
+		BBF08D301E4D633600241CEF /* DateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D291E4D633600241CEF /* DateUtils.m */; };
+		BBF08D331E4D853300241CEF /* ResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D321E4D853200241CEF /* ResultModel.m */; };
+		BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,16 +61,57 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BBFC98C51E3882A900DB5A7D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1C46A59A4E58AB8E1D35AD1C /* Pods-SocketIOIOSDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketIOIOSDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocketIOIOSDemo/Pods-SocketIOIOSDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocketIOIOSDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0613601E5ABDFD00E0455A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
+		BB0613611E5ABDFD00E0455A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
+		BB46505B1E2EFA1B00FABB62 /* SocketIONotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIONotify.h; sourceTree = "<group>"; };
+		BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIONotify.m; sourceTree = "<group>"; };
+		BB476E2E1E519D3F00A7F8C7 /* RealmConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmConfig.h; sourceTree = "<group>"; };
+		BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmConfig.m; sourceTree = "<group>"; };
+		BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
+		BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListViewController.m; sourceTree = "<group>"; };
+		BB517F7D1E5553850023C5B6 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		BB517F7E1E5553850023C5B6 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		BB517F801E5577250023C5B6 /* ChatBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBean.h; sourceTree = "<group>"; };
+		BB517F811E5577250023C5B6 /* ChatBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBean.m; sourceTree = "<group>"; };
+		BB517F861E557B6C0023C5B6 /* MessageBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBean.h; sourceTree = "<group>"; };
+		BB517F871E557B6C0023C5B6 /* MessageBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBean.m; sourceTree = "<group>"; };
+		BB517F891E558EB40023C5B6 /* ChatHostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHostTableViewCell.h; sourceTree = "<group>"; };
+		BB517F8A1E558EB40023C5B6 /* ChatHostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatHostTableViewCell.m; sourceTree = "<group>"; };
+		BB517F8C1E558F760023C5B6 /* ChatGuestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGuestTableViewCell.h; sourceTree = "<group>"; };
+		BB517F8D1E558F760023C5B6 /* ChatGuestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGuestTableViewCell.m; sourceTree = "<group>"; };
+		BB517F8F1E5593E20023C5B6 /* ChatViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewProtocol.h; sourceTree = "<group>"; };
+		BB517F901E5594390023C5B6 /* ChatPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatPresenterProtocol.h; sourceTree = "<group>"; };
+		BB517F911E55945F0023C5B6 /* ChatPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatPresenter.h; sourceTree = "<group>"; };
+		BB517F921E55945F0023C5B6 /* ChatPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatPresenter.m; sourceTree = "<group>"; };
+		BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocketIOIOSDemo.entitlements; sourceTree = "<group>"; };
+		BB7714A21E2C9B220015CFA3 /* SocketIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOManager.h; sourceTree = "<group>"; };
+		BB7714A31E2C9B220015CFA3 /* SocketIOManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOManager.m; sourceTree = "<group>"; };
+		BB7714A51E2CB1290015CFA3 /* SocketIOUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOUserInfo.h; sourceTree = "<group>"; };
+		BB7714A61E2CB1290015CFA3 /* SocketIOUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOUserInfo.m; sourceTree = "<group>"; };
 		BB7984F31E260B1D00552F88 /* SocketIOIOSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocketIOIOSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7984F71E260B1D00552F88 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB7984F91E260B1D00552F88 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB7984FA1E260B1D00552F88 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BB7984FC1E260B1D00552F88 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BB7984FD1E260B1D00552F88 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		BB7985001E260B1D00552F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB7985021E260B1D00552F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB7985051E260B1D00552F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB7985071E260B1D00552F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +121,41 @@
 		BB7985171E260B1D00552F88 /* SocketIOIOSDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocketIOIOSDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB79851B1E260B1D00552F88 /* SocketIOIOSDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketIOIOSDemoUITests.m; sourceTree = "<group>"; };
 		BB79851D1E260B1D00552F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBA6EFB81E53F57F0050756C /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		BBA6EFB91E53F57F0050756C /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		BBA6EFC01E53F5F10050756C /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		BBA6EFC11E53F5F10050756C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		BBA6EFC31E5419F20050756C /* PersonBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonBean.h; sourceTree = "<group>"; };
+		BBA6EFC41E5419F20050756C /* PersonBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonBean.m; sourceTree = "<group>"; };
+		BBA6EFC61E541D2C0050756C /* PersonListViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonListViewProtocol.h; sourceTree = "<group>"; };
+		BBA6EFC71E541E090050756C /* PersonListPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListPresenter.h; sourceTree = "<group>"; };
+		BBA6EFC81E541E090050756C /* PersonListPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListPresenter.m; sourceTree = "<group>"; };
+		BBA6EFCA1E541E2F0050756C /* PersonListPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonListPresenterProtocol.h; sourceTree = "<group>"; };
+		BBA6EFCB1E5427D00050756C /* PersonListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListTableViewCell.h; sourceTree = "<group>"; };
+		BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListTableViewCell.m; sourceTree = "<group>"; };
+		BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonListTableViewCell.xib; sourceTree = "<group>"; };
+		BBAFF8D91E4C178F007980D0 /* UserInfoBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoBean.h; sourceTree = "<group>"; };
+		BBAFF8DA1E4C178F007980D0 /* UserInfoBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoBean.m; sourceTree = "<group>"; };
+		BBAFF8DC1E4C3E41007980D0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		BBAFF8DD1E4C3E41007980D0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		BBAFF8DF1E4C3FA7007980D0 /* UserInfoRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoRepository.h; sourceTree = "<group>"; };
+		BBAFF8E01E4C3FA7007980D0 /* UserInfoRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoRepository.m; sourceTree = "<group>"; };
+		BBAFF8E21E4C3FD4007980D0 /* LoginViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewProtocol.h; sourceTree = "<group>"; };
+		BBAFF8E31E4C4041007980D0 /* LoginPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPresenter.h; sourceTree = "<group>"; };
+		BBAFF8E41E4C4041007980D0 /* LoginPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPresenter.m; sourceTree = "<group>"; };
+		BBAFF8E71E4C5A53007980D0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		BBF08D0D1E4D508600241CEF /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BBF08D0E1E4D5A2900241CEF /* LoginPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginPresenterProtocol.h; sourceTree = "<group>"; };
+		BBF08D111E4D633600241CEF /* AFNetworkingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingClient.h; sourceTree = "<group>"; };
+		BBF08D121E4D633600241CEF /* AFNetworkingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkingClient.m; sourceTree = "<group>"; };
+		BBF08D281E4D633600241CEF /* DateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateUtils.h; sourceTree = "<group>"; };
+		BBF08D291E4D633600241CEF /* DateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateUtils.m; sourceTree = "<group>"; };
+		BBF08D311E4D853200241CEF /* ResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultModel.h; sourceTree = "<group>"; };
+		BBF08D321E4D853200241CEF /* ResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultModel.m; sourceTree = "<group>"; };
+		BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOMessage.h; sourceTree = "<group>"; };
+		BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOMessage.m; sourceTree = "<group>"; };
+		BBFC98CB1E38837900DB5A7D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		BBFC98CD1E38837900DB5A7D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		D950D396DD68325D1A0453E7 /* Pods-SocketIOIOSDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketIOIOSDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocketIOIOSDemo/Pods-SocketIOIOSDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +194,163 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BB06135F1E5ABDDE00E0455A /* Extend */ = {
+			isa = PBXGroup;
+			children = (
+				BB0613601E5ABDFD00E0455A /* InsetsLabel.h */,
+				BB0613611E5ABDFD00E0455A /* InsetsLabel.m */,
+			);
+			path = Extend;
+			sourceTree = "<group>";
+		};
+		BB476E341E51A1D300A7F8C7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFBB1E53F5D30050756C /* Controller */,
+				BBA6EFBC1E53F5D30050756C /* Model */,
+				BBA6EFBD1E53F5D30050756C /* Presenter */,
+				BBA6EFBE1E53F5D30050756C /* Repository */,
+				BBA6EFBF1E53F5D30050756C /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		BB476E351E51A1D300A7F8C7 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				BB476E4C1E51A89C00A7F8C7 /* Controller */,
+				BB476E4E1E51A89C00A7F8C7 /* Model */,
+				BB476E4F1E51A89C00A7F8C7 /* Presenter */,
+				BB476E501E51A89C00A7F8C7 /* Repository */,
+				BB476E511E51A89C00A7F8C7 /* View */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		BB476E361E51A1D300A7F8C7 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				BB476E3B1E51A2AF00A7F8C7 /* Controller */,
+				BB476E3A1E51A2AF00A7F8C7 /* Model */,
+				BB476E391E51A2AF00A7F8C7 /* Presenter */,
+				BB476E381E51A2AF00A7F8C7 /* Repository */,
+				BB476E371E51A2AF00A7F8C7 /* View */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		BB476E371E51A2AF00A7F8C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFC61E541D2C0050756C /* PersonListViewProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB476E381E51A2AF00A7F8C7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BB476E391E51A2AF00A7F8C7 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFC71E541E090050756C /* PersonListPresenter.h */,
+				BBA6EFC81E541E090050756C /* PersonListPresenter.m */,
+				BBA6EFCA1E541E2F0050756C /* PersonListPresenterProtocol.h */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BB476E3A1E51A2AF00A7F8C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFC31E5419F20050756C /* PersonBean.h */,
+				BBA6EFC41E5419F20050756C /* PersonBean.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BB476E3B1E51A2AF00A7F8C7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */,
+				BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */,
+				BBA6EFCB1E5427D00050756C /* PersonListTableViewCell.h */,
+				BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */,
+				BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BB476E4C1E51A89C00A7F8C7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFB81E53F57F0050756C /* MessageViewController.h */,
+				BBA6EFB91E53F57F0050756C /* MessageViewController.m */,
+				BB517F7D1E5553850023C5B6 /* ChatViewController.h */,
+				BB517F7E1E5553850023C5B6 /* ChatViewController.m */,
+				BB517F891E558EB40023C5B6 /* ChatHostTableViewCell.h */,
+				BB517F8A1E558EB40023C5B6 /* ChatHostTableViewCell.m */,
+				BB517F8C1E558F760023C5B6 /* ChatGuestTableViewCell.h */,
+				BB517F8D1E558F760023C5B6 /* ChatGuestTableViewCell.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BB476E4E1E51A89C00A7F8C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BB517F801E5577250023C5B6 /* ChatBean.h */,
+				BB517F811E5577250023C5B6 /* ChatBean.m */,
+				BB517F861E557B6C0023C5B6 /* MessageBean.h */,
+				BB517F871E557B6C0023C5B6 /* MessageBean.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BB476E4F1E51A89C00A7F8C7 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				BB517F911E55945F0023C5B6 /* ChatPresenter.h */,
+				BB517F921E55945F0023C5B6 /* ChatPresenter.m */,
+				BB517F901E5594390023C5B6 /* ChatPresenterProtocol.h */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BB476E501E51A89C00A7F8C7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BB476E511E51A89C00A7F8C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BB517F8F1E5593E20023C5B6 /* ChatViewProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB77149B1E2C91590015CFA3 /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				BB7714A21E2C9B220015CFA3 /* SocketIOManager.h */,
+				BB7714A31E2C9B220015CFA3 /* SocketIOManager.m */,
+				BB7714A51E2CB1290015CFA3 /* SocketIOUserInfo.h */,
+				BB7714A61E2CB1290015CFA3 /* SocketIOUserInfo.m */,
+				BB46505B1E2EFA1B00FABB62 /* SocketIONotify.h */,
+				BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */,
+				BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */,
+				BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */,
+			);
+			path = SocketIO;
+			sourceTree = "<group>";
+		};
 		BB7984EA1E260B1D00552F88 = {
 			isa = PBXGroup;
 			children = (
@@ -117,15 +376,29 @@
 		BB7984F51E260B1D00552F88 /* SocketIOIOSDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BB06135F1E5ABDDE00E0455A /* Extend */,
+				BBF08D0F1E4D633600241CEF /* Libs */,
+				BBF08D271E4D633600241CEF /* Utils */,
+				BB77149B1E2C91590015CFA3 /* SocketIO */,
+				BB476E341E51A1D300A7F8C7 /* Setting */,
+				BB476E351E51A1D300A7F8C7 /* Message */,
+				BB476E361E51A1D300A7F8C7 /* Person */,
+				BBEDD6F81E4C100300FA8B07 /* Login */,
+				BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */,
 				BB7984F91E260B1D00552F88 /* AppDelegate.h */,
 				BB7984FA1E260B1D00552F88 /* AppDelegate.m */,
 				BB7984FC1E260B1D00552F88 /* ViewController.h */,
 				BB7984FD1E260B1D00552F88 /* ViewController.m */,
-				BB7984FF1E260B1D00552F88 /* Main.storyboard */,
 				BB7985021E260B1D00552F88 /* Assets.xcassets */,
 				BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */,
 				BB7985071E260B1D00552F88 /* Info.plist */,
 				BB7984F61E260B1D00552F88 /* Supporting Files */,
+				BBAFF8E71E4C5A53007980D0 /* PrefixHeader.pch */,
+				BBF08D0D1E4D508600241CEF /* Common.h */,
+				BB476E2E1E519D3F00A7F8C7 /* RealmConfig.h */,
+				BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */,
+				BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */,
+				BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */,
 			);
 			path = SocketIOIOSDemo;
 			sourceTree = "<group>";
@@ -156,10 +429,134 @@
 			path = SocketIOIOSDemoUITests;
 			sourceTree = "<group>";
 		};
+		BBA6EFBB1E53F5D30050756C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EFC01E53F5F10050756C /* SettingViewController.h */,
+				BBA6EFC11E53F5F10050756C /* SettingViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BBA6EFBC1E53F5D30050756C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BBA6EFBD1E53F5D30050756C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BBA6EFBE1E53F5D30050756C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BBA6EFBF1E53F5D30050756C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BBEDD6F81E4C100300FA8B07 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BBEDD6F91E4C16CE00FA8B07 /* Controller */,
+				BBEDD6FA1E4C16CE00FA8B07 /* Model */,
+				BBEDD6FB1E4C16CE00FA8B07 /* Presenter */,
+				BBEDD6FC1E4C16CE00FA8B07 /* Repository */,
+				BBEDD6FD1E4C16CE00FA8B07 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BBEDD6F91E4C16CE00FA8B07 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BBAFF8DC1E4C3E41007980D0 /* LoginViewController.h */,
+				BBAFF8DD1E4C3E41007980D0 /* LoginViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BBEDD6FA1E4C16CE00FA8B07 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BBAFF8D91E4C178F007980D0 /* UserInfoBean.h */,
+				BBAFF8DA1E4C178F007980D0 /* UserInfoBean.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BBEDD6FB1E4C16CE00FA8B07 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				BBAFF8E31E4C4041007980D0 /* LoginPresenter.h */,
+				BBAFF8E41E4C4041007980D0 /* LoginPresenter.m */,
+				BBF08D0E1E4D5A2900241CEF /* LoginPresenterProtocol.h */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BBEDD6FC1E4C16CE00FA8B07 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				BBAFF8DF1E4C3FA7007980D0 /* UserInfoRepository.h */,
+				BBAFF8E01E4C3FA7007980D0 /* UserInfoRepository.m */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BBEDD6FD1E4C16CE00FA8B07 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBAFF8E21E4C3FD4007980D0 /* LoginViewProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BBF08D0F1E4D633600241CEF /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				BBF08D101E4D633600241CEF /* AFNetworkingClient */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		BBF08D101E4D633600241CEF /* AFNetworkingClient */ = {
+			isa = PBXGroup;
+			children = (
+				BBF08D111E4D633600241CEF /* AFNetworkingClient.h */,
+				BBF08D121E4D633600241CEF /* AFNetworkingClient.m */,
+				BBF08D311E4D853200241CEF /* ResultModel.h */,
+				BBF08D321E4D853200241CEF /* ResultModel.m */,
+			);
+			path = AFNetworkingClient;
+			sourceTree = "<group>";
+		};
+		BBF08D271E4D633600241CEF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BBF08D281E4D633600241CEF /* DateUtils.h */,
+				BBF08D291E4D633600241CEF /* DateUtils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		F1A03E72D6BEC3233333088A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */,
+				BBFC98CB1E38837900DB5A7D /* UserNotifications.framework */,
+				BBFC98CD1E38837900DB5A7D /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,6 +574,7 @@
 				BB7984F11E260B1D00552F88 /* Resources */,
 				D0E5FAFD0E6026252BEB7871 /* [CP] Embed Pods Frameworks */,
 				2BA94F8E90D77C428A64D2CC /* [CP] Copy Pods Resources */,
+				BBFC98C51E3882A900DB5A7D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -235,7 +633,13 @@
 					BB7984F21E260B1D00552F88 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 4J839WRBU3;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					BB79850B1E260B1D00552F88 = {
 						CreatedOnToolsVersion = 8.2;
@@ -277,8 +681,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */,
+				BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */,
 				BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */,
-				BB7985011E260B1D00552F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,9 +755,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA6EFC51E5419F20050756C /* PersonBean.m in Sources */,
+				BB7714A41E2C9B220015CFA3 /* SocketIOManager.m in Sources */,
+				BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */,
+				BBA6EFC91E541E090050756C /* PersonListPresenter.m in Sources */,
+				BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */,
+				BB517F881E557B6C0023C5B6 /* MessageBean.m in Sources */,
+				BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */,
+				BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */,
 				BB7984FE1E260B1D00552F88 /* ViewController.m in Sources */,
 				BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */,
+				BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */,
+				BBA6EFBA1E53F57F0050756C /* MessageViewController.m in Sources */,
+				BB476E301E519D3F00A7F8C7 /* RealmConfig.m in Sources */,
+				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,
+				BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */,
+				BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */,
+				BBF08D301E4D633600241CEF /* DateUtils.m in Sources */,
+				BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */,
+				BBF08D331E4D853300241CEF /* ResultModel.m in Sources */,
+				BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */,
+				BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */,
 				BB7984F81E260B1D00552F88 /* main.m in Sources */,
+				BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */,
+				BB517F821E5577250023C5B6 /* ChatBean.m in Sources */,
+				BB7714A71E2CB1290015CFA3 /* SocketIOUserInfo.m in Sources */,
+				BBAFF8E51E4C4041007980D0 /* LoginPresenter.m in Sources */,
+				BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */,
+				BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */,
+				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,14 +819,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BB7984FF1E260B1D00552F88 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB7985001E260B1D00552F88 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -501,11 +923,19 @@
 			baseConfigurationReference = 1C46A59A4E58AB8E1D35AD1C /* Pods-SocketIOIOSDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SocketIOIOSDemo/SocketIOIOSDemo.entitlements;
 				DEVELOPMENT_TEAM = 4J839WRBU3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SocketIOIOSDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = SocketIOIOSDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ufo.SocketIOIOSDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SocketIOIOSDemo/SocketIO/SocketIOIOSDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -514,11 +944,18 @@
 			baseConfigurationReference = D950D396DD68325D1A0453E7 /* Pods-SocketIOIOSDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SocketIOIOSDemo/SocketIOIOSDemo.entitlements;
 				DEVELOPMENT_TEAM = 4J839WRBU3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SocketIOIOSDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = SocketIOIOSDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ufo.SocketIOIOSDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SocketIOIOSDemo/SocketIO/SocketIOIOSDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -591,6 +1028,7 @@
 				BB7985221E260B1D00552F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB7985231E260B1D00552F88 /* Build configuration list for PBXNativeTarget "SocketIOIOSDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -599,6 +1037,7 @@
 				BB7985251E260B1D00552F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB7985261E260B1D00552F88 /* Build configuration list for PBXNativeTarget "SocketIOIOSDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -607,6 +1046,7 @@
 				BB7985281E260B1D00552F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

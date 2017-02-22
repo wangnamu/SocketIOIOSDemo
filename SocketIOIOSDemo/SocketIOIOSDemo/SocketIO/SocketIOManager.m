@@ -1,0 +1,136 @@
+//
+//  SocketIOManager.m
+//  SocketIOIOSDemo
+//
+//  Created by tjpld on 2017/1/16.
+//  Copyright © 2017年 ufo. All rights reserved.
+//
+
+#import "SocketIOManager.h"
+#import "UserInfoRepository.h"
+
+static NSString* socketUrl = @"http://192.168.19.83:3000";
+
+@implementation SocketIOManager
+@synthesize socket;
+
++ (instancetype)sharedClient {
+    
+    static SocketIOManager *_sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [[self alloc] init];
+    });
+    
+    return _sharedClient;
+}
+
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        
+        NSURL* url = [[NSURL alloc] initWithString:socketUrl];
+        socket = [[SocketIOClient alloc] initWithSocketURL:url config:nil];
+        
+        [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"kickoff---%@",data);
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_kickoff object:self];
+        }];
+        
+        [socket on:@"notifyotherplatforms" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"notifyotherplatforms---%@",data);
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_notifyotherplatforms object:self userInfo:[data objectAtIndex:0]];
+        }];
+        
+        [socket on:@"news" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"news---%@",data);
+            if (ack) {
+                [ack with:@[@"success"]];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_news object:self userInfo:[data objectAtIndex:0]];
+        }];
+
+
+    }
+    return self;
+}
+
+- (SocketIOClient*)getSocket {
+    return socket;
+}
+
+- (BOOL)connect {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [userDefaults objectForKey:@"deviceToken"];
+    
+    UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
+    
+    if (deviceToken == nil || userInfoBean == nil) {
+        return NO;
+    }
+    
+    
+    if(socket != nil) {
+        
+        [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            
+            SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
+            model.SID = userInfoBean.SID;
+            model.UserName = userInfoBean.UserName;
+            model.NickName = userInfoBean.NickName;
+            
+            model.DeviceToken = deviceToken;
+            model.Project = @"SocketIODemo";
+            model.DeviceType = @"IOS";
+            model.LoginTime = (long)[[NSDate date] timeIntervalSince1970];
+            
+            
+            NSString* json = [model mj_JSONString];
+            
+            if (socket != nil) {
+                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:0 callback:^(NSArray* args) {
+                    NSLog(@"%@",args);
+                }];
+            }
+            
+        }];
+        
+        [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"disconnect---%@",data);
+        }];
+        
+        [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"reconnect---%@",data);
+        }];
+
+        [socket connect];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)disconnect {
+    if(socket != nil) {
+        [socket disconnect];
+    }
+    return YES;
+}
+
+- (void)notifyOtherPlatforms:(SocketIONotify*)notify {
+    if(socket != nil && socket.status == SocketIOClientStatusConnected) {
+        NSString* json = [notify mj_JSONString];
+        [socket emit:@"notifyotherplatforms" with:@[json]];
+    }
+}
+
+- (void)sendNews:(SocketIOMessage*)msg {
+    if(socket != nil && socket.status == SocketIOClientStatusConnected) {
+        NSString* json = [msg mj_JSONString];
+        [socket emit:@"news" with:@[json]];
+    }
+}
+
+
+@end
