@@ -13,7 +13,6 @@
 @property (nonatomic,strong) NSString* SID;
 @property (nonatomic,strong) NSString* SenderID;
 @property (nonatomic,strong) NSString* Name;
-@property (nonatomic,strong) NSString* ReceiverIDS;
 @property (nonatomic,strong) NSString* Img;
 @property (nonatomic,assign) long Time;
 @property (nonatomic,strong) NSString* Body;

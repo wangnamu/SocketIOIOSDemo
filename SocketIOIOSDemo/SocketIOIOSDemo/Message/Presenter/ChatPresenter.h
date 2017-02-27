@@ -16,5 +16,4 @@
 
 - (instancetype)initWithView:(id<ChatViewProtocol>)view;
 
-
 @end

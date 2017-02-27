@@ -55,7 +55,6 @@
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    HIDE_PROGRESS;
                     if (personListView) {
                         [personListView refreshData];
                     }
@@ -65,14 +64,6 @@
             
             
             
-        }
-        else {
-//            if (resultModel.ErrorMessage != nil ) {
-//                SHOW_ERROR_PROGRESS(resultModel.ErrorMessage);
-//                if (loginView) {
-//                    [loginView loginFail:resultModel.ErrorMessage];
-//                }
-//            }
         }
         
         
@@ -90,20 +81,7 @@
 
 }
 
-- (void)createGroup:(NSInteger)index {
-    
-    PersonBean *person =  [dataSource objectAtIndex:index];
-    NSString *receiverID = person.SID;
-    NSString *senderID = [[UserInfoRepository sharedClient] currentUser].SID;
-    NSDictionary *params = @{ @"receiverID":receiverID,@"senderID":senderID };
-    
-    [[AFNetworkingClient sharedClient] POST:@"" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-}
+
 
 
 @end

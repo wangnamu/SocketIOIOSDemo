@@ -23,11 +23,10 @@ static NSString* const MessageTypeSound = @"sound";
 static NSString* const MessageTypeMovie = @"movie";
 static NSString* const MessageTypeEmoji = @"emoji";
 
-@interface MessageBean : RLMObject
+@interface ChatMessageBean : RLMObject
 
 @property (nonatomic,copy) NSString* SID;// 主键
 @property (nonatomic,copy) NSString* SenderID;// 发送人ID
-@property (nonatomic,copy) NSString* ReceiverIDs;// 接收人ID
 @property (nonatomic,copy) NSString* Title;// 标题
 @property (nonatomic,copy) NSString* Body;//内容
 @property (nonatomic,assign) long Time;// 时间
@@ -41,6 +40,10 @@ static NSString* const MessageTypeEmoji = @"emoji";
 @property (nonatomic,copy) NSString* Original;//原图
 
 @property (nonatomic,assign) int SendStatusType;// 发送状态
+
+@property (nonatomic,copy) NSString* ChatHeadPortrait;// 会话头像
+@property (nonatomic,copy) NSString* ChatType;// 会话类型
+
 
 - (BOOL)isHost;
 

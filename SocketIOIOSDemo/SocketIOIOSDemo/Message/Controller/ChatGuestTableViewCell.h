@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MessageBean.h"
+#import "ChatMessageBean.h"
 #import "InsetsLabel.h"
 
 static  NSString* const ChatGuestTableViewCellIdentifier = @"ChatGuestTableViewCellIdentifier";
@@ -15,13 +15,18 @@ static  NSString* const ChatGuestTableViewCellIdentifier = @"ChatGuestTableViewC
 
 @property (nonatomic,strong) UIImageView *headPortrait;
 @property (nonatomic,strong) UILabel *name;
-@property (nonatomic,strong) InsetsLabel *content;
 @property (nonatomic,strong) UILabel *topTime;
 @property (nonatomic,strong) UILabel *itemMsg;
-@property (nonatomic,strong) UIActivityIndicatorView *progress;
 
 @property (nonatomic,assign) CGFloat cellHeight;
 
-- (void)setup:(MessageBean*)bean;
+@property (nonatomic,strong) InsetsLabel *content;
+@property (nonatomic,strong) UIImageView *contentImage;
+
+- (void)setupWithModel:(ChatMessageBean*)bean
+               Current:(long)current
+                  Last:(long)last
+              Position:(NSInteger)position
+               Elapsed:(NSInteger)elapsed;
 
 @end

@@ -11,4 +11,7 @@
 @required
 - (void) refreshData;
 
+@optional
+- (void)chatPushTo;
+
 @end

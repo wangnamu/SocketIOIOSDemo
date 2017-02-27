@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MessageBean.h"
+#import "ChatMessageBean.h"
 #import "InsetsLabel.h"
 
 static  NSString* const ChatHostTableViewCellIdentifier = @"ChatHostTableViewCellIdentifier";
@@ -24,7 +24,11 @@ static  NSString* const ChatHostTableViewCellIdentifier = @"ChatHostTableViewCel
 @property (nonatomic,strong) InsetsLabel *content;
 @property (nonatomic,strong) UIImageView *contentImage;
 
-- (void)setup:(MessageBean*)bean;
+- (void)setupWithModel:(ChatMessageBean*)bean
+               Current:(long)current
+                  Last:(long)last
+              Position:(NSInteger)position
+               Elapsed:(NSInteger)elapsed;
 
 
 @end

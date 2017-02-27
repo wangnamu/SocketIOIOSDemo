@@ -12,7 +12,8 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
-- (void) loadDataFromUrl;
-- (void) loadDataFromLocal;
+- (void)loadData;
+- (void)createChatSenderID:(NSString*)senderID
+                ReceiverID:(NSString*)receiverID;
 
 @end

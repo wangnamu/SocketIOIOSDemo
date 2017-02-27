@@ -22,5 +22,8 @@
 
 +(long)longFromString:(NSString*)dateString;
 
++(NSString*)dateToShort:(long)msSince1970;
+
++(BOOL)inTimeCurrent:(long)current Last:(long)last Elapsed:(NSInteger)elapsed;
 
 @end

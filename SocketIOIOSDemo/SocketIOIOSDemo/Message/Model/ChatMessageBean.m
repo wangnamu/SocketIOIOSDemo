@@ -6,10 +6,18 @@
 //  Copyright © 2017年 ufo. All rights reserved.
 //
 
-#import "MessageBean.h"
+#import "ChatMessageBean.h"
 #import "UserInfoRepository.h"
 
-@implementation MessageBean
+@implementation ChatMessageBean
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.SendStatusType = SendStatusTypeSended;
+    }
+    return self;
+}
 
 + (NSString *)primaryKey {
     return @"SID";

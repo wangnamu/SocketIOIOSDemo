@@ -104,6 +104,8 @@ static NSString* socketUrl = @"http://192.168.19.83:3000";
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"reconnect---%@",data);
         }];
+        
+               
 
         [socket connect];
         return YES;

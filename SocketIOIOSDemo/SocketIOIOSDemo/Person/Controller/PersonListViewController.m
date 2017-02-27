@@ -10,11 +10,16 @@
 #import "PersonListViewProtocol.h"
 #import "PersonListPresenter.h"
 #import "PersonListTableViewCell.h"
-#import "ChatViewController.h"
+#import "UserInfoRepository.h"
 
-@interface PersonListViewController ()<PersonListViewProtocol,UITableViewDataSource,UITableViewDelegate>
+#import "ChatViewProtocol.h"
+#import "ChatPresenter.h"
+#import "ChatMessageViewController.h"
+
+@interface PersonListViewController ()<PersonListViewProtocol,UITableViewDataSource,UITableViewDelegate,ChatViewProtocol>
 
 @property (nonatomic,strong) id<PersonListPresenterProtocol> personListPresenter;
+@property (nonatomic,strong) id<ChatPresenterProtocol> chatPresenter;
 
 @property (nonatomic,strong) UITableView *table;
 
@@ -22,11 +27,14 @@
 
 @implementation PersonListViewController
 @synthesize personListPresenter,table;
+@synthesize chatPresenter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     personListPresenter = [[PersonListPresenter alloc] initWithView:self];
+    
+    chatPresenter = [[ChatPresenter alloc] initWithView:self];
     
     [self initControl];
     
@@ -92,8 +100,8 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [personListPresenter createGroup:indexPath.row];
-    [self pushToChatViewController];
+    PersonBean *bean = (PersonBean*)[personListPresenter.dataSource objectAtIndex:indexPath.row];
+    [chatPresenter createChatSenderID:[[UserInfoRepository sharedClient] currentUser].SID ReceiverID:bean.SID];
 }
 
 
@@ -104,11 +112,12 @@
     [table reloadData];
 }
 
-- (void)pushToChatViewController {
-    ChatViewController *chatViewController = [[ChatViewController alloc] init];
-    chatViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatViewController animated:YES];
+- (void)chatPushTo {
+    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] init];
+    chatMessageViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatMessageViewController animated:YES];
 }
+
 
 
 @end

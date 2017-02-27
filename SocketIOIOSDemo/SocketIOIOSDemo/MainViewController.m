@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "MessageViewController.h"
+#import "ChatViewController.h"
 #import "PersonListViewController.h"
 #import "SettingViewController.h"
 
@@ -31,20 +31,20 @@
 
 - (void)initControllers {
     
-    MessageViewController *messageViewController = [[MessageViewController alloc] init];
+    ChatViewController *chatViewController = [[ChatViewController alloc] init];
     PersonListViewController *personListViewController = [[PersonListViewController alloc] init];
     SettingViewController *settingViewController = [[SettingViewController alloc] init];
     
-    UINavigationController *nv_message = [[UINavigationController alloc] initWithRootViewController:messageViewController];
+    UINavigationController *nv_chat = [[UINavigationController alloc] initWithRootViewController:chatViewController];
     UINavigationController *nv_personList = [[UINavigationController alloc] initWithRootViewController:personListViewController];
     UINavigationController *nv_setting = [[UINavigationController alloc] initWithRootViewController:settingViewController];
     
-    
-    nv_message.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:[UIImage imageNamed:@"ic_hidden"] selectedImage:[UIImage imageNamed:@"ic_hidden_selected"]];
+    nv_chat.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:[UIImage imageNamed:@"ic_hidden"] selectedImage:[UIImage imageNamed:@"ic_hidden_selected"]];
     nv_personList.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"联系人" image:[UIImage imageNamed:@"ic_hidden"] selectedImage:[UIImage imageNamed:@"ic_hidden_selected"]];
     nv_setting.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"ic_hidden"] selectedImage:[UIImage imageNamed:@"ic_hidden_selected"]];
     
-    self.viewControllers = [NSArray arrayWithObjects:nv_message,nv_personList,nv_setting,nil];
+    self.viewControllers = [NSArray arrayWithObjects:nv_chat,nv_personList,nv_setting,nil];
+    
 }
 
 

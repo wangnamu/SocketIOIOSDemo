@@ -15,6 +15,5 @@
 
 - (void) loadDataFromUrl;
 - (void) loadDataFromLocal;
-- (void)createGroup:(NSInteger)index;
 
 @end

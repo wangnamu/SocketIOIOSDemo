@@ -8,26 +8,41 @@
 
 #import "ChatHostTableViewCell.h"
 #import "DateUtils.h"
+#import "ImageUtils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCache.h>
 #import "UITableView+FDTemplateLayoutCell.h"
+
+static CGFloat const contentPadding = 8.0f;
+static CGFloat const padding_H = 16.0f;
+static CGFloat const padding_B = 16.0f;
+static CGFloat const progressW = 24.0f;
+static CGFloat const nameW = 80.0f;
+static CGFloat const marginBottom = 4.0f;
+static CGFloat const contentMargin = 10.0f;
+static CGFloat const cornerRadius = 8.0f;
+
+static CGFloat const topTimeFontSize = 12.0f;
+static CGFloat const nameFontSize = 12.0f;
+static CGFloat const itemMsgFontSize = 10.0f;
+static CGFloat const contentFontSize = 16.0f;
 
 @implementation ChatHostTableViewCell
 @synthesize headPortrait,name,topTime,itemMsg,progress;
 @synthesize cellHeight;
 @synthesize content,contentImage;
 
-static CGFloat const contentPadding = 8.0f;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         topTime = [[UILabel alloc] init];
         topTime.textAlignment = NSTextAlignmentCenter;
-        topTime.font = [UIFont systemFontOfSize:12.0f];
+        topTime.font = [UIFont systemFontOfSize:topTimeFontSize];
         [self.contentView addSubview:topTime];
         
         name = [[UILabel alloc] init];
-        name.font = [UIFont systemFontOfSize:12.0f];
+        name.font = [UIFont systemFontOfSize:nameFontSize];
         [self.contentView addSubview:name];
     
         headPortrait = [[UIImageView alloc] init];
@@ -38,37 +53,43 @@ static CGFloat const contentPadding = 8.0f;
         [self.contentView addSubview:progress];
         
         itemMsg = [[UILabel alloc] init];
-        itemMsg.font = [UIFont systemFontOfSize:10.0f];
+        itemMsg.font = [UIFont systemFontOfSize:itemMsgFontSize];
         [self.contentView addSubview:itemMsg];
         
-        
         content = [[InsetsLabel alloc] initWithInsets:UIEdgeInsetsMake(contentPadding,contentPadding,contentPadding,contentPadding)];
-        content.font = [UIFont systemFontOfSize:16.0f];
+        content.font = [UIFont systemFontOfSize:contentFontSize];
         content.numberOfLines = 0;
         [self.contentView addSubview:content];
-        [content setHidden:YES];
         
         contentImage = [[UIImageView alloc] init];
         [self.contentView addSubview:contentImage];
-        [contentImage setHidden:YES];
-
+        
     }
     return self;
 }
 
-- (void)setup:(MessageBean*)bean {
+- (void)setupWithModel:(ChatMessageBean *)bean
+               Current:(long)current
+                  Last:(long)last
+                 Position:(NSInteger)position
+                  Elapsed:(NSInteger)elapsed {
     
-    topTime.text = [DateUtils stringFromLong:bean.Time];
-    name.text = bean.NickName;
-   
-    CGFloat padding_H = 16.0f;
-    CGFloat padding_B = 16.0f;
-    CGFloat progressW = 24.0f;
-    CGFloat nameW = 80.0f;
-    CGFloat marginBottom = 4.0f;
-    CGFloat contentMargin = 10.0f;
-  
+    [content setHidden:YES];
+    [contentImage setHidden:YES];
+    
     topTime.frame = CGRectMake(0, 0, SCREEN_WIDTH, 24);
+    if (position == 0) {
+        topTime.text = [DateUtils dateToShort:bean.Time];
+        [topTime setHidden:NO];
+    } else if ([DateUtils inTimeCurrent:current Last:last Elapsed:elapsed]) {
+        topTime.text = [DateUtils dateToShort:bean.Time];
+        [topTime setHidden:NO];
+    } else {
+        [topTime setHidden:YES];
+        topTime.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+    }
+   
+    name.text = bean.NickName;
     
     CGFloat headPortraitW = 40.0f;
     CGFloat headPortraitY = CGRectGetMaxY(topTime.frame);
@@ -91,7 +112,7 @@ static CGFloat const contentPadding = 8.0f;
         [content setHidden:NO];
         
         CGSize textMaxSize = CGSizeMake(SCREEN_WIDTH - 2*padding_H - headPortraitW - progressW - 2*contentMargin - 2*contentPadding, MAXFLOAT);
-        CGSize textRealSize = [bean.Body boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f]} context:nil].size;
+        CGSize textRealSize = [bean.Body boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:contentFontSize]} context:nil].size;
         
         CGSize contentSize = CGSizeMake(textRealSize.width + 2*contentPadding, textRealSize.height + 2*contentPadding);
         
@@ -101,7 +122,7 @@ static CGFloat const contentPadding = 8.0f;
         content.frame = contentFrame;
         
         content.backgroundColor = COLOR_FROM_RGB(0x81cbd9);
-        content.layer.cornerRadius = 8.0f;
+        content.layer.cornerRadius = cornerRadius;
         content.layer.masksToBounds = YES;
         
     }
@@ -109,18 +130,24 @@ static CGFloat const contentPadding = 8.0f;
         
         [contentImage setHidden:NO];
         
-        [contentImage sd_setShowActivityIndicatorView:YES];
-        [contentImage sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [contentImage sd_setImageWithURL:[NSURL URLWithString:bean.Thumbnail]];
-        
         CGFloat imgMaxheight = 150.0f;
         
-        contentX = SCREEN_WIDTH - padding_H - headPortraitW - contentMargin - imgMaxheight;
+        UIImage *image = [UIImage imageNamed:bean.Thumbnail];
+        CGFloat scale = imgMaxheight / MAX(image.size.width, image.size.height);
+        
+        UIImage *thumb = [ImageUtils scaleImage:image toScale:scale];
+        
+        CGFloat thumbWidth = thumb.size.width;
+        CGFloat thumbHeight = thumb.size.height;
+        
+        contentX = SCREEN_WIDTH - padding_H - headPortraitW - contentMargin - thumbWidth;
         contentY = CGRectGetMaxY(name.frame) + marginBottom;
-        contentFrame = (CGRect){{contentX,contentY},{imgMaxheight, imgMaxheight}};
+        contentFrame = (CGRect){{contentX,contentY},{thumbWidth, thumbHeight}};
         contentImage.frame = contentFrame;
         
-        contentImage.layer.cornerRadius = 8.0f;
+        [contentImage setImage:thumb];
+       
+        contentImage.layer.cornerRadius = cornerRadius;
         contentImage.layer.masksToBounds = YES;
     }
     else {
@@ -141,9 +168,9 @@ static CGFloat const contentPadding = 8.0f;
     }
     
     itemMsg.textAlignment = NSTextAlignmentRight;
-    CGFloat itemMsgX = contentX;
+    CGFloat itemMsgX = SCREEN_WIDTH - padding_H - headPortraitW - contentMargin - 200.0f;
     CGFloat itemMsgY = CGRectGetMaxY(contentFrame) + marginBottom;
-    itemMsg.frame = CGRectMake(itemMsgX, itemMsgY, contentFrame.size.width, 10.0f);
+    itemMsg.frame = CGRectMake(itemMsgX, itemMsgY, 200.0f, 10.0f);
     
     if (bean.SendStatusType == SendStatusTypeError) {
         itemMsg.text = @"2017-01-01 下午2:20 发送失败";
@@ -167,8 +194,6 @@ static CGFloat const contentPadding = 8.0f;
     headPortrait.layer.masksToBounds = YES;
     [headPortrait sd_setImageWithURL:[NSURL URLWithString:bean.HeadPortrait] placeholderImage:nil];
     
-    
-    
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -187,5 +212,9 @@ static CGFloat const contentPadding = 8.0f;
 
     // Configure the view for the selected state
 }
+
+
+
+
 
 @end

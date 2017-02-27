@@ -10,6 +10,5 @@
 
 @required
 - (void) refreshData;
-- (void) pushToChatViewController;
 
 @end
