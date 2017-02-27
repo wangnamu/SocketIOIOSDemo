@@ -13,9 +13,10 @@
 		BB476E301E519D3F00A7F8C7 /* RealmConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */; };
 		BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */; };
 		BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */; };
-		BB4A86881E5FBF390038E9D8 /* ChatRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A86871E5FBF390038E9D8 /* ChatRepository.m */; };
 		BB4A868B1E5FDC2C0038E9D8 /* ChatMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */; };
 		BB4A868F1E5FF7CE0038E9D8 /* ChatMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868E1E5FF7CE0038E9D8 /* ChatMessageViewController.m */; };
+		BB4CA0A11E63FC0E0026AC6C /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4CA09F1E63FC0E0026AC6C /* ChatTableViewCell.m */; };
+		BB4CA0A21E63FC0E0026AC6C /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4CA0A01E63FC0E0026AC6C /* ChatTableViewCell.xib */; };
 		BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F7E1E5553850023C5B6 /* ChatViewController.m */; };
 		BB517F821E5577250023C5B6 /* ChatBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F811E5577250023C5B6 /* ChatBean.m */; };
 		BB517F881E557B6C0023C5B6 /* ChatMessageBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F871E557B6C0023C5B6 /* ChatMessageBean.m */; };
@@ -93,13 +94,14 @@
 		BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
 		BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListViewController.m; sourceTree = "<group>"; };
 		BB4A86821E5FBEDE0038E9D8 /* ChatMessageProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessageProtocol.h; sourceTree = "<group>"; };
-		BB4A86861E5FBF390038E9D8 /* ChatRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRepository.h; sourceTree = "<group>"; };
-		BB4A86871E5FBF390038E9D8 /* ChatRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRepository.m; sourceTree = "<group>"; };
 		BB4A86891E5FDC2C0038E9D8 /* ChatMessagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessagePresenter.h; sourceTree = "<group>"; };
 		BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessagePresenter.m; sourceTree = "<group>"; };
 		BB4A868C1E5FDC430038E9D8 /* ChatMessagePresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessagePresenterProtocol.h; sourceTree = "<group>"; };
 		BB4A868D1E5FF7CE0038E9D8 /* ChatMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageViewController.h; sourceTree = "<group>"; };
 		BB4A868E1E5FF7CE0038E9D8 /* ChatMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageViewController.m; sourceTree = "<group>"; };
+		BB4CA09E1E63FC0E0026AC6C /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		BB4CA09F1E63FC0E0026AC6C /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		BB4CA0A01E63FC0E0026AC6C /* ChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
 		BB517F7D1E5553850023C5B6 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		BB517F7E1E5553850023C5B6 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		BB517F801E5577250023C5B6 /* ChatBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBean.h; sourceTree = "<group>"; };
@@ -313,6 +315,9 @@
 				BB517F8D1E558F760023C5B6 /* ChatGuestTableViewCell.m */,
 				BB4A868D1E5FF7CE0038E9D8 /* ChatMessageViewController.h */,
 				BB4A868E1E5FF7CE0038E9D8 /* ChatMessageViewController.m */,
+				BB4CA09E1E63FC0E0026AC6C /* ChatTableViewCell.h */,
+				BB4CA09F1E63FC0E0026AC6C /* ChatTableViewCell.m */,
+				BB4CA0A01E63FC0E0026AC6C /* ChatTableViewCell.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -348,8 +353,6 @@
 			children = (
 				BBF52A0D1E5EC4B100A16F8C /* ChatMessageRepository.h */,
 				BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */,
-				BB4A86861E5FBF390038E9D8 /* ChatRepository.h */,
-				BB4A86871E5FBF390038E9D8 /* ChatRepository.m */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */,
+				BB4CA0A21E63FC0E0026AC6C /* ChatTableViewCell.xib in Resources */,
 				BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */,
 				BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */,
 			);
@@ -807,9 +811,9 @@
 				BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */,
 				BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */,
 				BB4A868F1E5FF7CE0038E9D8 /* ChatMessageViewController.m in Sources */,
-				BB4A86881E5FBF390038E9D8 /* ChatRepository.m in Sources */,
 				BB7984F81E260B1D00552F88 /* main.m in Sources */,
 				BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */,
+				BB4CA0A11E63FC0E0026AC6C /* ChatTableViewCell.m in Sources */,
 				BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */,
 				BB517F821E5577250023C5B6 /* ChatBean.m in Sources */,
 				BBF52A0C1E5EB7B700A16F8C /* ChatMessage.m in Sources */,

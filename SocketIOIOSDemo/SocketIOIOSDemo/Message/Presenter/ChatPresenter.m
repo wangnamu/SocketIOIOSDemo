@@ -9,8 +9,8 @@
 #import "ChatPresenter.h"
 #import "ChatBean.h"
 #import "ChatMessageBean.h"
-#import "ChatRepository.h"
 #import "ChatMessageRepository.h"
+#import "UserInfoRepository.h"
 
 @implementation ChatPresenter
 @synthesize chatView,dataSource;
@@ -26,13 +26,22 @@
 
 - (void)loadData {
     
-       
+    [dataSource addObjectsFromArray:[[ChatMessageRepository sharedClient] getChat]];
+    [chatView refreshData];
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [dataSource addObjectsFromArray:[[ChatMessageRepository sharedClient] getChat]];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (chatView) {
+//                [chatView refreshData];
+//            }
+//        });
+//    });
 }
 
-- (void)createChatSenderID:(NSString*)senderID
-                ReceiverID:(NSString*)receiverID {
+- (void)createChatReceiverID:(NSString*)receiverID {
     
-    NSDictionary *params = @{ @"receiverID":receiverID,@"senderID":senderID };
+    NSDictionary *params = @{ @"receiverID":receiverID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
     
     [[AFNetworkingClient sharedClient] POST:@"createChat" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

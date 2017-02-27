@@ -13,7 +13,6 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 - (void)loadData;
-- (void)createChatSenderID:(NSString*)senderID
-                ReceiverID:(NSString*)receiverID;
+- (void)createChatReceiverID:(NSString*)receiverID;
 
 @end

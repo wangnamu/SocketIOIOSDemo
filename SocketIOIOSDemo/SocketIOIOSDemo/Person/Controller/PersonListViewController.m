@@ -10,7 +10,6 @@
 #import "PersonListViewProtocol.h"
 #import "PersonListPresenter.h"
 #import "PersonListTableViewCell.h"
-#import "UserInfoRepository.h"
 
 #import "ChatViewProtocol.h"
 #import "ChatPresenter.h"
@@ -101,7 +100,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonBean *bean = (PersonBean*)[personListPresenter.dataSource objectAtIndex:indexPath.row];
-    [chatPresenter createChatSenderID:[[UserInfoRepository sharedClient] currentUser].SID ReceiverID:bean.SID];
+    [chatPresenter createChatReceiverID:bean.SID];
 }
 
 

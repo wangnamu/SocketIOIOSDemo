@@ -35,12 +35,12 @@ static NSString* socketUrl = @"http://192.168.19.83:3000";
         
         [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"kickoff---%@",data);
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_kickoff object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:self];
         }];
         
         [socket on:@"notifyotherplatforms" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"notifyotherplatforms---%@",data);
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_notifyotherplatforms object:self userInfo:[data objectAtIndex:0]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Notifyotherplatforms object:self userInfo:[data objectAtIndex:0]];
         }];
         
         [socket on:@"news" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -48,7 +48,7 @@ static NSString* socketUrl = @"http://192.168.19.83:3000";
             if (ack) {
                 [ack with:@[@"success"]];
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_socketio_news object:self userInfo:[data objectAtIndex:0]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_News object:self userInfo:[data objectAtIndex:0]];
         }];
 
 

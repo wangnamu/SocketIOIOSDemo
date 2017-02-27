@@ -16,4 +16,6 @@
 
 - (void)add:(NSArray*)beans;
 
+- (NSArray*)getChat;
+
 @end

@@ -21,6 +21,19 @@
 }
 
 
+- (NSArray*)getChat {
+    RLMResults<ChatBean*> *beans = [ChatBean allObjects];
+    if (beans.count > 0) {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for (ChatBean* bean in beans) {
+            [array addObject:bean];
+        }
+        NSLog(@"array-%@",array);
+        return array;
+    }
+    return nil;
+}
+
 - (void)add:(NSArray*)beans {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -54,9 +67,7 @@
             RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
             if (result.count > 0) {
                 ChatBean *chatBean = result.firstObject;
-                
-                NSLog(@"%@",chatBean);
-                
+
                 chatBean.SenderID = item.SenderID;
                 chatBean.Name = item.NickName;
                 chatBean.Body = item.Body;

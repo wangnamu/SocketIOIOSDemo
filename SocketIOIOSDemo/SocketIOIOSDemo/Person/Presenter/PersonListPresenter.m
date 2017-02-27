@@ -25,7 +25,12 @@
 
 - (void)loadDataFromUrl {
     
-    [[AFNetworkingClient sharedClient] GET:@"userList" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSDictionary *params = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,
+                             @"last":@(0),
+                             @"current":@(0)
+                             };
+    
+    [[AFNetworkingClient sharedClient] GET:@"userList" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if (personListView) {
             

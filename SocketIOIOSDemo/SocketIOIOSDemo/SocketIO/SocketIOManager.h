@@ -13,9 +13,9 @@
 
 @import SocketIO;
 
-static NSString* Notification_socketio_kickoff = @"socketio_kickoff";
-static NSString* Notification_socketio_notifyotherplatforms = @"socketio_notifyotherplatforms";
-static NSString* Notification_socketio_news = @"socketio_news";
+static NSString* Notification_Socketio_Kickoff = @"socketio_kickoff";
+static NSString* Notification_Socketio_Notifyotherplatforms = @"socketio_notifyotherplatforms";
+static NSString* Notification_Socketio_News = @"socketio_news";
 
 @interface SocketIOManager : NSObject
 
