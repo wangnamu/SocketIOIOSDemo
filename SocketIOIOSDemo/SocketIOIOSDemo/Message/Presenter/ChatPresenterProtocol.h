@@ -5,6 +5,7 @@
 //  Created by tjpld on 2017/2/16.
 //  Copyright © 2017年 ufo. All rights reserved.
 //
+#import "PersonBean.h"
 
 @protocol ChatPresenterProtocol <NSObject>
 
@@ -13,6 +14,7 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 - (void)loadData;
-- (void)createChatReceiverID:(NSString*)receiverID;
+- (void)createChatWithType:(NSString*)chatType
+             ReceivePerson:(PersonBean*)person;
 
 @end

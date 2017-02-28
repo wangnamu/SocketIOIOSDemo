@@ -14,6 +14,7 @@
 #import "ChatViewProtocol.h"
 #import "ChatPresenter.h"
 #import "ChatMessageViewController.h"
+#import "ChatBean.h"
 
 @interface PersonListViewController ()<PersonListViewProtocol,UITableViewDataSource,UITableViewDelegate,ChatViewProtocol>
 
@@ -100,7 +101,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PersonBean *bean = (PersonBean*)[personListPresenter.dataSource objectAtIndex:indexPath.row];
-    [chatPresenter createChatReceiverID:bean.SID];
+    [chatPresenter createChatWithType:ChatTypeSingle ReceivePerson:bean];
 }
 
 

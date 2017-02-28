@@ -25,7 +25,9 @@
 }
 
 - (void)loadData {
-    
+    if (dataSource.count > 0) {
+        [dataSource removeAllObjects];
+    }
     [dataSource addObjectsFromArray:[[ChatMessageRepository sharedClient] getChat]];
     [chatView refreshData];
     
@@ -39,9 +41,10 @@
 //    });
 }
 
-- (void)createChatReceiverID:(NSString*)receiverID {
+- (void)createChatWithType:(NSString *)chatType
+             ReceivePerson:(PersonBean *)person {
     
-    NSDictionary *params = @{ @"receiverID":receiverID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
+    NSDictionary *params = @{ @"chatType":chatType,@"receiverID":person.SID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
     
     [[AFNetworkingClient sharedClient] POST:@"createChat" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -51,30 +54,33 @@
                 
                 NSDictionary *res = (NSDictionary *)responseObject;
                 
-                [ChatMessageBean mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                [ChatBean mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
                     return @{
                              @"SID" : @"sid",
-                             @"SenderID" : @"senderID",
-                             @"Title" : @"title",
-                             @"Body" : @"body",
+                             @"Users" : @"users",
+                             @"Name" : @"name",
+                             @"Img" : @"img",
                              @"Time" : @"time",
-                             @"MessageType" : @"messageType",
-                             @"NickName":@"nickName",
-                             @"HeadPortrait":@"headPortrait",
-                             @"ChatID":@"chatID",
-                             @"Thumbnail":@"thumbnail",
-                             @"Original":@"original",
-                             @"ChatHeadPortrait":@"chatHeadPortrait",
-                             @"ChatType":@"chatType"
+                             @"Body" : @"body",
+                             @"ChatType" : @"chatType"
                              };
                 }];
                 
-                ChatMessageBean *chatMessageBean = [ChatMessageBean mj_objectWithKeyValues:res];
+                ChatBean *chatBean = [ChatBean mj_objectWithKeyValues:res];
                 
-                NSArray *array = [NSArray arrayWithObjects:chatMessageBean, nil];
-                [[ChatMessageRepository sharedClient] add:array];
+                if ([chatType isEqualToString:ChatTypeSingle]) {
+                    chatBean.Name = person.NickName;
+                    chatBean.Body = @"hello";
+                    chatBean.Img = person.HeadPortrait;
+                }
+                
+                [[ChatMessageRepository sharedClient] createChat:chatBean];
+                
+//                NSArray *array = [NSArray arrayWithObjects:chatMessageBean, nil];
+//                [[ChatMessageRepository sharedClient] add:array];
                
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    
                     if (chatView) {
                         [chatView chatPushTo];
                     }

@@ -47,6 +47,7 @@
 		BBF52A091E5E7EC500A16F8C /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A081E5E7EC500A16F8C /* ImageUtils.m */; };
 		BBF52A0C1E5EB7B700A16F8C /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A0B1E5EB7B700A16F8C /* ChatMessage.m */; };
 		BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */; };
+		BBF9C3B41E65519A00BBDCE1 /* MyQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */; };
 		BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +172,8 @@
 		BBF52A0B1E5EB7B700A16F8C /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessage.m; sourceTree = "<group>"; };
 		BBF52A0D1E5EC4B100A16F8C /* ChatMessageRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageRepository.h; sourceTree = "<group>"; };
 		BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageRepository.m; sourceTree = "<group>"; };
+		BBF9C3B21E65519A00BBDCE1 /* MyQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyQueue.h; sourceTree = "<group>"; };
+		BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyQueue.m; sourceTree = "<group>"; };
 		BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOMessage.h; sourceTree = "<group>"; };
 		BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOMessage.m; sourceTree = "<group>"; };
 		BBFC98CB1E38837900DB5A7D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -218,6 +221,8 @@
 			children = (
 				BB0613601E5ABDFD00E0455A /* InsetsLabel.h */,
 				BB0613611E5ABDFD00E0455A /* InsetsLabel.m */,
+				BBF9C3B21E65519A00BBDCE1 /* MyQueue.h */,
+				BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */,
 			);
 			path = Extend;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */,
 				BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */,
 				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
+				BBF9C3B41E65519A00BBDCE1 /* MyQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

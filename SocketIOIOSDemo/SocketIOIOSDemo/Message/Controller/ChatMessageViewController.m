@@ -45,7 +45,7 @@ static NSInteger const elapsedTime = 15;
             bean.Time = (long)[[NSDate date] timeIntervalSince1970];
             bean.MessageType = MessageTypeText;
             bean.NickName = @"赵宇环";
-            bean.HeadPortrait = @"http://192.168.19.83:8080/NettySocketioWebDemo/img/2.jpg";
+            bean.HeadPortrait = @"http://192.168.19.98:8080/NettySocketioWebDemo/img/2.jpg";
             bean.ChatID = @"1";
             bean.SendStatusType = SendStatusTypeReaded;
             
@@ -70,7 +70,7 @@ static NSInteger const elapsedTime = 15;
             bean.Title = @"bbbb";
             bean.Time = (long)[[NSDate date] timeIntervalSince1970];
             bean.NickName = @"王南";
-            bean.HeadPortrait = @"http://192.168.19.83:8080/NettySocketioWebDemo/img/1.jpg";
+            bean.HeadPortrait = @"http://192.168.19.98:8080/NettySocketioWebDemo/img/1.jpg";
             bean.ChatID = @"2";
             bean.SendStatusType = SendStatusTypeError;
             

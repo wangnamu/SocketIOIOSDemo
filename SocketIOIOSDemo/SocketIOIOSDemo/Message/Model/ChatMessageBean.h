@@ -41,8 +41,6 @@ static NSString* const MessageTypeEmoji = @"emoji";
 
 @property (nonatomic,assign) int SendStatusType;// 发送状态
 
-@property (nonatomic,copy) NSString* ChatHeadPortrait;// 会话头像
-@property (nonatomic,copy) NSString* ChatType;// 会话类型
 
 
 - (BOOL)isHost;

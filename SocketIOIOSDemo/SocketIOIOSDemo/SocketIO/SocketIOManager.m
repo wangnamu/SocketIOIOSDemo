@@ -9,7 +9,7 @@
 #import "SocketIOManager.h"
 #import "UserInfoRepository.h"
 
-static NSString* socketUrl = @"http://192.168.19.83:3000";
+static NSString* socketUrl = @"http://192.168.19.98:3000";
 
 @implementation SocketIOManager
 @synthesize socket;

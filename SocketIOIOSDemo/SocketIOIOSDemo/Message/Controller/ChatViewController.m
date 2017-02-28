@@ -27,14 +27,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initControl];
     
     chatPresenter = [[ChatPresenter alloc] initWithView:self];
     
+    
     [self initControl];
     
-    [chatPresenter loadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"Notification_CreateChat" object:nil];
 
+    [self updateData];
+    
+   
     
 }
 
@@ -43,11 +46,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)updateData {
+    [chatPresenter loadData];
+}
 
 - (void)initControl {
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+  
     table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     table.dataSource = self;
@@ -71,6 +80,7 @@
 #pragma mark
 
 - (void)refreshData {
+    
     [table reloadData];
 }
 

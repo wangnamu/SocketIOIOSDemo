@@ -23,7 +23,7 @@
                             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];\
                         });
 
-static NSString* const AFAPIBaseURLString = @"http://192.168.19.83:8080/NettySocketioWebDemo/";
+static NSString* const AFAPIBaseURLString = @"http://192.168.19.98:8080/NettySocketioWebDemo/";
 
 @interface AFNetworkingClient : AFHTTPSessionManager
 

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString* const ChatTypeSingle = @"singleChat";
+static NSString* const ChatTypeGroup = @"groupChat";
+
 @interface ChatBean : RLMObject
 
 @property (nonatomic,strong) NSString* SID;
-@property (nonatomic,strong) NSString* SenderID;
+@property (nonatomic,strong) NSString* Users;
 @property (nonatomic,strong) NSString* Name;
 @property (nonatomic,strong) NSString* Img;
 @property (nonatomic,assign) long Time;

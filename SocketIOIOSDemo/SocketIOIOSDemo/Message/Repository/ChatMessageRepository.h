@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ChatMessageBean.h"
 #import "ChatBean.h"
+#import "MyQueue.h"
 
 @interface ChatMessageRepository : NSObject
 
@@ -17,5 +18,7 @@
 - (void)add:(NSArray*)beans;
 
 - (NSArray*)getChat;
+
+- (void)createChat:(ChatBean*)bean;
 
 @end
