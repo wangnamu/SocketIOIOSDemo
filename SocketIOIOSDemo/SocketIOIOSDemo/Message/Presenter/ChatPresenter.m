@@ -11,6 +11,7 @@
 #import "ChatMessageBean.h"
 #import "ChatMessageRepository.h"
 #import "UserInfoRepository.h"
+#import "SocketIOManager.h"
 
 @implementation ChatPresenter
 @synthesize chatView,dataSource;
@@ -95,6 +96,26 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
+
+}
+
+- (void)receiveNotification:(NSNotification*)notification {
+    
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *dic = [[notification userInfo] mj_JSONObject];
+        
+        SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
+        
+        ChatBean *chatBean = [ChatBean mj_objectWithKeyValues:msg.Others];
+    
+    NSLog(@"chatBean->%@",chatBean);
+    
+        [[ChatMessageRepository sharedClient] createChat:chatBean];
+        
+    //});
+    
+    
 
 }
 

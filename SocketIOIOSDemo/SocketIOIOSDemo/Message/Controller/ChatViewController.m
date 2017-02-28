@@ -10,7 +10,7 @@
 #import "ChatTableViewCell.h"
 #import "ChatViewProtocol.h"
 #import "ChatPresenter.h"
-
+#import "SocketIOManager.h"
 
 @interface ChatViewController ()<UITableViewDataSource,UITableViewDelegate,ChatViewProtocol>
 
@@ -35,6 +35,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"Notification_CreateChat" object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNews:) name:Notification_Socketio_News object:nil];
+
+    
     [self updateData];
     
    
@@ -51,12 +54,8 @@
 }
 
 
-- (void)updateData {
-    [chatPresenter loadData];
-}
-
 - (void)initControl {
-  
+    
     table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     table.dataSource = self;
@@ -76,6 +75,18 @@
     }];
     
 }
+
+#pragma mark
+
+- (void)updateData {
+    [chatPresenter loadData];
+}
+
+- (void)onNews:(NSNotification*)notification {
+    [chatPresenter receiveNotification:notification];
+}
+
+
 
 #pragma mark
 

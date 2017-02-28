@@ -16,5 +16,6 @@
 - (void)loadData;
 - (void)createChatWithType:(NSString*)chatType
              ReceivePerson:(PersonBean*)person;
+- (void)receiveNotification:(NSNotification*)notification;
 
 @end

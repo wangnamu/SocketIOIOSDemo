@@ -20,6 +20,6 @@
 @property (nonatomic,assign) BOOL IsAlert;// 提醒
 @property (nonatomic,copy) NSString* Category;// 针对ios10和androidN的快捷回复功能
 
-@property (nonatomic,strong) NSObject* object;// 自定义对象
+@property (nonatomic,strong) NSObject* Others;// 自定义对象
 
 @end
