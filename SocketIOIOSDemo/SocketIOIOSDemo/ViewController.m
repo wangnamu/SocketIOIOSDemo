@@ -28,7 +28,7 @@
     
     [self.view addSubview:btn1];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNews:) name:Notification_Socketio_News object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNews:) name:Notification_Socketio_News object:nil];
     
 }
 

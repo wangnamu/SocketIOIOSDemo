@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ChatBean.h"
+#import "ChatModel.h"
 
 static  NSString* const ChatTableViewCellNib = @"ChatTableViewCell";
 static  NSString* const ChatTableViewCellIdentifier = @"ChatTableViewCellIdentifier";
@@ -20,7 +20,7 @@ static CGFloat const ChatTableViewCellHeight = 72.0f;
 @property (weak, nonatomic) IBOutlet UILabel *body;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 
-- (void)setup:(ChatBean*) bean;
+- (void)setup:(ChatModel*) model;
 
 
 @end

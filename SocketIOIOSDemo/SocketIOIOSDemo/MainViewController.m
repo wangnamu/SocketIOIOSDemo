@@ -22,12 +22,15 @@
     // Do any additional setup after loading the view.
     
     [self initControllers];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 - (void)initControllers {
     
@@ -46,6 +49,7 @@
     self.viewControllers = [NSArray arrayWithObjects:nv_chat,nv_personList,nv_setting,nil];
     
 }
+
 
 
 @end

@@ -8,8 +8,10 @@
 
 #import "SocketIOManager.h"
 #import "UserInfoRepository.h"
+#import "MyChat.h"
 
-static NSString* socketUrl = @"http://192.168.19.98:3000";
+
+static NSString* socketUrl = @"http://192.168.19.85:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -35,12 +37,12 @@ static NSString* socketUrl = @"http://192.168.19.98:3000";
         
         [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"kickoff---%@",data);
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:nil];
         }];
         
         [socket on:@"notifyotherplatforms" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"notifyotherplatforms---%@",data);
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Notifyotherplatforms object:self userInfo:[data objectAtIndex:0]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Notifyotherplatforms object:[data objectAtIndex:0]];
         }];
         
         [socket on:@"news" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -48,7 +50,19 @@ static NSString* socketUrl = @"http://192.168.19.98:3000";
             if (ack) {
                 [ack with:@[@"success"]];
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_News object:self userInfo:[data objectAtIndex:0]];
+            
+            NSDictionary *dic = [[data objectAtIndex:0] mj_JSONObject];
+            SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
+            
+            if ([msg.OthersType isEqualToString:OthersTypeChat]) {
+                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:msg.Others];
+                [[MyChat sharedClient] receiveChat:chatModel];
+            }
+            else if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
+                
+            }
+            
+            //[[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_News object:self userInfo:];
         }];
 
 

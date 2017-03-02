@@ -21,39 +21,17 @@
 }
 
 
-- (NSArray*)getChat {
+- (RLMResults<ChatBean*>*)getChat {
     RLMResults<ChatBean*> *beans = [ChatBean allObjects];
-    if (beans.count > 0) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        for (ChatBean* bean in beans) {
-            [array addObject:bean];
-        }
-        return array;
-    }
-//    [beans addNotificationBlock:^(RLMResults<ChatBean *> * _Nullable results, RLMCollectionChange * _Nullable change, NSError * _Nullable error) {
-//        
-//    }]
-    return nil;
+    return beans;
 }
 
-- (void)createChat:(ChatBean *)bean {
+- (void)createOrUpdateChat:(ChatBean *)bean {
     
-    [[MyQueue sharedClient] addOperationWithBlock:^{
-        
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        
-        [realm addObject:bean];
-        
-        [realm commitWriteTransaction];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"Notification_CreateChat" object:self];
-        });
-        
-        
-        
-    }];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm addObject:bean];
+    [realm commitWriteTransaction];
 
 }
 

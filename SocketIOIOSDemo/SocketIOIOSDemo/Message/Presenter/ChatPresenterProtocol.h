@@ -6,6 +6,7 @@
 //  Copyright © 2017年 ufo. All rights reserved.
 //
 #import "PersonBean.h"
+#import "ChatModel.h"
 
 @protocol ChatPresenterProtocol <NSObject>
 
@@ -16,6 +17,6 @@
 - (void)loadData;
 - (void)createChatWithType:(NSString*)chatType
              ReceivePerson:(PersonBean*)person;
-- (void)receiveNotification:(NSNotification*)notification;
+- (void)updateChat:(ChatModel*)model;
 
 @end

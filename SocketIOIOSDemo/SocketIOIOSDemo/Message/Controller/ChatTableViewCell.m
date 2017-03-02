@@ -23,16 +23,16 @@
     // Configure the view for the selected state
 }
 
-- (void)setup:(ChatBean *)bean {
+- (void)setup:(ChatModel *)model {
     
-    self.name.text = bean.Name;
-    self.body.text = bean.Body;
-    self.time.text = [DateUtils dateToShort:bean.Time];
+    self.name.text = model.Name;
+    self.body.text = model.Body;
+    self.time.text = [DateUtils dateToShort:model.Time];
     
     self.img.layer.cornerRadius = self.img.frame.size.width / 2;
     self.img.layer.masksToBounds = YES;
     
-    [self.img sd_setImageWithURL:[NSURL URLWithString:bean.Img]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:model.Img]];
 }
 
 @end

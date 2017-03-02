@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		6F63998902C75DBEC050BFE6 /* Pods_SocketIOIOSDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */; };
 		BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0613611E5ABDFD00E0455A /* InsetsLabel.m */; };
+		BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F879B1E67AB0E0089C110 /* MyChat.m */; };
 		BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */ = {isa = PBXBuildFile; fileRef = BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */; };
-		BB476E301E519D3F00A7F8C7 /* RealmConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */; };
 		BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */; };
 		BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */; };
 		BB4A868B1E5FDC2C0038E9D8 /* ChatMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */; };
@@ -45,9 +45,9 @@
 		BBF08D301E4D633600241CEF /* DateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D291E4D633600241CEF /* DateUtils.m */; };
 		BBF08D331E4D853300241CEF /* ResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D321E4D853200241CEF /* ResultModel.m */; };
 		BBF52A091E5E7EC500A16F8C /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A081E5E7EC500A16F8C /* ImageUtils.m */; };
-		BBF52A0C1E5EB7B700A16F8C /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A0B1E5EB7B700A16F8C /* ChatMessage.m */; };
 		BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */; };
-		BBF9C3B41E65519A00BBDCE1 /* MyQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */; };
+		BBF5B8201E66763800DCA96E /* RealmConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF5B81E1E66763800DCA96E /* RealmConfig.m */; };
+		BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF5B8241E66B4D600DCA96E /* ChatModel.m */; };
 		BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */; };
 /* End PBXBuildFile section */
 
@@ -86,10 +86,10 @@
 		5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocketIOIOSDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0613601E5ABDFD00E0455A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
 		BB0613611E5ABDFD00E0455A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
+		BB1F879A1E67AB0E0089C110 /* MyChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChat.h; sourceTree = "<group>"; };
+		BB1F879B1E67AB0E0089C110 /* MyChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChat.m; sourceTree = "<group>"; };
 		BB46505B1E2EFA1B00FABB62 /* SocketIONotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIONotify.h; sourceTree = "<group>"; };
 		BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIONotify.m; sourceTree = "<group>"; };
-		BB476E2E1E519D3F00A7F8C7 /* RealmConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmConfig.h; sourceTree = "<group>"; };
-		BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmConfig.m; sourceTree = "<group>"; };
 		BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
@@ -168,12 +168,12 @@
 		BBF08D321E4D853200241CEF /* ResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultModel.m; sourceTree = "<group>"; };
 		BBF52A071E5E7EC500A16F8C /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
 		BBF52A081E5E7EC500A16F8C /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtils.m; sourceTree = "<group>"; };
-		BBF52A0A1E5EB7B700A16F8C /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessage.h; sourceTree = "<group>"; };
-		BBF52A0B1E5EB7B700A16F8C /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessage.m; sourceTree = "<group>"; };
 		BBF52A0D1E5EC4B100A16F8C /* ChatMessageRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageRepository.h; sourceTree = "<group>"; };
 		BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageRepository.m; sourceTree = "<group>"; };
-		BBF9C3B21E65519A00BBDCE1 /* MyQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyQueue.h; sourceTree = "<group>"; };
-		BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyQueue.m; sourceTree = "<group>"; };
+		BBF5B81D1E66763800DCA96E /* RealmConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmConfig.h; sourceTree = "<group>"; };
+		BBF5B81E1E66763800DCA96E /* RealmConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmConfig.m; sourceTree = "<group>"; };
+		BBF5B8231E66B4D600DCA96E /* ChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatModel.h; sourceTree = "<group>"; };
+		BBF5B8241E66B4D600DCA96E /* ChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatModel.m; sourceTree = "<group>"; };
 		BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOMessage.h; sourceTree = "<group>"; };
 		BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOMessage.m; sourceTree = "<group>"; };
 		BBFC98CB1E38837900DB5A7D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -221,8 +221,6 @@
 			children = (
 				BB0613601E5ABDFD00E0455A /* InsetsLabel.h */,
 				BB0613611E5ABDFD00E0455A /* InsetsLabel.m */,
-				BBF9C3B21E65519A00BBDCE1 /* MyQueue.h */,
-				BBF9C3B31E65519A00BBDCE1 /* MyQueue.m */,
 			);
 			path = Extend;
 			sourceTree = "<group>";
@@ -332,10 +330,10 @@
 			children = (
 				BB517F801E5577250023C5B6 /* ChatBean.h */,
 				BB517F811E5577250023C5B6 /* ChatBean.m */,
+				BBF5B8231E66B4D600DCA96E /* ChatModel.h */,
+				BBF5B8241E66B4D600DCA96E /* ChatModel.m */,
 				BB517F861E557B6C0023C5B6 /* ChatMessageBean.h */,
 				BB517F871E557B6C0023C5B6 /* ChatMessageBean.m */,
-				BBF52A0A1E5EB7B700A16F8C /* ChatMessage.h */,
-				BBF52A0B1E5EB7B700A16F8C /* ChatMessage.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -411,6 +409,7 @@
 		BB7984F51E260B1D00552F88 /* SocketIOIOSDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BBF5B81A1E66763800DCA96E /* Tools */,
 				BB06135F1E5ABDDE00E0455A /* Extend */,
 				BBF08D0F1E4D633600241CEF /* Libs */,
 				BBF08D271E4D633600241CEF /* Utils */,
@@ -419,6 +418,7 @@
 				BB476E351E51A1D300A7F8C7 /* Message */,
 				BB476E361E51A1D300A7F8C7 /* Person */,
 				BBEDD6F81E4C100300FA8B07 /* Login */,
+				BB7984F61E260B1D00552F88 /* Supporting Files */,
 				BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */,
 				BB7984F91E260B1D00552F88 /* AppDelegate.h */,
 				BB7984FA1E260B1D00552F88 /* AppDelegate.m */,
@@ -427,11 +427,8 @@
 				BB7985021E260B1D00552F88 /* Assets.xcassets */,
 				BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */,
 				BB7985071E260B1D00552F88 /* Info.plist */,
-				BB7984F61E260B1D00552F88 /* Supporting Files */,
 				BBAFF8E71E4C5A53007980D0 /* PrefixHeader.pch */,
 				BBF08D0D1E4D508600241CEF /* Common.h */,
-				BB476E2E1E519D3F00A7F8C7 /* RealmConfig.h */,
-				BB476E2F1E519D3F00A7F8C7 /* RealmConfig.m */,
 				BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */,
 				BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */,
 			);
@@ -586,6 +583,17 @@
 				BBF52A081E5E7EC500A16F8C /* ImageUtils.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		BBF5B81A1E66763800DCA96E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				BBF5B81D1E66763800DCA96E /* RealmConfig.h */,
+				BBF5B81E1E66763800DCA96E /* RealmConfig.m */,
+				BB1F879A1E67AB0E0089C110 /* MyChat.h */,
+				BB1F879B1E67AB0E0089C110 /* MyChat.m */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		F1A03E72D6BEC3233333088A /* Frameworks */ = {
@@ -798,6 +806,7 @@
 				BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */,
 				BBF52A091E5E7EC500A16F8C /* ImageUtils.m in Sources */,
 				BBA6EFC91E541E090050756C /* PersonListPresenter.m in Sources */,
+				BBF5B8201E66763800DCA96E /* RealmConfig.m in Sources */,
 				BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */,
 				BB517F881E557B6C0023C5B6 /* ChatMessageBean.m in Sources */,
 				BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */,
@@ -805,9 +814,9 @@
 				BB7984FE1E260B1D00552F88 /* ViewController.m in Sources */,
 				BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */,
 				BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */,
-				BB476E301E519D3F00A7F8C7 /* RealmConfig.m in Sources */,
 				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,
 				BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */,
+				BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */,
 				BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */,
 				BBF08D301E4D633600241CEF /* DateUtils.m in Sources */,
 				BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */,
@@ -816,18 +825,17 @@
 				BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */,
 				BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */,
 				BB4A868F1E5FF7CE0038E9D8 /* ChatMessageViewController.m in Sources */,
+				BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */,
 				BB7984F81E260B1D00552F88 /* main.m in Sources */,
 				BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */,
 				BB4CA0A11E63FC0E0026AC6C /* ChatTableViewCell.m in Sources */,
 				BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */,
 				BB517F821E5577250023C5B6 /* ChatBean.m in Sources */,
-				BBF52A0C1E5EB7B700A16F8C /* ChatMessage.m in Sources */,
 				BB7714A71E2CB1290015CFA3 /* SocketIOUserInfo.m in Sources */,
 				BBAFF8E51E4C4041007980D0 /* LoginPresenter.m in Sources */,
 				BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */,
 				BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */,
 				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
-				BBF9C3B41E65519A00BBDCE1 /* MyQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

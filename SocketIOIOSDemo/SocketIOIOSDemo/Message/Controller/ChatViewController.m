@@ -11,6 +11,8 @@
 #import "ChatViewProtocol.h"
 #import "ChatPresenter.h"
 #import "SocketIOManager.h"
+#import "MyChat.h"
+
 
 @interface ChatViewController ()<UITableViewDataSource,UITableViewDelegate,ChatViewProtocol>
 
@@ -30,17 +32,13 @@
     
     chatPresenter = [[ChatPresenter alloc] initWithView:self];
     
-    
     [self initControl];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"Notification_CreateChat" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNews:) name:Notification_Socketio_News object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Send_Chat object:nil];
     
-    [self updateData];
-    
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Chat object:nil];
+
+    [chatPresenter loadData];
     
 }
 
@@ -78,20 +76,17 @@
 
 #pragma mark
 
-- (void)updateData {
-    [chatPresenter loadData];
+- (void)updateChat:(NSNotification*)notification {
+    
+    ChatModel *model = [notification object];
+    [chatPresenter updateChat:model];
+    
 }
-
-- (void)onNews:(NSNotification*)notification {
-    [chatPresenter receiveNotification:notification];
-}
-
 
 
 #pragma mark
 
 - (void)refreshData {
-    
     [table reloadData];
 }
 
@@ -108,8 +103,8 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ChatTableViewCell *chatCell = (ChatTableViewCell*)cell;
-    ChatBean *bean = (ChatBean*)[chatPresenter.dataSource objectAtIndex:indexPath.row];
-    [chatCell setup:bean];
+    ChatModel *model = (ChatModel*)[chatPresenter.dataSource objectAtIndex:indexPath.row];
+    [chatCell setup:model];
     
 }
 

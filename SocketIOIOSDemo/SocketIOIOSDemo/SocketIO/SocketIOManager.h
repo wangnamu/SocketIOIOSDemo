@@ -13,9 +13,14 @@
 
 @import SocketIO;
 
-static NSString* Notification_Socketio_Kickoff = @"socketio_kickoff";
-static NSString* Notification_Socketio_Notifyotherplatforms = @"socketio_notifyotherplatforms";
-static NSString* Notification_Socketio_News = @"socketio_news";
+static NSString* const Notification_Socketio_Kickoff = @"socketio_kickoff";
+static NSString* const Notification_Socketio_Notifyotherplatforms = @"socketio_notifyotherplatforms";
+//static NSString* const Notification_Socketio_News = @"socketio_news";
+
+
+static NSString* const OthersTypeChat = @"chat";
+static NSString* const OthersTypeMessage = @"message";
+
 
 @interface SocketIOManager : NSObject
 

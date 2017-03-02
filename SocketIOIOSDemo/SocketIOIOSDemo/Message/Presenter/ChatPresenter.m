@@ -12,6 +12,7 @@
 #import "ChatMessageRepository.h"
 #import "UserInfoRepository.h"
 #import "SocketIOManager.h"
+#import "MyChat.h"
 
 @implementation ChatPresenter
 @synthesize chatView,dataSource;
@@ -26,10 +27,16 @@
 }
 
 - (void)loadData {
+    
     if (dataSource.count > 0) {
         [dataSource removeAllObjects];
     }
-    [dataSource addObjectsFromArray:[[ChatMessageRepository sharedClient] getChat]];
+    
+    RLMResults<ChatBean*> *result = [[ChatMessageRepository sharedClient] getChat];
+    for (ChatBean *bean in result) {
+        [dataSource addObject:bean];
+    }
+    
     [chatView refreshData];
     
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -75,11 +82,8 @@
                     chatBean.Img = person.HeadPortrait;
                 }
                 
-                [[ChatMessageRepository sharedClient] createChat:chatBean];
+                [[MyChat sharedClient] sendChat:[ChatModel fromBean:chatBean]];
                 
-//                NSArray *array = [NSArray arrayWithObjects:chatMessageBean, nil];
-//                [[ChatMessageRepository sharedClient] add:array];
-               
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     if (chatView) {
@@ -88,6 +92,44 @@
                 });
                 
             });
+            
+            
+//            [[MyQueue sharedClient] addOperationWithBlock:^{
+//                NSDictionary *res = (NSDictionary *)responseObject;
+//                
+//                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+//                    return @{
+//                             @"SID" : @"sid",
+//                             @"Users" : @"users",
+//                             @"Name" : @"name",
+//                             @"Img" : @"img",
+//                             @"Time" : @"time",
+//                             @"Body" : @"body",
+//                             @"ChatType" : @"chatType"
+//                             };
+//                }];
+//                
+//                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:res];
+//                
+//                if ([chatType isEqualToString:ChatTypeSingle]) {
+//                    chatModel.Name = person.NickName;
+//                    chatModel.Body = @"hello";
+//                    chatModel.Img = person.HeadPortrait;
+//                }
+//                
+//                [[ChatMessageRepository sharedClient] createOrUpdateChat:[chatModel toBean]];
+//                
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Send_Chat object:chatModel];
+//                    
+//                    if (chatView) {
+//                        [chatView chatPushTo];
+//                    }
+//                });
+//
+//                
+//            }];
             
             
         }
@@ -99,24 +141,22 @@
 
 }
 
-- (void)receiveNotification:(NSNotification*)notification {
+- (void)updateChat:(ChatModel *)model {
+//    WS(ws);
+//    [[MyQueue sharedClient] addOperationWithBlock:^{
+//        ChatBean *bean = [model toBean];
+//        [[ChatMessageRepository sharedClient] createOrUpdateChat:bean];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [ws loadData];
+//        });
+//    }];
+    WS(ws);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ws loadData];
+    });
     
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDictionary *dic = [[notification userInfo] mj_JSONObject];
-        
-        SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
-        
-        ChatBean *chatBean = [ChatBean mj_objectWithKeyValues:msg.Others];
-    
-    NSLog(@"chatBean->%@",chatBean);
-    
-        [[ChatMessageRepository sharedClient] createChat:chatBean];
-        
-    //});
-    
-    
-
 }
+
+
 
 @end

@@ -9,16 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "ChatMessageBean.h"
 #import "ChatBean.h"
-#import "MyQueue.h"
-
 @interface ChatMessageRepository : NSObject
 
 + (instancetype)sharedClient;
 
 - (void)add:(NSArray*)beans;
 
-- (NSArray*)getChat;
+- (RLMResults<ChatBean*>*)getChat;
 
-- (void)createChat:(ChatBean*)bean;
+- (void)createOrUpdateChat:(ChatBean*)bean;
 
 @end
