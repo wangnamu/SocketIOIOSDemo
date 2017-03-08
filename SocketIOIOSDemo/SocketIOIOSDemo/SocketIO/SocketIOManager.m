@@ -54,11 +54,47 @@ static NSString* socketUrl = @"http://192.168.19.86:3000";
             SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
             
             if ([msg.OthersType isEqualToString:OthersTypeChat]) {
+                
+                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                    return @{
+                             @"SID" : @"SID",
+                             @"Users" : @"Users",
+                             @"Name" : @"Name",
+                             @"Img" : @"Img",
+                             @"Time" : @"Time",
+                             @"Body" : @"Body",
+                             @"ChatType" : @"ChatType"
+                             };
+                }];
+                
                 ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:msg.Others];
                 [[MyChat sharedClient] receiveChat:chatModel];
             }
             else if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
+                
+                [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                    return @{
+                             @"SID" : @"SID",
+                             @"SenderID" : @"SenderID",
+                             @"Title" : @"Title",
+                             @"Body" : @"Body",
+                             @"Time" : @"Time",
+                             @"MessageType" : @"MessageType",
+                             @"NickName" : @"NickName",
+                             @"HeadPortrait" : @"HeadPortrait",
+                             @"ChatID" : @"ChatID",
+                             @"Thumbnail" : @"Thumbnail",
+                             @"Original" : @"Original",
+                             };
+                }];
+                
+                
                 ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:msg.Others];
+                
+                NSLog(@"chatmessagemodel->%@",chatMessageModel);
+                
+                NSLog(@"socket-ChatID->%@",chatMessageModel.ChatID);
+                
                 [[MyChat sharedClient] receiveChatMessage:chatMessageModel];
             }
             

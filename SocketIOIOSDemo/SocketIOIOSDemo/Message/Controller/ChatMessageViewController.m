@@ -42,6 +42,7 @@ static NSInteger const elapsedTime = 15;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"ChatID----->%@",currentChatID);
     
     chatMessagePresenter = [[ChatMessagePresenter alloc] initWithView:self];
     

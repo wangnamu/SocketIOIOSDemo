@@ -57,7 +57,6 @@
                              @"Title" : @"title",
                              @"Body" : @"body",
                              @"Time" : @"time",
-                             @"Body" : @"body",
                              @"MessageType" : @"messageType",
                              @"NickName" : @"nickName",
                              @"HeadPortrait" : @"headPortrait",
