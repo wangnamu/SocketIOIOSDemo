@@ -7,7 +7,7 @@
 //
 
 #import "ChatPresenter.h"
-#import "ChatBean.h"
+#import "ChatModel.h"
 #import "ChatMessageBean.h"
 #import "ChatMessageRepository.h"
 #import "UserInfoRepository.h"
@@ -34,19 +34,11 @@
     
     RLMResults<ChatBean*> *result = [[ChatMessageRepository sharedClient] getChat];
     for (ChatBean *bean in result) {
-        [dataSource addObject:bean];
+        [dataSource addObject:[ChatModel fromBean:bean]];
     }
     
     [chatView refreshData];
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [dataSource addObjectsFromArray:[[ChatMessageRepository sharedClient] getChat]];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if (chatView) {
-//                [chatView refreshData];
-//            }
-//        });
-//    });
 }
 
 - (void)createChatWithType:(NSString *)chatType
@@ -62,7 +54,7 @@
                 
                 NSDictionary *res = (NSDictionary *)responseObject;
                 
-                [ChatBean mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
                     return @{
                              @"SID" : @"sid",
                              @"Users" : @"users",
@@ -74,62 +66,23 @@
                              };
                 }];
                 
-                ChatBean *chatBean = [ChatBean mj_objectWithKeyValues:res];
+                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:res];
                 
                 if ([chatType isEqualToString:ChatTypeSingle]) {
-                    chatBean.Name = person.NickName;
-                    chatBean.Body = @"hello";
-                    chatBean.Img = person.HeadPortrait;
+                    chatModel.Name = person.NickName;
+                    chatModel.Body = @"hello";
+                    chatModel.Img = person.HeadPortrait;
                 }
                 
-                [[MyChat sharedClient] sendChat:[ChatModel fromBean:chatBean]];
+                [[MyChat sharedClient] sendChat:chatModel];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     if (chatView) {
-                        [chatView chatPushTo];
+                        [chatView chatPushTo:chatModel.SID];
                     }
                 });
                 
             });
-            
-            
-//            [[MyQueue sharedClient] addOperationWithBlock:^{
-//                NSDictionary *res = (NSDictionary *)responseObject;
-//                
-//                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-//                    return @{
-//                             @"SID" : @"sid",
-//                             @"Users" : @"users",
-//                             @"Name" : @"name",
-//                             @"Img" : @"img",
-//                             @"Time" : @"time",
-//                             @"Body" : @"body",
-//                             @"ChatType" : @"chatType"
-//                             };
-//                }];
-//                
-//                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:res];
-//                
-//                if ([chatType isEqualToString:ChatTypeSingle]) {
-//                    chatModel.Name = person.NickName;
-//                    chatModel.Body = @"hello";
-//                    chatModel.Img = person.HeadPortrait;
-//                }
-//                
-//                [[ChatMessageRepository sharedClient] createOrUpdateChat:[chatModel toBean]];
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Send_Chat object:chatModel];
-//                    
-//                    if (chatView) {
-//                        [chatView chatPushTo];
-//                    }
-//                });
-//
-//                
-//            }];
             
             
         }

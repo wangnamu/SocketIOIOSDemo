@@ -68,7 +68,7 @@ static CGFloat const contentFontSize = 16.0f;
     return self;
 }
 
-- (void)setupWithModel:(ChatMessageBean *)bean
+- (void)setupWithModel:(ChatMessageModel *)model
                Current:(long)current
                   Last:(long)last
                  Position:(NSInteger)position
@@ -79,17 +79,17 @@ static CGFloat const contentFontSize = 16.0f;
     
     topTime.frame = CGRectMake(0, 0, SCREEN_WIDTH, 24);
     if (position == 0) {
-        topTime.text = [DateUtils dateToShort:bean.Time];
+        topTime.text = [DateUtils dateToShort:model.Time];
         [topTime setHidden:NO];
     } else if ([DateUtils inTimeCurrent:current Last:last Elapsed:elapsed]) {
-        topTime.text = [DateUtils dateToShort:bean.Time];
+        topTime.text = [DateUtils dateToShort:model.Time];
         [topTime setHidden:NO];
     } else {
         [topTime setHidden:YES];
         topTime.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
     }
    
-    name.text = bean.NickName;
+    name.text = model.NickName;
     
     CGFloat headPortraitW = 40.0f;
     CGFloat headPortraitY = CGRectGetMaxY(topTime.frame);
@@ -106,13 +106,13 @@ static CGFloat const contentFontSize = 16.0f;
     CGRect contentFrame;
     CGFloat contentX,contentY;
     
-    if ([bean.MessageType isEqualToString:MessageTypeText]) {
+    if ([model.MessageType isEqualToString:MessageTypeText]) {
         
-        content.text = bean.Body;
+        content.text = model.Body;
         [content setHidden:NO];
         
         CGSize textMaxSize = CGSizeMake(SCREEN_WIDTH - 2*padding_H - headPortraitW - progressW - 2*contentMargin - 2*contentPadding, MAXFLOAT);
-        CGSize textRealSize = [bean.Body boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:contentFontSize]} context:nil].size;
+        CGSize textRealSize = [model.Body boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:contentFontSize]} context:nil].size;
         
         CGSize contentSize = CGSizeMake(textRealSize.width + 2*contentPadding, textRealSize.height + 2*contentPadding);
         
@@ -126,13 +126,13 @@ static CGFloat const contentFontSize = 16.0f;
         content.layer.masksToBounds = YES;
         
     }
-    else if ([bean.MessageType isEqualToString:MessageTypeImage]) {
+    else if ([model.MessageType isEqualToString:MessageTypeImage]) {
         
         [contentImage setHidden:NO];
         
         CGFloat imgMaxheight = 150.0f;
         
-        UIImage *image = [UIImage imageNamed:bean.Thumbnail];
+        UIImage *image = [UIImage imageNamed:model.Thumbnail];
         CGFloat scale = imgMaxheight / MAX(image.size.width, image.size.height);
         
         UIImage *thumb = [ImageUtils scaleImage:image toScale:scale];
@@ -159,7 +159,7 @@ static CGFloat const contentFontSize = 16.0f;
     CGFloat progressY = CGRectGetMidY(contentFrame) - progressW/2;
     progress.frame = CGRectMake(progressX, progressY, progressW, progressW);
     
-    if (bean.SendStatusType == SendStatusTypeSending) {
+    if (model.SendStatusType == SendStatusTypeSending) {
         if (progress.isHidden) [progress setHidden:NO];
         [progress startAnimating];
     }
@@ -172,12 +172,12 @@ static CGFloat const contentFontSize = 16.0f;
     CGFloat itemMsgY = CGRectGetMaxY(contentFrame) + marginBottom;
     itemMsg.frame = CGRectMake(itemMsgX, itemMsgY, 200.0f, 10.0f);
     
-    if (bean.SendStatusType == SendStatusTypeError) {
+    if (model.SendStatusType == SendStatusTypeError) {
         itemMsg.text = @"2017-01-01 下午2:20 发送失败";
         itemMsg.textColor = [UIColor redColor];
         [itemMsg setHidden:NO];
     }
-    else if (bean.SendStatusType == SendStatusTypeReaded) {
+    else if (model.SendStatusType == SendStatusTypeReaded) {
         itemMsg.text = @"2017-01-01 下午2:20 已读";
         itemMsg.textColor = [UIColor darkGrayColor];
         [itemMsg setHidden:NO];
@@ -192,7 +192,7 @@ static CGFloat const contentFontSize = 16.0f;
     
     headPortrait.layer.cornerRadius = headPortraitW / 2;
     headPortrait.layer.masksToBounds = YES;
-    [headPortrait sd_setImageWithURL:[NSURL URLWithString:bean.HeadPortrait] placeholderImage:nil];
+    [headPortrait sd_setImageWithURL:[NSURL URLWithString:model.HeadPortrait] placeholderImage:nil];
     
 }
 

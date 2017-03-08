@@ -6,3 +6,17 @@
 //  Copyright © 2017年 ufo. All rights reserved.
 //
 
+
+#import "ChatMessageModel.h"
+
+@protocol ChatMessagePresenterProtocol <NSObject>
+
+@required
+@property (nonatomic,strong) NSMutableArray *dataSource;
+
+- (void)loadDataWithChatID:(NSString*)chatID;
+- (void)sendText:(NSString*)body
+          ChatID:chatID;
+
+
+@end

@@ -11,14 +11,6 @@
 
 @implementation ChatMessageBean
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.SendStatusType = SendStatusTypeSended;
-    }
-    return self;
-}
-
 + (NSString *)primaryKey {
     return @"SID";
 }
@@ -29,10 +21,6 @@
         return YES;
     }
     return NO;
-}
-
-- (void)fromA {
-    
 }
 
 @end

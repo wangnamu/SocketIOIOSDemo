@@ -10,8 +10,7 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-
-static NSString* socketUrl = @"http://192.168.19.85:3000";
+static NSString* socketUrl = @"http://192.168.19.86:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -59,10 +58,10 @@ static NSString* socketUrl = @"http://192.168.19.85:3000";
                 [[MyChat sharedClient] receiveChat:chatModel];
             }
             else if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
-                
+                ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:msg.Others];
+                [[MyChat sharedClient] receiveChatMessage:chatMessageModel];
             }
             
-            //[[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_News object:self userInfo:];
         }];
 
 
@@ -100,11 +99,10 @@ static NSString* socketUrl = @"http://192.168.19.85:3000";
             model.DeviceType = @"IOS";
             model.LoginTime = (long)[[NSDate date] timeIntervalSince1970];
             
-            
             NSString* json = [model mj_JSONString];
             
             if (socket != nil) {
-                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:0 callback:^(NSArray* args) {
+                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
                     NSLog(@"%@",args);
                 }];
             }

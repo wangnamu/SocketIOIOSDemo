@@ -33,7 +33,6 @@
     return self;
 }
 
-
 - (void)sendChat:(ChatModel *)model {
     //__weak ChatModel *weakModel = model;
     [queue addOperationWithBlock:^{
@@ -57,7 +56,27 @@
            // chatModel = nil;
         });
     }];
-
 }
+
+- (void)sendChatMessage:(ChatMessageModel *)model {
+    [queue addOperationWithBlock:^{
+        ChatMessageBean *bean = [model toBean];
+        [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Send_Message object:model];
+        });
+    }];
+}
+
+- (void)receiveChatMessage:(ChatMessageModel *)model {
+    [queue addOperationWithBlock:^{
+        ChatMessageBean *bean = [model toBean];
+        [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Receive_Message object:model];
+        });
+    }];
+}
+
 
 @end

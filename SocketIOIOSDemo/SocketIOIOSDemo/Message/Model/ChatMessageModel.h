@@ -1,30 +1,15 @@
 //
-//  MessageBean.h
+//  ChatMessageModel.h
 //  SocketIOIOSDemo
 //
-//  Created by tjpld on 2017/2/16.
+//  Created by tjpld on 2017/3/2.
 //  Copyright © 2017年 ufo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "ChatMessageBean.h"
 
-typedef enum {
-    SendStatusTypeError = -1,
-    SendStatusTypeSending = 0,
-    SendStatusTypeSended = 1,
-    SendStatusTypeReaded = 2
-} SendStatusTypeEnum;
-
-static NSString* const MessageTypeText = @"text";
-static NSString* const MessageTypeImage = @"image";
-static NSString* const MessageTypeFile = @"file";
-static NSString* const MessageTypeUrl = @"url";
-static NSString* const MessageTypeSound = @"sound";
-static NSString* const MessageTypeMovie = @"movie";
-static NSString* const MessageTypeEmoji = @"emoji";
-
-
-@interface ChatMessageBean : RLMObject
+@interface ChatMessageModel : NSObject
 
 @property (nonatomic,copy) NSString* SID;// 主键
 @property (nonatomic,copy) NSString* SenderID;// 发送人ID
@@ -42,6 +27,13 @@ static NSString* const MessageTypeEmoji = @"emoji";
 
 @property (nonatomic,assign) int SendStatusType;// 发送状态
 
+
 - (BOOL)isHost;
+
+- (ChatMessageBean*)toBean;
+
++ (ChatMessageModel*)fromBean:(ChatMessageBean*)bean;
+
+
 
 @end

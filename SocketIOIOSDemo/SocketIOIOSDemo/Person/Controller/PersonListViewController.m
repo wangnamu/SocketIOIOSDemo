@@ -112,8 +112,8 @@
     [table reloadData];
 }
 
-- (void)chatPushTo {
-    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] init];
+- (void)chatPushTo:(NSString *)chatID {
+    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] initWithChatID:chatID];
     chatMessageViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatMessageViewController animated:YES];
 }

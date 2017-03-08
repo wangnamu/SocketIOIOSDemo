@@ -21,142 +21,79 @@
 }
 
 
+- (void)createOrUpdateChat:(ChatBean *)bean {
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm addOrUpdateObject:bean];
+    [realm commitWriteTransaction];
+}
+
+
 - (RLMResults<ChatBean*>*)getChat {
-    RLMResults<ChatBean*> *beans = [ChatBean allObjects];
+    RLMResults<ChatBean*> *beans = [[ChatBean allObjects] sortedResultsUsingKeyPath:@"Time" ascending:NO];
     return beans;
 }
 
-- (void)createOrUpdateChat:(ChatBean *)bean {
-    
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm addObject:bean];
-    [realm commitWriteTransaction];
-
+- (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString *)chatID {
+    RLMResults<ChatMessageBean*> *beans = [ChatMessageBean objectsWhere:@"ChatID = %@",chatID];
+    return beans;
 }
 
 
-- (void)add:(NSArray*)beans {
+- (void)createChatMessage:(NSArray*)beans {
     
+    NSMutableArray *chatArray = [[NSMutableArray alloc] init];
     
-    /*
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        //        RLMRealm *realm = [RLMRealm defaultRealm];
-        //        [realm transactionWithBlock:^{
-        //            [realm addObjects:beans];
-        //        }];
-        
-        NSMutableArray *chatArray = [[NSMutableArray alloc] init];
-        
-        NSMutableSet *set = [NSMutableSet set];
-        [beans enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [set addObject:obj[@"ChatID"]];
-        }];
-        [set enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ChatID = %@", obj];
-            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"Time" ascending:NO];
-            
-            NSArray *group = [beans filteredArrayUsingPredicate:predicate];
-            NSArray *top = [group sortedArrayUsingDescriptors:@[sortDescriptor]];
-            
-            [chatArray addObject:[top firstObject]];
-        }];
-        
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        
-        for (ChatMessageBean *item in chatArray) {
-            RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
-            if (result.count > 0) {
-                ChatBean *chatBean = result.firstObject;
-
-                chatBean.SenderID = item.SenderID;
-                chatBean.Name = item.NickName;
-                chatBean.Body = item.Body;
-                chatBean.Img = item.ChatHeadPortrait;
-                chatBean.Time = item.Time;
-                chatBean.ChatType = item.ChatType;
-            }
-            else {
-                
-                ChatBean *chatBean = [[ChatBean alloc] init];
-                chatBean.SID = item.ChatID;
-                chatBean.SenderID = item.SenderID;
-                chatBean.Name = item.NickName;
-                chatBean.Img = item.ChatHeadPortrait;
-                chatBean.Time = item.Time;
-                chatBean.Body = item.Body;
-                chatBean.ChatType = item.ChatType;
-                
-                [realm addObject:chatBean];
-            }
-        }
-        
-        [realm addObjects:beans];
-        
-        [realm commitWriteTransaction];
-        
-    });
-    */
-    
-    /*
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue setMaxConcurrentOperationCount:1];
-    [queue addOperationWithBlock:^{
-        
-        NSMutableArray *chatArray = [[NSMutableArray alloc] init];
-        
-        NSMutableSet *set = [NSMutableSet set];
-        [beans enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [set addObject:obj[@"ChatID"]];
-        }];
-        [set enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ChatID = %@", obj];
-            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"Time" ascending:NO];
-            
-            NSArray *group = [beans filteredArrayUsingPredicate:predicate];
-            NSArray *top = [group sortedArrayUsingDescriptors:@[sortDescriptor]];
-            
-            [chatArray addObject:[top firstObject]];
-        }];
-        
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        
-        for (ChatMessageBean *item in chatArray) {
-            RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
-            if (result.count > 0) {
-                ChatBean *chatBean = result.firstObject;
-                
-                chatBean.SenderID = item.SenderID;
-                chatBean.Name = item.NickName;
-                chatBean.Body = item.Body;
-                chatBean.Img = item.ChatHeadPortrait;
-                chatBean.Time = item.Time;
-                chatBean.ChatType = item.ChatType;
-            }
-            else {
-                
-                ChatBean *chatBean = [[ChatBean alloc] init];
-                chatBean.SID = item.ChatID;
-                chatBean.SenderID = item.SenderID;
-                chatBean.Name = item.NickName;
-                chatBean.Img = item.ChatHeadPortrait;
-                chatBean.Time = item.Time;
-                chatBean.Body = item.Body;
-                chatBean.ChatType = item.ChatType;
-                
-                [realm addObject:chatBean];
-            }
-        }
-        
-        [realm addObjects:beans];
-        
-        [realm commitWriteTransaction];
-        
+    NSMutableSet *set = [NSMutableSet set];
+    [beans enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [set addObject:obj[@"ChatID"]];
     }];
-     */
+    [set enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ChatID = %@", obj];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"Time" ascending:NO];
+        
+        NSArray *group = [beans filteredArrayUsingPredicate:predicate];
+        NSArray *top = [group sortedArrayUsingDescriptors:@[sortDescriptor]];
+        
+        [chatArray addObject:[top firstObject]];
+    }];
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    for (ChatMessageBean *item in chatArray) {
+        RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
+        if (result.count > 0) {
+            ChatBean *chatBean = result.firstObject;
+            
+            if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+                chatBean.Body = item.Body;
+                chatBean.Time = item.Time;
+            }
+            else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+                
+            }
+            
+        }
+        else {
+            
+//            ChatBean *chatBean = [[ChatBean alloc] init];
+//            chatBean.SID = item.ChatID;
+//            chatBean.SenderID = item.SenderID;
+//            chatBean.Name = item.NickName;
+//            chatBean.Img = item.ChatHeadPortrait;
+//            chatBean.Time = item.Time;
+//            chatBean.Body = item.Body;
+//            chatBean.ChatType = item.ChatType;
+//            
+//            [realm addObject:chatBean];
+        }
+    }
+    
+    [realm addObjects:beans];
+    
+    [realm commitWriteTransaction];
+    
     
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "ChatViewController.h"
+#import "ChatMessageViewController.h"
 #import "ChatTableViewCell.h"
 #import "ChatViewProtocol.h"
 #import "ChatPresenter.h"
@@ -124,6 +125,10 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ChatModel *model = (ChatModel*)[chatPresenter.dataSource objectAtIndex:indexPath.row];
+    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] initWithChatID:model.SID];
+    chatMessageViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatMessageViewController animated:YES];
 }
 
 

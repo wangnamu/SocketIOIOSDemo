@@ -10,4 +10,6 @@
 
 @interface ChatMessageViewController : UIViewController
 
+- (instancetype)initWithChatID:(NSString*)chatID;
+
 @end
