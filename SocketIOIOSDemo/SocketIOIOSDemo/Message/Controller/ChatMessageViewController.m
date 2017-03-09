@@ -162,7 +162,7 @@ static NSInteger const elapsedTime = 15;
 - (void)onNotify:(NSNotification*)notification {
     
     ChatMessageModel *model = [notification object];
-    [chatMessagePresenter updateChatMessage:model];
+    [chatMessagePresenter insertChatMessage:model];
     
     //[chatPresenter updateChat:model];
     //    [chatMessagePresenter.dataSource addObject:model];
@@ -197,7 +197,7 @@ static NSInteger const elapsedTime = 15;
     [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
    
     [table endUpdates];
-     [self scrollToBottom:YES];
+    [self scrollToBottom:YES];
     
 }
 

@@ -54,10 +54,12 @@
 
 - (void)updateChatMessage:(ChatMessageModel *)model {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSInteger index = [dataSource indexOfObject:model];
-        [dataSource replaceObjectAtIndex:index withObject:model];
-        if (chatMessageView) {
-            [chatMessageView updateChatMessageForCell:index];
+        if (dataSource.count > 0 && [dataSource containsObject:model]) {
+            NSInteger index = [dataSource indexOfObject:model];
+            [dataSource replaceObjectAtIndex:index withObject:model];
+            if (chatMessageView) {
+                [chatMessageView updateChatMessageForCell:index];
+            }
         }
     });
 }
