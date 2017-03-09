@@ -18,5 +18,8 @@
 - (void)sendText:(NSString*)body
           ChatID:chatID;
 
+- (void)insertChatMessage:(ChatMessageModel*)model;
+- (void)updateChatMessage:(ChatMessageModel*)model;
+
 
 @end

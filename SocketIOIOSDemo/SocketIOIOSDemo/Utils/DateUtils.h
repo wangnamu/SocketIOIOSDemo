@@ -26,4 +26,6 @@
 
 +(BOOL)inTimeCurrent:(long)current Last:(long)last Elapsed:(NSInteger)elapsed;
 
++(long)timeNow;
+
 @end

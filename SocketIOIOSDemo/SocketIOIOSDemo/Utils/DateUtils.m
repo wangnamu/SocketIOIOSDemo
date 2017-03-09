@@ -103,4 +103,8 @@
     return false;
 }
 
++ (long)timeNow {
+   return [[NSDate date] timeIntervalSince1970] * 1000;
+}
+
 @end

@@ -11,6 +11,7 @@
 #import "ChatMessageModel.h"
 #import "UserInfoRepository.h"
 #import "MyChat.h"
+#import "DateUtils.h"
 
 @implementation ChatMessagePresenter
 @synthesize chatMessageView,dataSource;
@@ -33,20 +34,67 @@
     for (ChatMessageBean *bean in result) {
         [dataSource addObject:[ChatMessageModel fromBean:bean]];
     }
-    [chatMessageView refreshData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(chatMessageView) {
+            [chatMessageView refreshData];
+        }
+    });
+    
+}
+
+
+- (void)insertChatMessage:(ChatMessageModel *)model {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [dataSource addObject:model];
+        if (chatMessageView) {
+            [chatMessageView insertChatMessageToCell:dataSource.count-1];
+        }
+    });
+}
+
+- (void)updateChatMessage:(ChatMessageModel *)model {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger index = [dataSource indexOfObject:model];
+        [dataSource replaceObjectAtIndex:index withObject:model];
+        if (chatMessageView) {
+            [chatMessageView updateChatMessageForCell:index];
+        }
+    });
 }
 
 - (void)sendText:(NSString*)body
           ChatID:(id)chatID {
     
-    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
+    WS(ws);
     
-    //WS(ws);
+    NSString *messageID = [[NSUUID UUID] UUIDString];
+    ChatMessageModel *model = [[ChatMessageModel alloc] init];
+    model.SID = messageID;
+    model.SenderID = [[UserInfoRepository sharedClient] currentUser].SID;
+    model.Title = [[UserInfoRepository sharedClient] currentUser].NickName;
+    model.Body = body;
+    model.Time = [DateUtils timeNow];
+    model.MessageType = MessageTypeText;
+    model.NickName = [[UserInfoRepository sharedClient] currentUser].NickName;
+    model.HeadPortrait = [[UserInfoRepository sharedClient] currentUser].HeadPortrait;
+    model.ChatID = chatID;
+    model.SendStatusType = SendStatusTypeSending;
+    [[MyChat sharedClient] sendChatMessage:model after:^(ChatMessageModel *m) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ws insertChatMessage:m];
+        });
+    }];
+    
+    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
+    
+    
     [[AFNetworkingClient sharedClient] POST:@"sendText" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if (chatMessageView) {
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                sleep(10);
                 
                 NSDictionary *res = (NSDictionary *)responseObject;
                 
@@ -70,15 +118,7 @@
                 
                 [[MyChat sharedClient] sendChatMessage:chatMessageModel];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (chatMessageView) {
-                       
-                        //[ws loadDataWithChatID:chatID];
-                    }
-                });
-                
             });
-            
             
         }
         

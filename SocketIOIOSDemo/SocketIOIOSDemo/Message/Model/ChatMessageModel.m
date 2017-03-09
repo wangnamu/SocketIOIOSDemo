@@ -63,5 +63,22 @@
 }
 
 
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return true;
+    }
+    if (![object isKindOfClass:[self class]]) {
+        return false;
+    }
+    
+    ChatMessageModel* myObject = object;
+    if ([self.SID isEqualToString:myObject.SID]) {
+        NSLog(@"equal");
+        return true;
+    }
+    
+    return false;
+}
+
 
 @end

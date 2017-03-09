@@ -28,9 +28,6 @@
     self.name.text = model.Name;
     self.body.text = model.Body;
     
-    NSLog(@"time->%ld",model.Time);
-    
-    NSLog(@"%@->",[DateUtils stringFromLong:model.Time]);
     
     self.time.text = [DateUtils dateToShort:model.Time];
     

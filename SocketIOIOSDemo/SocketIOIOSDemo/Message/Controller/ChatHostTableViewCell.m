@@ -173,7 +173,7 @@ static CGFloat const contentFontSize = 16.0f;
     itemMsg.frame = CGRectMake(itemMsgX, itemMsgY, 200.0f, 10.0f);
     
     if (model.SendStatusType == SendStatusTypeError) {
-        itemMsg.text = @"2017-01-01 下午2:20 发送失败";
+        itemMsg.text = [NSString stringWithFormat:@"%@ 发送失败",[DateUtils dateToShort:model.Time]];
         itemMsg.textColor = [UIColor redColor];
         [itemMsg setHidden:NO];
     }

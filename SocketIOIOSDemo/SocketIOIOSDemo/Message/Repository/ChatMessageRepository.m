@@ -90,7 +90,7 @@
         }
     }
     
-    [realm addObjects:beans];
+    [realm addOrUpdateObjectsFromArray:beans];
     
     [realm commitWriteTransaction];
     

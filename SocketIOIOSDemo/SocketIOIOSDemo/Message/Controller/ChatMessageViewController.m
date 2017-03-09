@@ -42,15 +42,14 @@ static NSInteger const elapsedTime = 15;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"ChatID----->%@",currentChatID);
-    
+ 
     chatMessagePresenter = [[ChatMessagePresenter alloc] initWithView:self];
     
     [self initControl];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTable) name:Notification_Send_Message object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotify:) name:Notification_Send_Message object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTable) name:Notification_Receive_Message object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotify:) name:Notification_Receive_Message object:nil];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)];
     
@@ -119,6 +118,7 @@ static NSInteger const elapsedTime = 15;
     
     
     [chatMessagePresenter loadDataWithChatID:currentChatID];
+    [self scrollToBottom:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,21 +159,58 @@ static NSInteger const elapsedTime = 15;
     [chatMessagePresenter sendText:[[NSUUID UUID] UUIDString] ChatID:currentChatID];
 }
 
+- (void)onNotify:(NSNotification*)notification {
+    
+    ChatMessageModel *model = [notification object];
+    [chatMessagePresenter updateChatMessage:model];
+    
+    //[chatPresenter updateChat:model];
+    //    [chatMessagePresenter.dataSource addObject:model];
+    //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:chatMessagePresenter.dataSource.count-1 inSection:0];
+    //
+    //    [table beginUpdates];
+    //    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //    [table endUpdates];
+}
 
-#pragma mark
+- (void)scrollToBottom:(BOOL)animated {
+    NSInteger section = [table numberOfSections];
+    if (section < 1) return;
+    NSInteger row = [table numberOfRowsInSection:section-1];
+    if (row < 1) return;
+    NSIndexPath *index = [NSIndexPath indexPathForRow:row-1 inSection:section-1];
+    [table scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+}
+
+
+
+#pragma mark protocol
 
 - (void)refreshData {
-     NSLog(@"dd");
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"Body" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//    [alert show];
     [table reloadData];
+}
+
+
+- (void)insertChatMessageToCell:(NSInteger)row {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [table beginUpdates];
+    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+   
+    [table endUpdates];
+     [self scrollToBottom:YES];
     
 }
 
-
-- (void)updateTable {
-    [chatMessagePresenter loadDataWithChatID:currentChatID];
+- (void)updateChatMessageForCell:(NSInteger)row {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [table beginUpdates];
+    [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [table endUpdates];
 }
+
+
+
+
 
 #pragma mark tableView
 

@@ -10,7 +10,7 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-static NSString* socketUrl = @"http://192.168.19.86:3000";
+static NSString* socketUrl = @"http://192.168.19.101:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -91,10 +91,6 @@ static NSString* socketUrl = @"http://192.168.19.86:3000";
                 
                 ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:msg.Others];
                 
-                NSLog(@"chatmessagemodel->%@",chatMessageModel);
-                
-                NSLog(@"socket-ChatID->%@",chatMessageModel.ChatID);
-                
                 [[MyChat sharedClient] receiveChatMessage:chatMessageModel];
             }
             
@@ -152,8 +148,6 @@ static NSString* socketUrl = @"http://192.168.19.86:3000";
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"reconnect---%@",data);
         }];
-        
-               
 
         [socket connect];
         return YES;

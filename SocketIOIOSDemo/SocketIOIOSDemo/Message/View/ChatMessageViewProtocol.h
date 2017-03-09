@@ -11,5 +11,8 @@
 @required
 - (void) refreshData;
 
+- (void)insertChatMessageToCell:(NSInteger)row;
+- (void)updateChatMessageForCell:(NSInteger)row;
+
 
 @end

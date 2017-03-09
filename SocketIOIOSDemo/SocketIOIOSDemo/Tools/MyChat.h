@@ -26,6 +26,7 @@ static NSString* const Notification_Receive_Message = @"receive_message";
 - (void)receiveChat:(ChatModel*)model;
 
 - (void)sendChatMessage:(ChatMessageModel*)model;
+- (void)sendChatMessage:(ChatMessageModel *)model after:(void(^)(ChatMessageModel*))block;
 - (void)receiveChatMessage:(ChatMessageModel *)model;
 
 @end
