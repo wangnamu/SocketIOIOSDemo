@@ -47,9 +47,9 @@ static NSInteger const elapsedTime = 15;
     
     [self initControl];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotify:) name:Notification_Send_Message object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotifySend:) name:Notification_Send_Message object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotify:) name:Notification_Receive_Message object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotifyReceive:) name:Notification_Receive_Message object:nil];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)];
     
@@ -159,19 +159,16 @@ static NSInteger const elapsedTime = 15;
     [chatMessagePresenter sendText:[[NSUUID UUID] UUIDString] ChatID:currentChatID];
 }
 
-- (void)onNotify:(NSNotification*)notification {
-    
+- (void)onNotifySend:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
     [chatMessagePresenter insertChatMessage:model];
-    
-    //[chatPresenter updateChat:model];
-    //    [chatMessagePresenter.dataSource addObject:model];
-    //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:chatMessagePresenter.dataSource.count-1 inSection:0];
-    //
-    //    [table beginUpdates];
-    //    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    //    [table endUpdates];
 }
+
+- (void)onNotifyReceive:(NSNotification*)notification {
+    ChatMessageModel *model = [notification object];
+    [chatMessagePresenter updateChatMessage:model];
+}
+
 
 - (void)scrollToBottom:(BOOL)animated {
     NSInteger section = [table numberOfSections];
@@ -195,7 +192,6 @@ static NSInteger const elapsedTime = 15;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     [table beginUpdates];
     [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-   
     [table endUpdates];
     [self scrollToBottom:YES];
     
@@ -207,8 +203,6 @@ static NSInteger const elapsedTime = 15;
     [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [table endUpdates];
 }
-
-
 
 
 
