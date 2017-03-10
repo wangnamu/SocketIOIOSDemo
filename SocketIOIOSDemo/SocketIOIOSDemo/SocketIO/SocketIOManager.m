@@ -33,6 +33,62 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
         
         NSURL* url = [[NSURL alloc] initWithString:socketUrl];
         socket = [[SocketIOClient alloc] initWithSocketURL:url config:nil];
+
+    }
+    return self;
+}
+
+- (SocketIOClient*)getSocket {
+    return socket;
+}
+
+- (BOOL)connect {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [userDefaults objectForKey:@"deviceToken"];
+    
+    UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
+    
+    if (deviceToken == nil || userInfoBean == nil) {
+        return NO;
+    }
+    
+    if(socket != nil) {
+        
+        if (socket.status == SocketIOClientStatusConnected || socket.status == SocketIOClientStatusConnecting) {
+            return NO;
+        }
+        
+        [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            
+            SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
+            model.SID = userInfoBean.SID;
+            model.UserName = userInfoBean.UserName;
+            model.NickName = userInfoBean.NickName;
+            
+            model.DeviceToken = deviceToken;
+            model.Project = @"SocketIODemo";
+            model.DeviceType = @"IOS";
+            model.LoginTime = [[NSDate date] timeIntervalSince1970] * 1000;
+            
+            NSString* json = [model mj_JSONString];
+            
+            if (socket != nil) {
+                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
+                    NSLog(@"%@",args);
+                }];
+            }
+            
+        }];
+        
+        [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"disconnect---%@",data);
+        }];
+        
+        [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+            NSLog(@"reconnect---%@",data);
+        }];
+        
         
         [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"kickoff---%@",data);
@@ -96,61 +152,7 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
             
         }];
 
-
-    }
-    return self;
-}
-
-- (SocketIOClient*)getSocket {
-    return socket;
-}
-
-- (BOOL)connect {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *deviceToken = [userDefaults objectForKey:@"deviceToken"];
-    
-    UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
-    
-    if (deviceToken == nil || userInfoBean == nil) {
-        return NO;
-    }
-    
-    if(socket != nil) {
         
-        if (socket.status == SocketIOClientStatusConnected || socket.status == SocketIOClientStatusConnecting) {
-            return NO;
-        }
-        
-        [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            
-            SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
-            model.SID = userInfoBean.SID;
-            model.UserName = userInfoBean.UserName;
-            model.NickName = userInfoBean.NickName;
-            
-            model.DeviceToken = deviceToken;
-            model.Project = @"SocketIODemo";
-            model.DeviceType = @"IOS";
-            model.LoginTime = [[NSDate date] timeIntervalSince1970] * 1000;
-            
-            NSString* json = [model mj_JSONString];
-            
-            if (socket != nil) {
-                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
-                    NSLog(@"%@",args);
-                }];
-            }
-            
-        }];
-        
-        [socket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            NSLog(@"disconnect---%@",data);
-        }];
-        
-        [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-            NSLog(@"reconnect---%@",data);
-        }];
 
         [socket connect];
         return YES;
@@ -161,6 +163,7 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
 - (BOOL)disconnect {
     if(socket != nil) {
         [socket disconnect];
+        [socket removeAllHandlers];
     }
     return YES;
 }

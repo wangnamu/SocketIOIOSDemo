@@ -35,7 +35,7 @@
 }
 
 - (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString *)chatID {
-    RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatID] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+    RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatID] sortedResultsUsingKeyPath:@"Time" ascending:YES];
     return beans;
 }
 
