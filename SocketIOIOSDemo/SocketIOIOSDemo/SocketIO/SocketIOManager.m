@@ -10,7 +10,7 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-static NSString* socketUrl = @"http://192.168.19.101:3000";
+static NSString* socketUrl = @"http://192.168.19.100:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -116,10 +116,9 @@ static NSString* socketUrl = @"http://192.168.19.101:3000";
         return NO;
     }
     
-    
     if(socket != nil) {
         
-        if (socket.status == SocketIOClientStatusConnected) {
+        if (socket.status == SocketIOClientStatusConnected || socket.status == SocketIOClientStatusConnecting) {
             return NO;
         }
         

@@ -94,7 +94,7 @@
 
 }
 
-- (void)updateChat:(ChatModel *)model {
+- (void)updateChat {
     WS(ws);
     dispatch_async(dispatch_get_main_queue(), ^{
         [ws loadData];

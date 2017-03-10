@@ -39,10 +39,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Chat object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Send_Message object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRecentBegin) name:Notification_Get_Recent_Begin object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Message object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRecentFinish) name:Notification_Get_Recent_Finish object:nil];
+    
     [chatPresenter loadData];
     
 }
@@ -79,20 +79,36 @@
     
 }
 
-#pragma mark
+#pragma mark notification
 
 - (void)updateChat:(NSNotification*)notification {
-    
-    ChatModel *model = [notification object];
-    [chatPresenter updateChat:model];
-    
+    [chatPresenter updateChat];
 }
 
 
-#pragma mark
+- (void)getRecentBegin {
+    [self showNavigationLoading];
+}
+
+- (void)getRecentFinish {
+    [self hideNavigationLoading];
+    [chatPresenter updateChat];
+}
+
+#pragma mark view protocol
 
 - (void)refreshData {
     [table reloadData];
+}
+
+- (void)showNavigationLoading {
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    aiView.hidesWhenStopped = NO; //I added this just so I could see it
+    self.navigationItem.titleView = aiView;
+}
+
+- (void)hideNavigationLoading {
+    self.navigationItem.titleView = nil;
 }
 
 

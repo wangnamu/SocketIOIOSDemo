@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "SocketIOManager.h"
 #import "LoginViewController.h"
+#import "MainViewController.h"
+#import "UserInfoRepository.h"
+#import "MyChat.h"
 
 
 @interface AppDelegate ()
@@ -27,13 +30,14 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //MainViewController *mainViewController = [[MainViewController alloc] init];
-    
-    //self.window.rootViewController = mainViewController;
-    
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    
-    self.window.rootViewController = loginViewController;
+    if ([[UserInfoRepository sharedClient] currentUser] != nil) {
+        MainViewController *mainViewController = [[MainViewController alloc] init];
+        self.window.rootViewController = mainViewController;
+    }
+    else {
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        self.window.rootViewController = loginViewController;
+    }
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -45,7 +49,6 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    
     
 }
 
@@ -66,8 +69,10 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    
-    [[SocketIOManager sharedClient] connect];
+    if ([[UserInfoRepository sharedClient] currentUser]!=nil) {
+        [[MyChat sharedClient] getRecent];
+        [[SocketIOManager sharedClient] connect];
+    }
     
     
 }
@@ -86,10 +91,12 @@
     NSLog(@"deviceToken===========%@",deviceString);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults objectForKey:@"deviceToken"] != nil) {
+    if ([userDefaults objectForKey:@"deviceToken"] == nil) {
         [userDefaults setObject:deviceString forKey:@"deviceToken"];
         [userDefaults synchronize];
+        [[SocketIOManager sharedClient] connect];
     }
+    
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{

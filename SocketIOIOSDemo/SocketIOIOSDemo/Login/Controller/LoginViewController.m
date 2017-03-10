@@ -99,7 +99,7 @@
 #pragma mark LoginPresenterProtocol
 
 - (void)loginSuccess {
-    [[SocketIOManager sharedClient] connect];
+    //[[SocketIOManager sharedClient] connect];
     [RealmConfig setUp:[[UserInfoRepository sharedClient] currentUser].UserName];
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
