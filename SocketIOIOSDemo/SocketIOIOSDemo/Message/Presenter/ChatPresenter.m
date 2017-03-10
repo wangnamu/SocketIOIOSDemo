@@ -95,14 +95,6 @@
 }
 
 - (void)updateChat:(ChatModel *)model {
-//    WS(ws);
-//    [[MyQueue sharedClient] addOperationWithBlock:^{
-//        ChatBean *bean = [model toBean];
-//        [[ChatMessageRepository sharedClient] createOrUpdateChat:bean];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [ws loadData];
-//        });
-//    }];
     WS(ws);
     dispatch_async(dispatch_get_main_queue(), ^{
         [ws loadData];

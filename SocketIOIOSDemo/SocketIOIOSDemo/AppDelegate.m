@@ -68,6 +68,8 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [[SocketIOManager sharedClient] connect];
+    
+    
 }
 
 
@@ -84,8 +86,10 @@
     NSLog(@"deviceToken===========%@",deviceString);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:deviceString forKey:@"deviceToken"];
-    [userDefaults synchronize];
+    if ([userDefaults objectForKey:@"deviceToken"] != nil) {
+        [userDefaults setObject:deviceString forKey:@"deviceToken"];
+        [userDefaults synchronize];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{

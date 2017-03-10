@@ -119,6 +119,10 @@ static NSString* socketUrl = @"http://192.168.19.101:3000";
     
     if(socket != nil) {
         
+        if (socket.status == SocketIOClientStatusConnected) {
+            return NO;
+        }
+        
         [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             
             SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
@@ -129,7 +133,7 @@ static NSString* socketUrl = @"http://192.168.19.101:3000";
             model.DeviceToken = deviceToken;
             model.Project = @"SocketIODemo";
             model.DeviceType = @"IOS";
-            model.LoginTime = (long)[[NSDate date] timeIntervalSince1970];
+            model.LoginTime = [[NSDate date] timeIntervalSince1970] * 1000;
             
             NSString* json = [model mj_JSONString];
             

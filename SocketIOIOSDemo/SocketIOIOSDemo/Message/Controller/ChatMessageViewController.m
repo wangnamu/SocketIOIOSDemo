@@ -161,12 +161,12 @@ static NSInteger const elapsedTime = 15;
 
 - (void)onNotifySend:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
-    [chatMessagePresenter insertChatMessage:model];
+    [chatMessagePresenter updateChatMessage:model];
 }
 
 - (void)onNotifyReceive:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
-    [chatMessagePresenter updateChatMessage:model];
+    [chatMessagePresenter insertChatMessage:model];
 }
 
 

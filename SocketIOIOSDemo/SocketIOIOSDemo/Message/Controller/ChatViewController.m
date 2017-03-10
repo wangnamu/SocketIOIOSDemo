@@ -38,6 +38,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Send_Chat object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Chat object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Send_Message object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Message object:nil];
 
     [chatPresenter loadData];
     
