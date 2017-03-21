@@ -55,22 +55,14 @@
         __block dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         __block NSMutableArray *data = [[NSMutableArray alloc] init];
         
-        NSLog(@"begin");
-        
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         NSDictionary *params = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
         
-        NSLog(@"params->%@",params);
-        
         [[AFNetworkingClient sharedClient] GET:@"chatMessageList" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            NSLog(@"success");
             
             NSArray *res = (NSArray *)responseObject;
             
             for (NSDictionary *dic in res) {
-                
-                NSLog(@"dic->%@",dic);
                 
                 [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
                     return @{
@@ -98,10 +90,7 @@
             
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            //        SHOW_ERROR_PROGRESS([[error userInfo] objectForKey:@"NSLocalizedDescription"]);
-            //        if (loginView) {
-            //            [loginView loginFail:[[error userInfo] objectForKey:@"NSLocalizedDescription"]];
-            //        }
+            //SHOW_ERROR_PROGRESS([[error userInfo] objectForKey:@"NSLocalizedDescription"]);
             
             dispatch_semaphore_signal(sem);
         }];
@@ -109,16 +98,12 @@
         
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSLog(@"end");
-        
-        NSLog(@"data->%@",data);
-        
+ 
         if(data.count > 0){
             [[ChatMessageRepository sharedClient] createChatMessage:data];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Get_Recent_Finish object:nil];
-            
         });
         
     }];

@@ -13,20 +13,25 @@
 #import "ChatMessageViewProtocol.h"
 #import "ChatMessagePresenter.h"
 #import "MyChat.h"
+#import "InputToolbar.h"
+
 
 static NSInteger const elapsedTime = 15;
-@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol>
+@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol,InputToolbarDelegate> {
+    BOOL keyboardIsVisible;
+}
 
 @property (nonatomic,strong) id<ChatMessagePresenterProtocol> chatMessagePresenter;
 
 @property (nonatomic,strong) NSString *currentChatID;
 @property (nonatomic,strong) UITableView *table;
+@property (nonatomic,strong) InputToolbar *inputToolbar;
 
 @end
 
 @implementation ChatMessageViewController
 @synthesize currentChatID;
-@synthesize table;
+@synthesize table,inputToolbar;
 @synthesize chatMessagePresenter;
 
 
@@ -52,10 +57,6 @@ static NSInteger const elapsedTime = 15;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotifyReceive:) name:Notification_Receive_Message object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:Notification_Get_Recent_Finish object:nil];
-
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)];
-    
     
     [self loadData];
     [self scrollToBottom:NO];
@@ -66,38 +67,69 @@ static NSInteger const elapsedTime = 15;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    /* Listen for keyboard */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    /* No longer listen for keyboard */
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
 
 - (void)initControl {
     
-    table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    table = [[UITableView alloc] init];
     table.separatorStyle = NO;
     
     table.dataSource = self;
     table.delegate = self;
-    
-    
+
     [table registerClass:[ChatHostTableViewCell class] forCellReuseIdentifier:ChatHostTableViewCellIdentifier];
     [table registerClass:[ChatGuestTableViewCell class] forCellReuseIdentifier:ChatGuestTableViewCellIdentifier];
     
     [self.view addSubview:table];
     
+    
+    inputToolbar = [[InputToolbar alloc] init];
+    inputToolbar.backgroundColor = [UIColor whiteColor];
+    inputToolbar.delegate = self;
+    [self.view addSubview:inputToolbar];
+    
     WS(ws);
+    
+    [inputToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(50.0f));
+        make.bottom.equalTo(ws.view.mas_bottom).with.offset(-4.0f);
+        make.left.equalTo(ws.view.mas_left).with.offset(16.0f);
+        make.right.equalTo(ws.view.mas_right).with.offset(-16.0f);
+    }];
+
     
     [table mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.view.mas_top);
         make.left.equalTo(ws.view.mas_left);
-        make.bottom.equalTo(ws.view.mas_bottom);
+        make.bottom.equalTo(ws.inputToolbar.mas_top);
         make.right.equalTo(ws.view.mas_right);
     }];
+
     
 }
 
 
 #pragma mark controller action
 
-- (void)addData {
-    [chatMessagePresenter sendText:[[NSUUID UUID] UUIDString] ChatID:currentChatID];
-}
 
 - (void)onNotifySend:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
@@ -190,12 +222,6 @@ static NSInteger const elapsedTime = 15;
 }
 
 
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [tableView fd_heightForCellWithIdentifier:ChatHostTableViewCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
         [self configureCell:cell atIndexPath:indexPath];
@@ -215,6 +241,116 @@ static NSInteger const elapsedTime = 15;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+
+
+#pragma mark Notifications
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
+    CGRect keyBoardBounds  = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat keyBoardHeight = keyBoardBounds.size.height;
+    CGFloat animationTime  = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    
+    
+//    WS(ws);
+//    void (^animation)(void) = ^void(void) {
+//        
+//        if (ws.table.frame.size.height < ws.table.contentSize.height + keyBoardHeight) {
+//            ws.table.transform = CGAffineTransformMakeTranslation(0, - keyBoardHeight);
+//        }
+//        
+//        
+//        
+//        [ws scrollToBottom:YES];
+//        ws.inputToolbar.transform = CGAffineTransformMakeTranslation(0, - keyBoardHeight);
+//    };
+//    
+//    if (animationTime > 0) {
+//        [UIView animateWithDuration:animationTime animations:animation];
+//    } else {
+//        animation();
+//    }
+    
+    
+    WS(ws);
+    
+    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(ws.view.mas_bottom).with.offset(-keyBoardHeight-4.0f);
+    }];
+    
+    
+    [table mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ws.view.mas_top).with.offset(-keyBoardHeight-4.0f);
+        make.bottom.equalTo(ws.inputToolbar.mas_top);
+    }];
+    
+    // 更新约束
+    [UIView animateWithDuration:animationTime animations:^{
+        [ws.view layoutIfNeeded];
+        [ws scrollToBottom:YES];
+    }];
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
+
+    CGFloat animationTime  = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+//    WS(ws);
+//    void (^animation)(void) = ^void(void) {
+//        ws.table.transform = CGAffineTransformIdentity;
+//        ws.inputToolbar.transform = CGAffineTransformIdentity;
+//    };
+//    
+//    if (animationTime > 0) {
+//        [UIView animateWithDuration:animationTime animations:animation];
+//    } else {
+//        animation();
+//    }
+
+    WS(ws);
+    
+    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_offset(-4.0f);
+    }];
+    [table mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ws.view.mas_top);
+        make.bottom.equalTo(ws.inputToolbar.mas_top);
+    }];
+    
+    // 更新约束
+    [UIView animateWithDuration:animationTime animations:^{
+        [ws.view layoutIfNeeded];
+    }];
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+
+- (void)contentTextChanged:(CGFloat)height {
+
+    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(height));
+    }];
+    
+    WS(ws);
+    [UIView animateWithDuration:0.25 animations:^{
+        [ws.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [ws scrollToBottom:NO];
+    }];
+    
+}
+
+
+- (void)sendButtonPressed:(NSString *)inputText {
+    [chatMessagePresenter sendText:inputText ChatID:currentChatID];
+}
 
 
 @end

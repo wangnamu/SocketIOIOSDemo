@@ -73,7 +73,6 @@
     
     ChatMessageModel* myObject = object;
     if ([self.SID isEqualToString:myObject.SID]) {
-        NSLog(@"equal");
         return true;
     }
     

@@ -10,7 +10,7 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-static NSString* socketUrl = @"http://192.168.19.100:3000";
+static NSString* socketUrl = @"http://192.168.19.223:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -32,8 +32,7 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
     if (self) {
         
         NSURL* url = [[NSURL alloc] initWithString:socketUrl];
-        socket = [[SocketIOClient alloc] initWithSocketURL:url config:nil];
-
+        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @YES}];
     }
     return self;
 }
@@ -61,6 +60,8 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
         
         [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             
+            NSLog(@"socket connected");
+            
             SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
             model.SID = userInfoBean.SID;
             model.UserName = userInfoBean.UserName;
@@ -75,7 +76,11 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
             
             if (socket != nil) {
                 [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
-                    NSLog(@"%@",args);
+                    NSLog(@"login->%@",args);
+                    if (args != nil && args.count > 0 && [[args firstObject] isEqualToString:@"NO ACK"]) {
+                        [socket reconnect];
+                    }
+                    
                 }];
             }
             
@@ -155,6 +160,8 @@ static NSString* socketUrl = @"http://192.168.19.100:3000";
         
 
         [socket connect];
+        
+        
         return YES;
     }
     return NO;
