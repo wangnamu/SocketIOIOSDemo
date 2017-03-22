@@ -28,7 +28,6 @@
 		BB7714A71E2CB1290015CFA3 /* SocketIOUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7714A61E2CB1290015CFA3 /* SocketIOUserInfo.m */; };
 		BB7984F81E260B1D00552F88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984F71E260B1D00552F88 /* main.m */; };
 		BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984FA1E260B1D00552F88 /* AppDelegate.m */; };
-		BB7984FE1E260B1D00552F88 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984FD1E260B1D00552F88 /* ViewController.m */; };
 		BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7985021E260B1D00552F88 /* Assets.xcassets */; };
 		BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */; };
 		BB7985111E260B1D00552F88 /* SocketIOIOSDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7985101E260B1D00552F88 /* SocketIOIOSDemoTests.m */; };
@@ -130,8 +129,6 @@
 		BB7984F71E260B1D00552F88 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB7984F91E260B1D00552F88 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB7984FA1E260B1D00552F88 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BB7984FC1E260B1D00552F88 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BB7984FD1E260B1D00552F88 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BB7985021E260B1D00552F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB7985051E260B1D00552F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB7985071E260B1D00552F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -432,8 +429,6 @@
 				BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */,
 				BB7984F91E260B1D00552F88 /* AppDelegate.h */,
 				BB7984FA1E260B1D00552F88 /* AppDelegate.m */,
-				BB7984FC1E260B1D00552F88 /* ViewController.h */,
-				BB7984FD1E260B1D00552F88 /* ViewController.m */,
 				BB7985021E260B1D00552F88 /* Assets.xcassets */,
 				BB7985041E260B1D00552F88 /* LaunchScreen.storyboard */,
 				BB7985071E260B1D00552F88 /* Info.plist */,
@@ -691,6 +686,9 @@
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -821,7 +819,6 @@
 				BB517F881E557B6C0023C5B6 /* ChatMessageBean.m in Sources */,
 				BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */,
 				BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */,
-				BB7984FE1E260B1D00552F88 /* ViewController.m in Sources */,
 				BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */,
 				BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */,
 				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,

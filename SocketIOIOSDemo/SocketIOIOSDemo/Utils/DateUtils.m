@@ -40,9 +40,9 @@
     return [self longFromDate:[self dateFromString:dateString]];
 }
 
-+(NSString *)dateToShort:(long)msSince1970 {
++(NSString*)dateToShort:(long)msSince1970 {
     
-    long different = [[NSDate date] timeIntervalSince1970] - msSince1970 / 1000;
+    long different = [[NSDate date] timeIntervalSince1970]*1000 - msSince1970;
     
     long secondsInMilli = 1000;
     long minutesInMilli = secondsInMilli * 60;
@@ -72,30 +72,27 @@
 
 +(BOOL)inTimeCurrent:(long)current Last:(long)last Elapsed:(NSInteger)elapsed {
     
-    long different = last/1000 - current/1000;
-    
+    long different = current - last;
+
     long secondsInMilli = 1000;
     long minutesInMilli = secondsInMilli * 60;
     long hoursInMilli = minutesInMilli * 60;
     long daysInMilli = hoursInMilli * 24;
-    
-    
+
     long elapsedDays = different / daysInMilli;
     different = different % daysInMilli;
-    
     if (elapsedDays > 0) {
         return true;
     }
     
     long elapsedHours = different / hoursInMilli;
     different = different % hoursInMilli;
-    
     if (elapsedHours > 0) {
         return true;
     }
     
     long elapsedMinutes = different / minutesInMilli;
-   
+
     if (elapsedMinutes >= elapsed) {
         return true;
     }
@@ -103,7 +100,7 @@
     return false;
 }
 
-+ (long)timeNow {
++(long)timeNow {
    return [[NSDate date] timeIntervalSince1970] * 1000;
 }
 

@@ -30,7 +30,6 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
         NSURL* url = [[NSURL alloc] initWithString:socketUrl];
         socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @YES}];
     }
@@ -80,7 +79,6 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
                     if (args != nil && args.count > 0 && [[args firstObject] isEqualToString:@"NO ACK"]) {
                         [socket reconnect];
                     }
-                    
                 }];
             }
             

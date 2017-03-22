@@ -209,7 +209,7 @@ static NSInteger const elapsedTime = 15;
     
     cell.fd_enforceFrameLayout = YES;
     
-    long lastTime = indexPath.row - 1 > 0 ? ((ChatMessageModel*)[chatMessagePresenter.dataSource objectAtIndex:indexPath.row - 1]).Time : 0;
+    long lastTime = indexPath.row - 1 >= 0 ? ((ChatMessageModel*)[chatMessagePresenter.dataSource objectAtIndex:indexPath.row - 1]).Time : 0;
     ChatMessageModel* model = [chatMessagePresenter.dataSource objectAtIndex:indexPath.row];
     
     if ([model isHost]) {
@@ -278,12 +278,23 @@ static NSInteger const elapsedTime = 15;
     [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(ws.view.mas_bottom).with.offset(-keyBoardHeight-4.0f);
     }];
+     
+    CGFloat differ = SCREEN_HEIGHT - table.contentSize.height - 4.0f - inputToolbar.frame.size.height;
     
+    if (keyBoardHeight > differ) {
+        CGFloat scrollHeight = keyBoardHeight + 4.0f - differ > 0 ? keyBoardHeight + 4.0f - differ : keyBoardHeight + 4.0f;
+        [table mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(ws.view.mas_top).with.offset(-scrollHeight);
+            make.bottom.equalTo(ws.inputToolbar.mas_top);
+        }];
+    }
+    else {
+        [table mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(ws.view.mas_top);
+            make.bottom.equalTo(ws.inputToolbar.mas_top);
+        }];
+    }
     
-    [table mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.view.mas_top).with.offset(-keyBoardHeight-4.0f);
-        make.bottom.equalTo(ws.inputToolbar.mas_top);
-    }];
     
     // 更新约束
     [UIView animateWithDuration:animationTime animations:^{

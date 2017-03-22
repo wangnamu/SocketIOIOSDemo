@@ -53,6 +53,7 @@
     self.contentTextView = [[UITextView alloc] init];
     self.contentTextView.font = [UIFont systemFontOfSize:14.0f];
     self.contentTextView.delegate = self;
+    self.contentTextView.returnKeyType = UIReturnKeySend;
     self.contentTextView.textContainerInset = UIEdgeInsetsMake(8, 0, 8, 0);
     
     self.sendButton = [[UIButton alloc] init];
@@ -109,6 +110,15 @@
         [self.contentTextView setScrollEnabled:YES];
     }
     
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]){
+        [self doSend:nil];
+        return NO;
+    }
+    return YES;
 }
 
 
