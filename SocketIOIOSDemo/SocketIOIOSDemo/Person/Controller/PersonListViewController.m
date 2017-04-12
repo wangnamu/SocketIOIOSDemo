@@ -48,6 +48,8 @@
 
 - (void)initControl {
     
+    self.navigationItem.title = @"联系人";
+    
     table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     table.dataSource = self;
     table.delegate = self;

@@ -10,7 +10,7 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-static NSString* socketUrl = @"http://192.168.19.223:3000";
+static NSString* socketUrl = @"http://192.168.16.61:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -31,7 +31,7 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
     self = [super init];
     if (self) {
         NSURL* url = [[NSURL alloc] initWithString:socketUrl];
-        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @YES}];
+        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @NO, @"forceWebsockets": @YES}];
     }
     return self;
 }

@@ -19,13 +19,13 @@ PODS:
   - MJExtension (3.0.13)
   - MLeaksFinder (0.2.1):
     - FBRetainCycleDetector
-  - Realm (2.4.2):
-    - Realm/Headers (= 2.4.2)
-  - Realm/Headers (2.4.2)
+  - Realm (2.5.1):
+    - Realm/Headers (= 2.5.1)
+  - Realm/Headers (2.5.1)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - Socket.IO-Client-Swift (8.2.0)
+  - Socket.IO-Client-Swift (8.3.3)
   - SVProgressHUD (2.1.2)
   - UITableView+FDTemplateLayoutCell (1.4)
 
@@ -36,7 +36,7 @@ DEPENDENCIES:
   - MLeaksFinder
   - Realm
   - SDWebImage
-  - Socket.IO-Client-Swift (~> 8.2.0)
+  - Socket.IO-Client-Swift (~> 8.3.3)
   - SVProgressHUD
   - UITableView+FDTemplateLayoutCell
 
@@ -46,12 +46,12 @@ SPEC CHECKSUMS:
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MLeaksFinder: 0850e2f2abc7227adc4d4e2d1992b431264eb4d5
-  Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
+  Realm: 32f86104d37c8521f864d4274050b38ba6190733
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  Socket.IO-Client-Swift: 900cf511777045c80d1ce1f11f71261e87765dd1
+  Socket.IO-Client-Swift: a2faffdbde89c63aebc5d631041530c1068b02b8
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 
-PODFILE CHECKSUM: 626a0ac9d93ba786b81c3aacdfc472bee852e25e
+PODFILE CHECKSUM: 322c55fa826075cf67be0bd4dec4a0d13fe0fe29
 
 COCOAPODS: 1.1.1

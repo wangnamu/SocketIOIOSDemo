@@ -36,6 +36,8 @@ static CGFloat const contentFontSize = 16.0f;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.backgroundColor = COLOR_FROM_RGB(0xebebeb);
+        
         topTime = [[UILabel alloc] init];
         topTime.textAlignment = NSTextAlignmentCenter;
         topTime.font = [UIFont systemFontOfSize:topTimeFontSize];
@@ -57,11 +59,16 @@ static CGFloat const contentFontSize = 16.0f;
         content.font = [UIFont systemFontOfSize:contentFontSize];
         content.numberOfLines = 0;
         content.textColor = [UIColor whiteColor];
+        content.layer.cornerRadius = cornerRadius;
+        content.layer.masksToBounds = YES;
         [self.contentView addSubview:content];
+   
         
         contentImage = [[UIImageView alloc] init];
+        contentImage.layer.cornerRadius = cornerRadius;
+        contentImage.layer.masksToBounds = YES;
         [self.contentView addSubview:contentImage];
-        
+
     }
     return self;
 }
@@ -123,8 +130,6 @@ static CGFloat const contentFontSize = 16.0f;
         content.frame = contentFrame;
         
         content.backgroundColor = [UIColor blueColor];
-        content.layer.cornerRadius = cornerRadius;
-        content.layer.masksToBounds = YES;
         
     }
     else if ([model.MessageType isEqualToString:MessageTypeImage]) {
@@ -147,9 +152,7 @@ static CGFloat const contentFontSize = 16.0f;
         contentImage.frame = contentFrame;
         
         [contentImage setImage:thumb];
-        
-        contentImage.layer.cornerRadius = cornerRadius;
-        contentImage.layer.masksToBounds = YES;
+
     }
     else {
         

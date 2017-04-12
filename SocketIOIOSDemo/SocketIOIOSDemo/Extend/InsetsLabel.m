@@ -11,7 +11,7 @@
 @implementation InsetsLabel
 @synthesize insets=_insets;
 
--(id) initWithFrame:(CGRect)frame andInsets:(UIEdgeInsets)insets {
+-(id)initWithFrame:(CGRect)frame andInsets:(UIEdgeInsets)insets {
     self = [super initWithFrame:frame];
     if(self){
         self.insets = insets;
@@ -19,7 +19,7 @@
     return self;
 }
 
--(id) initWithInsets:(UIEdgeInsets)insets {
+-(id)initWithInsets:(UIEdgeInsets)insets {
     self = [super init];
     if(self){
         self.insets = insets;

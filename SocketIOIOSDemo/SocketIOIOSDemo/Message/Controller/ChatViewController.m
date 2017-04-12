@@ -6,6 +6,7 @@
 //  Copyright © 2017年 ufo. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "ChatViewController.h"
 #import "ChatMessageViewController.h"
 #import "ChatTableViewCell.h"
@@ -13,6 +14,7 @@
 #import "ChatPresenter.h"
 #import "SocketIOManager.h"
 #import "MyChat.h"
+
 
 
 @interface ChatViewController ()<UITableViewDataSource,UITableViewDelegate,ChatViewProtocol>
@@ -59,6 +61,8 @@
 
 - (void)initControl {
     
+    self.navigationItem.title = @"消息";
+    
     table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     table.dataSource = self;
@@ -102,9 +106,25 @@
 }
 
 - (void)showNavigationLoading {
-    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    aiView.hidesWhenStopped = NO; //I added this just so I could see it
-    self.navigationItem.titleView = aiView;
+    
+    int padding = 8.0f;
+    
+    UIView *titleView = [[UIView alloc] init];
+    
+    UIActivityIndicatorView *actView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    actView.hidesWhenStopped = YES;
+    [actView startAnimating];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(actView.frame.size.width + 8, 0, 80, actView.frame.size.height)];
+    [label setFont:[UIFont boldSystemFontOfSize:17.0f]];
+    [label setText:@"收取中..."];
+    
+    titleView.frame = CGRectMake(0, 0, actView.frame.size.width + padding + label.frame.size.width, 20);
+    
+    [titleView addSubview:actView];
+    [titleView addSubview:label];
+    
+    self.navigationItem.titleView = titleView;
 }
 
 - (void)hideNavigationLoading {

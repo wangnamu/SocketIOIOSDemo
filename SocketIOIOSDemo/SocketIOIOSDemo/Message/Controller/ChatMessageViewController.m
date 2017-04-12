@@ -13,11 +13,11 @@
 #import "ChatMessageViewProtocol.h"
 #import "ChatMessagePresenter.h"
 #import "MyChat.h"
-#import "InputToolbar.h"
+#import "InputView.h"
 
 
 static NSInteger const elapsedTime = 15;
-@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol,InputToolbarDelegate> {
+@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol,InputViewDelegate> {
     BOOL keyboardIsVisible;
 }
 
@@ -25,13 +25,13 @@ static NSInteger const elapsedTime = 15;
 
 @property (nonatomic,strong) NSString *currentChatID;
 @property (nonatomic,strong) UITableView *table;
-@property (nonatomic,strong) InputToolbar *inputToolbar;
+@property (nonatomic,strong) InputView *inputView;
 
 @end
 
 @implementation ChatMessageViewController
 @synthesize currentChatID;
-@synthesize table,inputToolbar;
+@synthesize table,inputView;
 @synthesize chatMessagePresenter;
 
 
@@ -67,6 +67,10 @@ static NSInteger const elapsedTime = 15;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -95,6 +99,7 @@ static NSInteger const elapsedTime = 15;
     
     table.dataSource = self;
     table.delegate = self;
+    table.backgroundColor = COLOR_FROM_RGB(0xebebeb);
 
     [table registerClass:[ChatHostTableViewCell class] forCellReuseIdentifier:ChatHostTableViewCellIdentifier];
     [table registerClass:[ChatGuestTableViewCell class] forCellReuseIdentifier:ChatGuestTableViewCellIdentifier];
@@ -102,25 +107,25 @@ static NSInteger const elapsedTime = 15;
     [self.view addSubview:table];
     
     
-    inputToolbar = [[InputToolbar alloc] init];
-    inputToolbar.backgroundColor = [UIColor whiteColor];
-    inputToolbar.delegate = self;
-    [self.view addSubview:inputToolbar];
+    inputView = [[InputView alloc] init];
+    inputView.backgroundColor = [UIColor whiteColor];
+    inputView.delegate = self;
+    [self.view addSubview:inputView];
     
     WS(ws);
     
-    [inputToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(50.0f));
-        make.bottom.equalTo(ws.view.mas_bottom).with.offset(-4.0f);
-        make.left.equalTo(ws.view.mas_left).with.offset(16.0f);
-        make.right.equalTo(ws.view.mas_right).with.offset(-16.0f);
+    [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(ToolbarHeight));
+        make.bottom.equalTo(ws.view.mas_bottom);
+        make.left.equalTo(ws.view.mas_left);
+        make.right.equalTo(ws.view.mas_right);
     }];
 
     
     [table mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.view.mas_top);
         make.left.equalTo(ws.view.mas_left);
-        make.bottom.equalTo(ws.inputToolbar.mas_top);
+        make.bottom.equalTo(ws.inputView.mas_top);
         make.right.equalTo(ws.view.mas_right);
     }];
 
@@ -138,7 +143,9 @@ static NSInteger const elapsedTime = 15;
 
 - (void)onNotifyReceive:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
-    [chatMessagePresenter insertChatMessage:model];
+    if ([model.ChatID isEqualToString:currentChatID]) {
+        [chatMessagePresenter insertChatMessage:model];
+    }
 }
 
 
@@ -170,7 +177,6 @@ static NSInteger const elapsedTime = 15;
     [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [table endUpdates];
     [self scrollToBottom:YES];
-    
 }
 
 - (void)updateChatMessageForCell:(NSInteger)row {
@@ -251,16 +257,10 @@ static NSInteger const elapsedTime = 15;
     CGFloat keyBoardHeight = keyBoardBounds.size.height;
     CGFloat animationTime  = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-    
-    
 //    WS(ws);
 //    void (^animation)(void) = ^void(void) {
 //        
-//        if (ws.table.frame.size.height < ws.table.contentSize.height + keyBoardHeight) {
-//            ws.table.transform = CGAffineTransformMakeTranslation(0, - keyBoardHeight);
-//        }
-//        
-//        
+//        ws.table.transform = CGAffineTransformMakeTranslation(0, - keyBoardHeight);
 //        
 //        [ws scrollToBottom:YES];
 //        ws.inputToolbar.transform = CGAffineTransformMakeTranslation(0, - keyBoardHeight);
@@ -275,31 +275,46 @@ static NSInteger const elapsedTime = 15;
     
     WS(ws);
     
-    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(ws.view.mas_bottom).with.offset(-keyBoardHeight-4.0f);
+    [inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(ws.inputView.toolbarHeight));
+        make.bottom.equalTo(ws.view.mas_bottom).with.offset(-keyBoardHeight);
     }];
-     
-    CGFloat differ = SCREEN_HEIGHT - table.contentSize.height - 4.0f - inputToolbar.frame.size.height;
+    
+    
+    CGFloat differ = SCREEN_HEIGHT - table.contentSize.height - inputView.frame.size.height;
     
     if (keyBoardHeight > differ) {
-        CGFloat scrollHeight = keyBoardHeight + 4.0f - differ > 0 ? keyBoardHeight + 4.0f - differ : keyBoardHeight + 4.0f;
-        [table mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(ws.view.mas_top).with.offset(-scrollHeight);
-            make.bottom.equalTo(ws.inputToolbar.mas_top);
-        }];
+        
+        if (differ <= 0) {
+            [table mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(ws.view.mas_top).with.offset(-keyBoardHeight);
+                make.bottom.equalTo(ws.inputView.mas_top);
+            }];
+        }
+        else {
+            CGFloat scrollHeight = keyBoardHeight - differ;;
+            [table mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(ws.view.mas_top).with.offset(-scrollHeight);
+                make.bottom.equalTo(ws.inputView.mas_top);
+            }];
+        }
+        
     }
     else {
         [table mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(ws.view.mas_top);
-            make.bottom.equalTo(ws.inputToolbar.mas_top);
+            make.bottom.equalTo(ws.inputView.mas_top);
         }];
     }
     
     
     // 更新约束
     [UIView animateWithDuration:animationTime animations:^{
+        [ws.inputView layoutIfNeeded];
         [ws.view layoutIfNeeded];
         [ws scrollToBottom:YES];
+    } completion:^(BOOL finished) {
+        [ws.inputView resetStatus];
     }];
     
 }
@@ -323,44 +338,75 @@ static NSInteger const elapsedTime = 15;
 
     WS(ws);
     
-    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_offset(-4.0f);
+    [inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(ws.inputView.toolbarHeight + ws.inputView.bottomHeight));
+        make.bottom.equalTo(ws.view.mas_bottom);
     }];
-    [table mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.view.mas_top);
-        make.bottom.equalTo(ws.inputToolbar.mas_top);
-    }];
+    
     
     // 更新约束
     [UIView animateWithDuration:animationTime animations:^{
+        [ws.inputView layoutIfNeeded];
         [ws.view layoutIfNeeded];
     }];
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"frame.size->%f",scrollView.frame.size.height);
+//    NSLog(@"scrollView.contentOffset->%f",scrollView.contentOffset.y);
+//    NSLog(@"scrollView.contentSize->%f",scrollView.contentSize.height);
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
+    
+    if (inputView.status != InputViewStatusNone) {
+        [inputView resetStatus];
+        
+        WS(ws);
+        
+        [inputView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(ws.inputView.toolbarHeight + ws.inputView.bottomHeight));
+            make.bottom.equalTo(ws.view.mas_bottom);
+        }];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            [ws.inputView layoutIfNeeded];
+            [ws.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [ws scrollToBottom:NO];
+        }];
+    }
 }
 
 
-- (void)contentTextChanged:(CGFloat)height {
+#pragma mark inputView
 
-    [inputToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+- (void)inputViewHeightChanged:(CGFloat)height {
+    
+    [inputView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(height));
     }];
     
+   
     WS(ws);
     [UIView animateWithDuration:0.25 animations:^{
+        [ws.inputView layoutIfNeeded];
         [ws.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         [ws scrollToBottom:NO];
     }];
-    
+
 }
 
 
-- (void)sendButtonPressed:(NSString *)inputText {
+- (void)doSend:(NSString *)inputText {
     [chatMessagePresenter sendText:inputText ChatID:currentChatID];
+}
+
+- (void)doCustomButtonPressed:(NSInteger)tag {
+    NSLog(@"%ld",(long)tag);
 }
 
 
