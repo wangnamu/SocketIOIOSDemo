@@ -8,7 +8,7 @@
 
 #import "ToolbarView.h"
 
-#define MAX_HEIGHT 100.0f
+#define MAX_HEIGHT 90.0f
 
 @implementation ToolbarView
 @synthesize delegate;
@@ -30,11 +30,12 @@
     layerTop.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
     [self.layer addSublayer:layerTop];
     
-    CALayer *layerBottom = [CALayer layer];
-    layerBottom.frame = CGRectMake(0, rect.size.height - 1.0f, rect.size.width,w);
-    layerBottom.backgroundColor = COLOR_FROM_RGB(0xebebed).CGColor;
-    [self.layer addSublayer:layerBottom];
+//    CALayer *layerBottom = [CALayer layer];
+//    layerBottom.frame = CGRectMake(0, rect.size.height - 1.0f, rect.size.width,w);
+//    layerBottom.backgroundColor = COLOR_FROM_RGB(0xebebed).CGColor;
+//    [self.layer addSublayer:layerBottom];
 }
+
 
 - (void)setUp {
     
@@ -85,8 +86,8 @@
     [self.contentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(ws.addButton.mas_right).offset(8.0f);
         make.right.equalTo(ws.sendButton.mas_left).offset(-8.0f);
-        make.bottom.equalTo(ws.mas_bottom).with.offset(-5.5f);
-        make.height.equalTo(@(32.0f));
+        make.bottom.equalTo(ws.mas_bottom).with.offset(-6.0f);
+        make.height.equalTo(@(35.0f));
     }];
 
     

@@ -44,6 +44,7 @@ static NSInteger const elapsedTime = 15;
 }
 
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -112,6 +113,7 @@ static NSInteger const elapsedTime = 15;
     inputView.delegate = self;
     [self.view addSubview:inputView];
     
+   
     WS(ws);
     
     [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,7 +122,7 @@ static NSInteger const elapsedTime = 15;
         make.left.equalTo(ws.view.mas_left);
         make.right.equalTo(ws.view.mas_right);
     }];
-
+    
     
     [table mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.view.mas_top);
@@ -128,7 +130,6 @@ static NSInteger const elapsedTime = 15;
         make.bottom.equalTo(ws.inputView.mas_top);
         make.right.equalTo(ws.view.mas_right);
     }];
-
     
 }
 
@@ -273,7 +274,10 @@ static NSInteger const elapsedTime = 15;
 //    }
     
     
+    
     WS(ws);
+    
+    [ws.inputView resetStatus];
     
     [inputView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(ws.inputView.toolbarHeight));
@@ -313,8 +317,6 @@ static NSInteger const elapsedTime = 15;
         [ws.inputView layoutIfNeeded];
         [ws.view layoutIfNeeded];
         [ws scrollToBottom:YES];
-    } completion:^(BOOL finished) {
-        [ws.inputView resetStatus];
     }];
     
 }

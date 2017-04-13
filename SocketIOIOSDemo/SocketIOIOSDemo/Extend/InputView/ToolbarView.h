@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define ToolbarHeight 44.0f
+#define ToolbarHeight 49.0f
 
 @protocol ToolbarViewDelegate<NSObject>
 @required

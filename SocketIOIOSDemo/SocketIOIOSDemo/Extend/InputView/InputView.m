@@ -20,6 +20,8 @@
     return self;
 }
 
+
+
 - (void)setUp {
     
     self.bottomHeight = 0.0f;
@@ -45,7 +47,7 @@
     }];
     
     [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
-        //make.height.equalTo(@(0.0f));
+        make.height.equalTo(@(0.0f));
         make.top.equalTo(ws.toolbarView.mas_bottom);
         make.left.equalTo(ws.mas_left);
         make.right.equalTo(ws.mas_right);
@@ -59,16 +61,16 @@
     if (selected) {
         self.status = InputViewStatusCustom;
         self.bottomHeight = CustomViewHeight;
-//        [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(@(172.0f));
-//        }];
+        [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(CustomViewHeight));
+        }];
     }
     else {
         self.status = InputViewStatusNone;
         self.bottomHeight = 0.0f;
-//        [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(@(0.0f));
-//        }];
+        [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@(0.0f));
+        }];
     }
     if ([self.toolbarView.contentTextView isFirstResponder]) {
         [self.toolbarView.contentTextView resignFirstResponder];
@@ -107,9 +109,9 @@
     [self.toolbarView.addButton setSelected:NO];
     self.status = InputViewStatusNone;
     self.bottomHeight = 0.0f;
-//    [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.height.equalTo(@(0.0f));
-//    }];
+    [self.customView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(0.0f));
+    }];
 }
 
 - (void)customButtonPressed:(NSInteger)tag {
