@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F63998902C75DBEC050BFE6 /* Pods_SocketIOIOSDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */; };
+		BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BB01A6F41E9F60320075B23F /* InputToolbar.m */; };
 		BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0613611E5ABDFD00E0455A /* InsetsLabel.m */; };
 		BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F879B1E67AB0E0089C110 /* MyChat.m */; };
 		BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F87A11E67F8140089C110 /* ChatMessageModel.m */; };
@@ -24,9 +25,7 @@
 		BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F8A1E558EB40023C5B6 /* ChatHostTableViewCell.m */; };
 		BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F8D1E558F760023C5B6 /* ChatGuestTableViewCell.m */; };
 		BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB517F921E55945F0023C5B6 /* ChatPresenter.m */; };
-		BB56FC131E88BFB40069EDBE /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56FC121E88BFB40069EDBE /* InputView.m */; };
 		BB56FC161E88BFD30069EDBE /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56FC151E88BFD30069EDBE /* CustomView.m */; };
-		BB56FC191E88D8750069EDBE /* ToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB56FC181E88D8750069EDBE /* ToolbarView.m */; };
 		BB7714A41E2C9B220015CFA3 /* SocketIOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7714A31E2C9B220015CFA3 /* SocketIOManager.m */; };
 		BB7714A71E2CB1290015CFA3 /* SocketIOUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7714A61E2CB1290015CFA3 /* SocketIOUserInfo.m */; };
 		BB7984F81E260B1D00552F88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7984F71E260B1D00552F88 /* main.m */; };
@@ -87,6 +86,8 @@
 /* Begin PBXFileReference section */
 		1C46A59A4E58AB8E1D35AD1C /* Pods-SocketIOIOSDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketIOIOSDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocketIOIOSDemo/Pods-SocketIOIOSDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocketIOIOSDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB01A6F31E9F60320075B23F /* InputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputToolbar.h; sourceTree = "<group>"; };
+		BB01A6F41E9F60320075B23F /* InputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputToolbar.m; sourceTree = "<group>"; };
 		BB0613601E5ABDFD00E0455A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
 		BB0613611E5ABDFD00E0455A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
 		BB1F879A1E67AB0E0089C110 /* MyChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChat.h; sourceTree = "<group>"; };
@@ -122,12 +123,8 @@
 		BB517F901E5594390023C5B6 /* ChatPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatPresenterProtocol.h; sourceTree = "<group>"; };
 		BB517F911E55945F0023C5B6 /* ChatPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatPresenter.h; sourceTree = "<group>"; };
 		BB517F921E55945F0023C5B6 /* ChatPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatPresenter.m; sourceTree = "<group>"; };
-		BB56FC111E88BFB40069EDBE /* InputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputView.h; sourceTree = "<group>"; };
-		BB56FC121E88BFB40069EDBE /* InputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputView.m; sourceTree = "<group>"; };
 		BB56FC141E88BFD30069EDBE /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		BB56FC151E88BFD30069EDBE /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
-		BB56FC171E88D8750069EDBE /* ToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolbarView.h; sourceTree = "<group>"; };
-		BB56FC181E88D8750069EDBE /* ToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarView.m; sourceTree = "<group>"; };
 		BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocketIOIOSDemo.entitlements; sourceTree = "<group>"; };
 		BB7714A21E2C9B220015CFA3 /* SocketIOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOManager.h; sourceTree = "<group>"; };
 		BB7714A31E2C9B220015CFA3 /* SocketIOManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOManager.m; sourceTree = "<group>"; };
@@ -384,12 +381,10 @@
 		BB56FC101E88BF9F0069EDBE /* InputView */ = {
 			isa = PBXGroup;
 			children = (
-				BB56FC111E88BFB40069EDBE /* InputView.h */,
-				BB56FC121E88BFB40069EDBE /* InputView.m */,
 				BB56FC141E88BFD30069EDBE /* CustomView.h */,
 				BB56FC151E88BFD30069EDBE /* CustomView.m */,
-				BB56FC171E88D8750069EDBE /* ToolbarView.h */,
-				BB56FC181E88D8750069EDBE /* ToolbarView.m */,
+				BB01A6F31E9F60320075B23F /* InputToolbar.h */,
+				BB01A6F41E9F60320075B23F /* InputToolbar.m */,
 			);
 			path = InputView;
 			sourceTree = "<group>";
@@ -836,14 +831,12 @@
 				BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */,
 				BB517F881E557B6C0023C5B6 /* ChatMessageBean.m in Sources */,
 				BB517F8E1E558F760023C5B6 /* ChatGuestTableViewCell.m in Sources */,
-				BB56FC191E88D8750069EDBE /* ToolbarView.m in Sources */,
 				BB56FC161E88BFD30069EDBE /* CustomView.m in Sources */,
 				BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */,
 				BB7984FB1E260B1D00552F88 /* AppDelegate.m in Sources */,
 				BB517F8B1E558EB40023C5B6 /* ChatHostTableViewCell.m in Sources */,
 				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,
 				BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */,
-				BB56FC131E88BFB40069EDBE /* InputView.m in Sources */,
 				BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */,
 				BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */,
 				BBF08D301E4D633600241CEF /* DateUtils.m in Sources */,
@@ -863,6 +856,7 @@
 				BBAFF8E51E4C4041007980D0 /* LoginPresenter.m in Sources */,
 				BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */,
 				BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */,
+				BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */,
 				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
 				BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */,
 			);

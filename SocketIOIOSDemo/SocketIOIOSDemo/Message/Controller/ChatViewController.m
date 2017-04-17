@@ -166,7 +166,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ChatModel *model = (ChatModel*)[chatPresenter.dataSource objectAtIndex:indexPath.row];
-    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] initWithChatID:model.SID];
+    ChatMessageViewController *chatMessageViewController = [[ChatMessageViewController alloc] initWithChatID:model.SID Name:model.Name];
+    
     chatMessageViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatMessageViewController animated:YES];
 }

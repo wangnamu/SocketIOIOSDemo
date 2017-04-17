@@ -78,7 +78,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (chatView) {
-                        [chatView chatPushTo:chatModel.SID];
+                        [chatView chatPushTo:chatModel.SID Name:chatModel.Name];
                     }
                 });
                 

@@ -12,6 +12,7 @@
 - (void) refreshData;
 
 @optional
-- (void)chatPushTo:(NSString*)chatID;
+- (void)chatPushTo:(NSString*)chatID
+              Name:(NSString*)name;
 
 @end
