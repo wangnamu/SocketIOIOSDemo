@@ -11,7 +11,6 @@
 #import "PersonListViewController.h"
 #import "SettingViewController.h"
 #import "SocketIOManager.h"
-#import "MyChat.h"
 
 @interface MainViewController ()
 
@@ -24,9 +23,6 @@
     // Do any additional setup after loading the view.
     
     [self initControllers];
-    
-    [[MyChat sharedClient] getRecent];
-    [[SocketIOManager sharedClient] connect];
 }
 
 - (void)didReceiveMemoryWarning {
