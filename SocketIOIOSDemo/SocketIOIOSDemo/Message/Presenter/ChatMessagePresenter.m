@@ -15,29 +15,89 @@
 
 @implementation ChatMessagePresenter
 @synthesize chatMessageView,dataSource;
+@synthesize pageSize,hasMore,isLoading;
 
 - (instancetype)initWithView:(id<ChatMessageViewProtocol>)view {
     self = [super init];
     if (self) {
         chatMessageView = view;
         dataSource = [[NSMutableArray alloc] init];
+        
+        pageSize = 10;
+        hasMore = NO;
+        isLoading = NO;
     }
     return self;
 }
 
-- (void)loadDataWithChatID:(NSString *)chatID {
-    if (dataSource.count > 0) {
-        [dataSource removeAllObjects];
-    }
+- (void)reloadDataWithChatID:(NSString *)chatID {
     
-    RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
-    for (ChatMessageBean *bean in result) {
-        [dataSource addObject:[ChatMessageModel fromBean:bean]];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(chatMessageView) {
-            [chatMessageView refreshData];
+    isLoading = YES;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
+        
+        @synchronized (dataSource) {
+            
+            if (dataSource.count > 0) {
+                [dataSource removeAllObjects];
+            }
+            
+            NSInteger start = result.count > pageSize ? result.count - pageSize : 0;
+        
+            for (NSInteger i = start; i < result.count; i++) {
+                ChatMessageBean *bean = result[i];
+                [dataSource addObject:[ChatMessageModel fromBean:bean]];
+            }
+            
+            hasMore = start > 0 ? YES : NO;
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(chatMessageView) {
+                [chatMessageView reloadDataComplete];
+                isLoading = NO;
+            }
+        });
+        
+    });
+}
+
+- (void)loadMoreDataWithChatID:(NSString *)chatID {
+    
+    isLoading = YES;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        sleep(1);
+        
+        RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
+        
+        @synchronized (dataSource) {
+            
+            NSInteger start = dataSource.count + 1;
+            
+            NSInteger length = result.count - start > pageSize ? result.count - start - pageSize : -1;
+        
+
+            for (NSInteger i = result.count - start; i > length; i--) {
+                ChatMessageBean *bean = result[i];
+                [dataSource insertObject:[ChatMessageModel fromBean:bean] atIndex:0];
+            }
+
+            
+            hasMore = length > 0 ? YES : NO;
+
+        }
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(chatMessageView) {
+                [chatMessageView loadMoreDataComplete];
+                isLoading = NO;
+            }
+        });
+        
     });
     
 }
@@ -45,7 +105,9 @@
 
 - (void)insertChatMessage:(ChatMessageModel *)model {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [dataSource addObject:model];
+        @synchronized (dataSource) {
+            [dataSource addObject:model];
+        }
         if (chatMessageView) {
             [chatMessageView insertChatMessageToCell:dataSource.count-1];
         }
@@ -56,7 +118,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (dataSource.count > 0 && [dataSource containsObject:model]) {
             NSInteger index = [dataSource indexOfObject:model];
-            [dataSource replaceObjectAtIndex:index withObject:model];
+            @synchronized (dataSource) {
+                [dataSource replaceObjectAtIndex:index withObject:model];
+            }
             if (chatMessageView) {
                 [chatMessageView updateChatMessageForCell:index];
             }

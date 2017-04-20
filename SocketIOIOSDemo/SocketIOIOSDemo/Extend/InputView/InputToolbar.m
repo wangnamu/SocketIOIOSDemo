@@ -44,8 +44,8 @@
     [self.contentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(ws.addButton.mas_right).offset(8.0f);
         make.right.equalTo(ws.sendButton.mas_left).offset(-8.0f);
-        make.bottom.equalTo(ws.mas_bottom).with.offset(-6.0f);
-        make.height.equalTo(@(35.0f));
+        make.bottom.equalTo(ws.mas_bottom).with.offset(-7.5f);
+        make.height.equalTo(@(33.0f));
     }];
     
     [super updateConstraints];
@@ -115,15 +115,14 @@
     
     CGFloat txtheight = ceilf([textView sizeThatFits:CGSizeMake(textView.bounds.size.width, MAXFLOAT)].height);
     
-    CGFloat height = txtheight + 2.0f + 2*7.5f;
-    
+    CGFloat height = txtheight + 1.0f + 2*7.5f;
+  
     if (height < MAX_HEIGHT) {
         [self.contentTextView setScrollEnabled:NO];
         
         [self.contentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@(txtheight));
         }];
-        
         
         if ([delegate respondsToSelector:@selector(contentTextChanged:)]) {
             [delegate contentTextChanged:height];

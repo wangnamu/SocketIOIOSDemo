@@ -9,7 +9,8 @@
 @protocol ChatMessageViewProtocol <NSObject>
 
 @required
-- (void) refreshData;
+- (void)reloadDataComplete;
+- (void)loadMoreDataComplete;
 
 - (void)insertChatMessageToCell:(NSInteger)row;
 - (void)updateChatMessageForCell:(NSInteger)row;

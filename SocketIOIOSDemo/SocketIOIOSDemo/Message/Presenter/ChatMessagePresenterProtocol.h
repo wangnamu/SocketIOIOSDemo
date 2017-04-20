@@ -14,7 +14,15 @@
 @required
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
-- (void)loadDataWithChatID:(NSString*)chatID;
+@property (nonatomic,assign) BOOL isLoading;
+@property (nonatomic,assign) BOOL hasMore;
+@property (nonatomic,assign) NSInteger pageSize;
+
+
+- (void)loadMoreDataWithChatID:(NSString*)chatID;
+
+- (void)reloadDataWithChatID:(NSString*)chatID;
+
 - (void)sendText:(NSString*)body
           ChatID:chatID;
 

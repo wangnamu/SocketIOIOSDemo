@@ -17,9 +17,7 @@
 
 
 static NSInteger const elapsedTime = 15;
-@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol,InputToolbarDelegate> {
-    BOOL keyboardIsVisible;
-}
+@interface ChatMessageViewController ()<UITableViewDataSource,UITableViewDelegate,ChatMessageViewProtocol,InputToolbarDelegate>
 
 @property (nonatomic,strong) id<ChatMessagePresenterProtocol> chatMessagePresenter;
 
@@ -60,10 +58,9 @@ static NSInteger const elapsedTime = 15;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotifyReceive:) name:Notification_Receive_Message object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:Notification_Get_Recent_Finish object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:Notification_Get_Recent_Finish object:nil];
     
-    [self loadData];
-    [self scrollToBottom:NO];
+    [self reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,7 +90,6 @@ static NSInteger const elapsedTime = 15;
 }
 
 
-
 - (void)initControl {
     
     self.navigationItem.title = currentName;
@@ -101,13 +97,13 @@ static NSInteger const elapsedTime = 15;
     
     table = [[UITableView alloc] init];
     table.separatorStyle = NO;
-    
     table.dataSource = self;
     table.delegate = self;
     table.backgroundColor = COLOR_FROM_RGB(0xebebeb);
 
     [table registerClass:[ChatHostTableViewCell class] forCellReuseIdentifier:ChatHostTableViewCellIdentifier];
     [table registerClass:[ChatGuestTableViewCell class] forCellReuseIdentifier:ChatGuestTableViewCellIdentifier];
+    [table registerClass:[UITableViewCell self] forCellReuseIdentifier:@"CellLoadMore"];
     
     [self.view addSubview:table];
     
@@ -137,7 +133,7 @@ static NSInteger const elapsedTime = 15;
 }
 
 
-#pragma mark controller action
+#pragma mark notification
 
 
 - (void)onNotifySend:(NSNotification*)notification {
@@ -153,30 +149,40 @@ static NSInteger const elapsedTime = 15;
 }
 
 
-- (void)scrollToBottom:(BOOL)animated {
-    NSInteger section = [table numberOfSections];
-    if (section < 1) return;
-    NSInteger row = [table numberOfRowsInSection:section - 1];
-    if (row < 1) return;
-    NSIndexPath *index = [NSIndexPath indexPathForRow:row - 1 inSection:section - 1];
-    [table scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+
+#pragma mark view protocol
+
+- (void)loadMoreData {
+    [chatMessagePresenter loadMoreDataWithChatID:currentChatID];
 }
 
+- (void)loadMoreDataComplete {
 
+    CGPoint initialOffset = table.contentOffset;
 
-#pragma mark protocol
-
-- (void)loadData {
-    [chatMessagePresenter loadDataWithChatID:currentChatID];
-}
-
-- (void)refreshData {
+    [UIView setAnimationsEnabled:NO];
+    CGFloat contentHeightBefore = table.contentSize.height;
     [table reloadData];
+    CGFloat contentHeightAfter = table.contentSize.height;
+    initialOffset.y += contentHeightAfter - contentHeightBefore;
+    [UIView setAnimationsEnabled:YES];
+    table.contentOffset = initialOffset;
+
+}
+
+
+- (void)reloadData {
+    [chatMessagePresenter reloadDataWithChatID:currentChatID];
+}
+
+- (void)reloadDataComplete {
+    [table reloadData];
+    [self scrollToBottom:NO];
 }
 
 
 - (void)insertChatMessageToCell:(NSInteger)row {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
     [table beginUpdates];
     [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [table endUpdates];
@@ -184,7 +190,7 @@ static NSInteger const elapsedTime = 15;
 }
 
 - (void)updateChatMessageForCell:(NSInteger)row {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
     [table beginUpdates];
     [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [table endUpdates];
@@ -196,23 +202,42 @@ static NSInteger const elapsedTime = 15;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ChatMessageModel* model = [chatMessagePresenter.dataSource objectAtIndex:indexPath.row];
-    
-    if ([model isHost]) {
-        ChatHostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatHostTableViewCellIdentifier];
+    if (indexPath.section == 0) {
         
-        [self configureCell:cell atIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        UITableViewCell *loadCell = [tableView dequeueReusableCellWithIdentifier:@"CellLoadMore"];
+        loadCell.backgroundColor = COLOR_FROM_RGB(0xebebeb);
+        
+        if (chatMessagePresenter.hasMore && !chatMessagePresenter.isLoading) {
+            UIActivityIndicatorView *act = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            
+            [act setCenter:loadCell.center];
+            act.hidesWhenStopped = YES;
+            
+            [loadCell addSubview:act];
+            [act startAnimating];
+        }
+        
+        
+        return loadCell;
     }
     else {
-        ChatGuestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatGuestTableViewCellIdentifier];
+        ChatMessageModel* model = [chatMessagePresenter.dataSource objectAtIndex:indexPath.row];
         
-        [self configureCell:cell atIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        if ([model isHost]) {
+            ChatHostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatHostTableViewCellIdentifier];
+            
+            [self configureCell:cell atIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        else {
+            ChatGuestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatGuestTableViewCellIdentifier];
+            
+            [self configureCell:cell atIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
-    
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -220,6 +245,7 @@ static NSInteger const elapsedTime = 15;
     cell.fd_enforceFrameLayout = YES;
     
     long lastTime = indexPath.row - 1 >= 0 ? ((ChatMessageModel*)[chatMessagePresenter.dataSource objectAtIndex:indexPath.row - 1]).Time : 0;
+    
     ChatMessageModel* model = [chatMessagePresenter.dataSource objectAtIndex:indexPath.row];
     
     if ([model isHost]) {
@@ -233,27 +259,47 @@ static NSInteger const elapsedTime = 15;
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView fd_heightForCellWithIdentifier:ChatHostTableViewCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
-        [self configureCell:cell atIndexPath:indexPath];
-    }];
+    if (indexPath.section == 0) {
+        if (chatMessagePresenter.hasMore) {
+            return 44.0f;
+        }
+        else {
+            return 0;
+        }
+    }
+    else {
+        return [tableView fd_heightForCellWithIdentifier:ChatHostTableViewCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+            [self configureCell:cell atIndexPath:indexPath];
+        }];
+    }
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return chatMessagePresenter.dataSource.count;
+    if (section == 0) {
+        return 1;
+    }
+    else {
+        return chatMessagePresenter.dataSource.count;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0 && chatMessagePresenter.hasMore && !chatMessagePresenter.isLoading) {
+        [self loadMoreData];
+    }
+    
 }
 
 
 
-#pragma mark Notifications
+#pragma mark keyborad
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary:notification.userInfo];
@@ -355,10 +401,27 @@ static NSInteger const elapsedTime = 15;
     
 }
 
+#pragma mark scroll
+
+- (void)scrollToBottom:(BOOL)animated {
+    NSInteger section = [table numberOfSections];
+    if (section < 1) return;
+    NSInteger row = [table numberOfRowsInSection:section - 1];
+    if (row < 1) return;
+    NSIndexPath *index = [NSIndexPath indexPathForRow:row - 1 inSection:section - 1];
+    [table scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"frame.size->%f",scrollView.frame.size.height);
-//    NSLog(@"scrollView.contentOffset->%f",scrollView.contentOffset.y);
-//    NSLog(@"scrollView.contentSize->%f",scrollView.contentSize.height);
+       
+    //contentsize > framesize 有滚动条
+    //contentoffset -64 滚动到最上面
+    //contentoffset -20 左右
+    
+//    if (scrollView.frame.size.height < scrollView.contentSize.height && scrollView.contentOffset.y <= -20 && chatMessagePresenter.hasMore && !chatMessagePresenter.isLoading) {
+//        [self loadMoreData];
+//    }
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
