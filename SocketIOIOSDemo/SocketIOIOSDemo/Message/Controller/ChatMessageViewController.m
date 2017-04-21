@@ -412,17 +412,17 @@ static NSInteger const elapsedTime = 15;
     [table scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-       
-    //contentsize > framesize 有滚动条
-    //contentoffset -64 滚动到最上面
-    //contentoffset -20 左右
-    
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//       
+//    //contentsize > framesize 有滚动条
+//    //contentoffset -64 滚动到最上面
+//    //contentoffset -20 左右
+//    
 //    if (scrollView.frame.size.height < scrollView.contentSize.height && scrollView.contentOffset.y <= -20 && chatMessagePresenter.hasMore && !chatMessagePresenter.isLoading) {
 //        [self loadMoreData];
 //    }
-    
-}
+//    
+//}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
