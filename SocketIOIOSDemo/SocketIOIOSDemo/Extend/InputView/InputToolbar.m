@@ -10,7 +10,7 @@
 
 @implementation InputToolbar
 
-#define MAX_HEIGHT 90.0f
+#define MAX_HEIGHT 67.0f
 
 @synthesize delegate;
 
@@ -114,23 +114,26 @@
 - (void)textViewDidChange:(UITextView *)textView {
     
     CGFloat txtheight = ceilf([textView sizeThatFits:CGSizeMake(textView.bounds.size.width, MAXFLOAT)].height);
-    
-    CGFloat height = txtheight + 1.0f + 2*7.5f;
-  
-    if (height < MAX_HEIGHT) {
+
+
+    if (txtheight < MAX_HEIGHT) {
         [self.contentTextView setScrollEnabled:NO];
-        
-        [self.contentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@(txtheight));
-        }];
-        
-        if ([delegate respondsToSelector:@selector(contentTextChanged:)]) {
-            [delegate contentTextChanged:height];
-        }
     }
     else {
         [self.contentTextView setScrollEnabled:YES];
+        txtheight = MAX_HEIGHT;
     }
+    
+    CGFloat height = txtheight + 1.0f + 2*7.5f;
+    
+    [self.contentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(txtheight));
+    }];
+    
+    if ([delegate respondsToSelector:@selector(contentTextChanged:)]) {
+        [delegate contentTextChanged:height];
+    }
+
     
 }
 
