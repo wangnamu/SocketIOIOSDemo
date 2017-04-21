@@ -56,7 +56,7 @@
     CGFloat w = 1.f;
     
     _layerTop.frame = CGRectMake(0, 0, self.bounds.size.width, w);
-    _layerBottom.frame = CGRectMake(0, self.bounds.size.height - 1.0f, self.bounds.size.width,w);
+//    _layerBottom.frame = CGRectMake(0, self.bounds.size.height - 1.0f, self.bounds.size.width,w);
 }
 
 
@@ -75,9 +75,9 @@
     _layerTop.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
     [self.layer addSublayer:_layerTop];
     
-    _layerBottom = [CALayer layer];
-    _layerBottom.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
-    [self.layer addSublayer:_layerBottom];
+//    _layerBottom = [CALayer layer];
+//    _layerBottom.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
+//    [self.layer addSublayer:_layerBottom];
 
     
     

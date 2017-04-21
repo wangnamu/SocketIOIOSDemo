@@ -43,12 +43,12 @@
 
 - (void)updateConstraints {
     
-//    CGFloat w = 1.f;
-//    
-//    CALayer *layerTop = [CALayer layer];
-//    layerTop.frame = CGRectMake(0, 0, SCREEN_WIDTH, w);
-//    layerTop.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
-//    [self.layer addSublayer:layerTop];
+    CGFloat w = 1.f;
+    
+    CALayer *layerTop = [CALayer layer];
+    layerTop.frame = CGRectMake(0, 0, SCREEN_WIDTH, w);
+    layerTop.backgroundColor = COLOR_FROM_RGB(0xdfdfdf).CGColor;
+    [self.layer addSublayer:layerTop];
 
     [self layoutButtons:self.buttonArray inView:self width:72.0f row:2 column:4];
     
