@@ -111,6 +111,7 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     
+    /*
     //收到推送的请求
     UNNotificationRequest *request = response.notification.request;
     
@@ -144,7 +145,7 @@
         //此处省略一万行需求代码。。。。。。
         NSLog(@"iOS10 收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
     }
-    
+    */
     
     NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
     
@@ -170,30 +171,30 @@
     
 }
 
-//- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-//    NSLog(@"%@",@"willPresentNotification");
-//}
-
 
 - (void)registerNotification {
     
-    UNTextInputNotificationAction *action = [UNTextInputNotificationAction actionWithIdentifier:@"reply" title:@"回复" options:UNNotificationActionOptionDestructive textInputButtonTitle:@"发送" textInputPlaceholder:@"请输入文字..."];
+    if (SYSTEM_VERSION >= 8.0) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+    }
     
-    UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"custom" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-
-    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithArray:@[category]]];
- 
-    //iOS 10 later
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//        if (!error && granted) {
-//            //用户点击允许
-//            NSLog(@"注册成功");
-//        } else {
-//            //用户点击不允许
-//            NSLog(@"注册失败");
-//        }
-    }];
-    
+    if(SYSTEM_VERSION >= 10.0) {
+        UNTextInputNotificationAction *action = [UNTextInputNotificationAction actionWithIdentifier:@"reply" title:@"回复" options:UNNotificationActionOptionDestructive textInputButtonTitle:@"发送" textInputPlaceholder:@"请输入文字..."];
+        
+        UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"custom" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+        
+        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithArray:@[category]]];
+        
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            //        if (!error && granted) {
+            //            //用户点击允许
+            //            NSLog(@"注册成功");
+            //        } else {
+            //            //用户点击不允许
+            //            NSLog(@"注册失败");
+            //        }
+        }];
+    }
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
