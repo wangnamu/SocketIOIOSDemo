@@ -167,6 +167,14 @@
     
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]){
+        [self doSend:nil];
+        return NO;
+    }
+    return YES;
+}
+
 - (void)customButtonPressed:(NSInteger)tag {
     if ([delegate respondsToSelector:@selector(customButtonPressed:)]) {
         [delegate customButtonPressed:tag];
