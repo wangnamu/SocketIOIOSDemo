@@ -21,11 +21,6 @@
 }
 
 - (UserInfoBean*)currentUser {
-//    RLMResults<UserInfoBean*> *beans = [UserInfoBean objectsWhere:@"InUse == YES"];
-//    if (beans.count > 0) {
-//        return [beans firstObject];
-//    }
-//    return nil;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [userDefaults objectForKey:@"currentUser"];
@@ -46,11 +41,6 @@
     [userDefaults setObject:data forKey:@"currentUser"];
     [userDefaults synchronize];
     
-//    RLMRealm *realm = [RLMRealm defaultRealm];
-//    [realm transactionWithBlock:^{
-//        [realm addOrUpdateObject:bean];
-//    }];
-    
 }
 
 - (void)logoff {
@@ -58,34 +48,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:@"currentUser"];
     
-//    RLMResults<UserInfoBean*> *beans = [UserInfoBean objectsWhere:@"InUse == YES"];
-//    
-//    if (beans.count > 0) {
-//        UserInfoBean* bean = [beans firstObject];
-//        
-//        RLMRealm *realm = [RLMRealm defaultRealm];
-//        [realm transactionWithBlock:^{
-//            bean.InUse = NO;
-//        }];
-//
-//    }
-    
 }
-
-//- (void)del:(UserInfoBean *)bean {
-//    RLMRealm *realm = [RLMRealm defaultRealm];
-//    [realm transactionWithBlock:^{
-//        [realm deleteObject:bean];
-//    }];
-//}
-//
-//- (void)clear {
-//    RLMRealm *realm = [RLMRealm defaultRealm];
-//    [realm transactionWithBlock:^{
-//        [realm deleteAllObjects];
-//    }];
-//}
-
 
 
 

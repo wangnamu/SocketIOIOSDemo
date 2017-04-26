@@ -12,7 +12,7 @@
 #import "MainViewController.h"
 #import "UserInfoRepository.h"
 #import "MyChat.h"
-
+#import "RealmConfig.h"
 
 @interface AppDelegate ()
 
@@ -69,7 +69,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    if ([[UserInfoRepository sharedClient] currentUser]!=nil) {
+    UserInfoBean *bean = [[UserInfoRepository sharedClient] currentUser];
+    if (bean != nil) {
+        [RealmConfig setUp:bean.UserName];
         [[MyChat sharedClient] getRecent];
         [[SocketIOManager sharedClient] connect];
     }
