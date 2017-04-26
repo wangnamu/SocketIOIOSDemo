@@ -10,6 +10,7 @@
 		6F63998902C75DBEC050BFE6 /* Pods_SocketIOIOSDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5094D98181E59EB02EE6A966 /* Pods_SocketIOIOSDemo.framework */; };
 		BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BB01A6F41E9F60320075B23F /* InputToolbar.m */; };
 		BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0613611E5ABDFD00E0455A /* InsetsLabel.m */; };
+		BB09EC351EA9FB2E00871E4F /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB09EC341EA9FB2E00871E4F /* ContactViewController.m */; };
 		BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F879B1E67AB0E0089C110 /* MyChat.m */; };
 		BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F87A11E67F8140089C110 /* ChatMessageModel.m */; };
 		BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */ = {isa = PBXBuildFile; fileRef = BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */; };
@@ -43,6 +44,9 @@
 		BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8DD1E4C3E41007980D0 /* LoginViewController.m */; };
 		BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8E01E4C3FA7007980D0 /* UserInfoRepository.m */; };
 		BBAFF8E51E4C4041007980D0 /* LoginPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8E41E4C4041007980D0 /* LoginPresenter.m */; };
+		BBE46D9A1EADCA96002911D9 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE46D981EADCA96002911D9 /* ContactTableViewCell.m */; };
+		BBE46D9B1EADCA96002911D9 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE46D991EADCA96002911D9 /* ContactTableViewCell.xib */; };
+		BBE46D9F1EADD2BD002911D9 /* ContactPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE46D9E1EADD2BD002911D9 /* ContactPresenter.m */; };
 		BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D121E4D633600241CEF /* AFNetworkingClient.m */; };
 		BBF08D301E4D633600241CEF /* DateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D291E4D633600241CEF /* DateUtils.m */; };
 		BBF08D331E4D853300241CEF /* ResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF08D321E4D853200241CEF /* ResultModel.m */; };
@@ -90,6 +94,8 @@
 		BB01A6F41E9F60320075B23F /* InputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputToolbar.m; sourceTree = "<group>"; };
 		BB0613601E5ABDFD00E0455A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
 		BB0613611E5ABDFD00E0455A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
+		BB09EC331EA9FB2E00871E4F /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		BB09EC341EA9FB2E00871E4F /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 		BB1F879A1E67AB0E0089C110 /* MyChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChat.h; sourceTree = "<group>"; };
 		BB1F879B1E67AB0E0089C110 /* MyChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChat.m; sourceTree = "<group>"; };
 		BB1F87A01E67F8140089C110 /* ChatMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageModel.h; sourceTree = "<group>"; };
@@ -164,6 +170,13 @@
 		BBAFF8E31E4C4041007980D0 /* LoginPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPresenter.h; sourceTree = "<group>"; };
 		BBAFF8E41E4C4041007980D0 /* LoginPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPresenter.m; sourceTree = "<group>"; };
 		BBAFF8E71E4C5A53007980D0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		BBE46D971EADCA96002911D9 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		BBE46D981EADCA96002911D9 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		BBE46D991EADCA96002911D9 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
+		BBE46D9C1EADCFEE002911D9 /* ContactViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewProtocol.h; sourceTree = "<group>"; };
+		BBE46D9D1EADD2BD002911D9 /* ContactPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactPresenter.h; sourceTree = "<group>"; };
+		BBE46D9E1EADD2BD002911D9 /* ContactPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactPresenter.m; sourceTree = "<group>"; };
+		BBE46DA01EADD2D7002911D9 /* ContactPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactPresenterProtocol.h; sourceTree = "<group>"; };
 		BBF08D0D1E4D508600241CEF /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		BBF08D0E1E4D5A2900241CEF /* LoginPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginPresenterProtocol.h; sourceTree = "<group>"; };
 		BBF08D111E4D633600241CEF /* AFNetworkingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingClient.h; sourceTree = "<group>"; };
@@ -328,6 +341,11 @@
 				BB4CA09E1E63FC0E0026AC6C /* ChatTableViewCell.h */,
 				BB4CA09F1E63FC0E0026AC6C /* ChatTableViewCell.m */,
 				BB4CA0A01E63FC0E0026AC6C /* ChatTableViewCell.xib */,
+				BB09EC331EA9FB2E00871E4F /* ContactViewController.h */,
+				BB09EC341EA9FB2E00871E4F /* ContactViewController.m */,
+				BBE46D971EADCA96002911D9 /* ContactTableViewCell.h */,
+				BBE46D981EADCA96002911D9 /* ContactTableViewCell.m */,
+				BBE46D991EADCA96002911D9 /* ContactTableViewCell.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -356,6 +374,9 @@
 				BB4A86891E5FDC2C0038E9D8 /* ChatMessagePresenter.h */,
 				BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */,
 				BB4A868C1E5FDC430038E9D8 /* ChatMessagePresenterProtocol.h */,
+				BBE46D9D1EADD2BD002911D9 /* ContactPresenter.h */,
+				BBE46D9E1EADD2BD002911D9 /* ContactPresenter.m */,
+				BBE46DA01EADD2D7002911D9 /* ContactPresenterProtocol.h */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -374,6 +395,7 @@
 			children = (
 				BB517F8F1E5593E20023C5B6 /* ChatViewProtocol.h */,
 				BB4A86821E5FBEDE0038E9D8 /* ChatMessageViewProtocol.h */,
+				BBE46D9C1EADCFEE002911D9 /* ContactViewProtocol.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -749,6 +771,7 @@
 				BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */,
 				BB4CA0A21E63FC0E0026AC6C /* ChatTableViewCell.xib in Resources */,
 				BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */,
+				BBE46D9B1EADCA96002911D9 /* ContactTableViewCell.xib in Resources */,
 				BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,6 +846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA6EFC51E5419F20050756C /* PersonBean.m in Sources */,
+				BBE46D9F1EADD2BD002911D9 /* ContactPresenter.m in Sources */,
 				BB7714A41E2C9B220015CFA3 /* SocketIOManager.m in Sources */,
 				BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */,
 				BBF52A091E5E7EC500A16F8C /* ImageUtils.m in Sources */,
@@ -849,6 +873,7 @@
 				BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */,
 				BB7984F81E260B1D00552F88 /* main.m in Sources */,
 				BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */,
+				BB09EC351EA9FB2E00871E4F /* ContactViewController.m in Sources */,
 				BB4CA0A11E63FC0E0026AC6C /* ChatTableViewCell.m in Sources */,
 				BB0613621E5ABDFD00E0455A /* InsetsLabel.m in Sources */,
 				BB517F821E5577250023C5B6 /* ChatBean.m in Sources */,
@@ -859,6 +884,7 @@
 				BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */,
 				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
 				BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */,
+				BBE46D9A1EADCA96002911D9 /* ContactTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1001,6 +1027,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SocketIOIOSDemo/SocketIOIOSDemo.entitlements;
 				DEVELOPMENT_TEAM = 4J839WRBU3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SocketIOIOSDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = SocketIOIOSDemo/Info.plist;
@@ -1022,6 +1052,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SocketIOIOSDemo/SocketIOIOSDemo.entitlements;
 				DEVELOPMENT_TEAM = 4J839WRBU3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SocketIOIOSDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = SocketIOIOSDemo/Info.plist;

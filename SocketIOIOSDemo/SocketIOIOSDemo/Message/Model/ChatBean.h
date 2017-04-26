@@ -21,4 +21,7 @@ static NSString* const ChatTypeGroup = @"groupChat";
 @property (nonatomic,strong) NSString* Body;
 @property (nonatomic,strong) NSString* ChatType;
 
+//custom in client
+@property (nonatomic,assign) BOOL DisplayInRecently;
+
 @end

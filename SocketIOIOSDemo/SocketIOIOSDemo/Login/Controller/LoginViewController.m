@@ -13,6 +13,7 @@
 #import "RealmConfig.h"
 #import "MainViewController.h"
 #import "SocketIOManager.h"
+#import "MyChat.h"
 
 @interface LoginViewController ()<LoginViewProtocol>
 
@@ -99,11 +100,14 @@
 #pragma mark LoginPresenterProtocol
 
 - (void)loginSuccess {
-    //[[SocketIOManager sharedClient] connect];
+
     [RealmConfig setUp:[[UserInfoRepository sharedClient] currentUser].UserName];
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
     self.view.window.rootViewController = mainViewController;
+    
+    [[SocketIOManager sharedClient] connect];
+    [[MyChat sharedClient] getRecent];
 }
 
 - (void)loginFail:(NSString *)errorMsg {

@@ -23,16 +23,33 @@
 
 - (void)createOrUpdateChat:(ChatBean *)bean {
     RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm addOrUpdateObject:bean];
-    [realm commitWriteTransaction];
+    
+    RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",bean.SID];
+    if (result.count > 0) {
+        bean.DisplayInRecently = result.firstObject.DisplayInRecently;
+        [realm beginWriteTransaction];
+        [realm addOrUpdateObject:bean];
+        [realm commitWriteTransaction];
+    }
+    else {
+        [realm beginWriteTransaction];
+        [realm addObject:bean];
+        [realm commitWriteTransaction];
+    }
+    
 }
 
 
 - (RLMResults<ChatBean*>*)getChat {
-    RLMResults<ChatBean*> *beans = [[ChatBean allObjects] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+    RLMResults<ChatBean*> *beans = [[ChatBean objectsWhere:@"DisplayInRecently = YES"] sortedResultsUsingKeyPath:@"Time" ascending:NO];
     return beans;
 }
+
+- (RLMResults<ChatBean*>*)getContact {
+    RLMResults<ChatBean*> *beans = [[ChatBean allObjects] sortedResultsUsingKeyPath:@"Name" ascending:YES];
+    return beans;
+}
+
 
 - (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString *)chatID {
     RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatID] sortedResultsUsingKeyPath:@"Time" ascending:YES];
@@ -69,9 +86,13 @@
             if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
                 chatBean.Body = item.Body;
                 chatBean.Time = item.Time;
+                chatBean.DisplayInRecently = YES;
             }
+            
             else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-                
+                chatBean.Body = [NSString stringWithFormat:@"%@:%@",item.NickName,item.Body];
+                chatBean.Time = item.Time;
+                chatBean.DisplayInRecently = YES;
             }
             
         }

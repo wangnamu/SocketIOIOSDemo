@@ -11,7 +11,7 @@
 #import "MyChat.h"
 
 //static NSString* socketUrl = @"http://192.168.16.61:3000";
-static NSString* socketUrl = @"http://192.168.19.211:3000";
+static NSString* socketUrl = @"http://192.168.19.100:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -115,20 +115,20 @@ static NSString* socketUrl = @"http://192.168.19.211:3000";
             
             if ([msg.OthersType isEqualToString:OthersTypeChat]) {
                 
-                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-                    return @{
-                             @"SID" : @"SID",
-                             @"Users" : @"Users",
-                             @"Name" : @"Name",
-                             @"Img" : @"Img",
-                             @"Time" : @"Time",
-                             @"Body" : @"Body",
-                             @"ChatType" : @"ChatType"
-                             };
-                }];
-                
-                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:msg.Others];
-                [[MyChat sharedClient] receiveChat:chatModel];
+//                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+//                    return @{
+//                             @"SID" : @"SID",
+//                             @"Users" : @"Users",
+//                             @"Name" : @"Name",
+//                             @"Img" : @"Img",
+//                             @"Time" : @"Time",
+//                             @"Body" : @"Body",
+//                             @"ChatType" : @"ChatType"
+//                             };
+//                }];
+//                
+//                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:msg.Others];
+//                [[MyChat sharedClient] receiveChat:chatModel];
             }
             else if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
                 

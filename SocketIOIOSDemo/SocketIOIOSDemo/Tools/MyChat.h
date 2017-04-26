@@ -10,8 +10,8 @@
 #import "ChatModel.h"
 #import "ChatMessageModel.h"
 
-static NSString* const Notification_Send_Chat = @"send_chat";
-static NSString* const Notification_Receive_Chat = @"receive_chat";
+static NSString* const Notification_Update_Chat = @"update_chat";
+static NSString* const Notification_Update_Contact = @"update_contact";
 static NSString* const Notification_Send_Message =@"send_message";
 static NSString* const Notification_Receive_Message = @"receive_message";
 static NSString* const Notification_Get_Recent_Begin = @"get_recent_begin";
@@ -24,8 +24,9 @@ static NSString* const Notification_Get_Recent_Finish = @"get_recent_finish";
 
 + (instancetype)sharedClient;
 
-- (void)sendChat:(ChatModel*)model;
-- (void)receiveChat:(ChatModel*)model;
+/*----------------废弃--------------------*/
+//- (void)sendChat:(ChatModel*)model;
+//- (void)receiveChat:(ChatModel*)model;
 
 - (void)sendChatMessage:(ChatMessageModel*)model;
 - (void)sendChatMessage:(ChatMessageModel *)model after:(void(^)(ChatMessageModel*))block;

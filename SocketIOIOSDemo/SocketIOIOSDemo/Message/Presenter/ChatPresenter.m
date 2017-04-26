@@ -37,62 +37,66 @@
         [dataSource addObject:[ChatModel fromBean:bean]];
     }
     
-    [chatView refreshData];
-    
-}
-
-- (void)createChatWithType:(NSString *)chatType
-             ReceivePerson:(PersonBean *)person {
-    
-    NSDictionary *params = @{ @"chatType":chatType,@"receiverID":person.SID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
-    
-    [[AFNetworkingClient sharedClient] POST:@"createChat" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        if (chatView) {
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                NSDictionary *res = (NSDictionary *)responseObject;
-                
-                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-                    return @{
-                             @"SID" : @"sid",
-                             @"Users" : @"users",
-                             @"Name" : @"name",
-                             @"Img" : @"img",
-                             @"Time" : @"time",
-                             @"Body" : @"body",
-                             @"ChatType" : @"chatType"
-                             };
-                }];
-                
-                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:res];
-                
-                if ([chatType isEqualToString:ChatTypeSingle]) {
-                    chatModel.Name = person.NickName;
-                    chatModel.Body = @"hello";
-                    chatModel.Img = person.HeadPortrait;
-                }
-                
-                [[MyChat sharedClient] sendChat:chatModel];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (chatView) {
-                        [chatView chatPushTo:chatModel.SID Name:chatModel.Name];
-                    }
-                });
-                
-            });
-            
-            
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(chatView) {
+            [chatView refreshData];
         }
-       
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-
+    });
+    
 }
+
+//- (void)createChatWithType:(NSString *)chatType
+//             ReceivePerson:(PersonBean *)person {
+//    
+//    NSDictionary *params = @{ @"chatType":chatType,@"receiverID":person.SID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
+//    
+//    [[AFNetworkingClient sharedClient] POST:@"createChat" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        
+//        if (chatView) {
+//            
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                
+//                NSDictionary *res = (NSDictionary *)responseObject;
+//                
+//                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+//                    return @{
+//                             @"SID" : @"sid",
+//                             @"Users" : @"users",
+//                             @"Name" : @"name",
+//                             @"Img" : @"img",
+//                             @"Time" : @"time",
+//                             @"Body" : @"body",
+//                             @"ChatType" : @"chatType"
+//                             };
+//                }];
+//                
+//                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:res];
+//                
+//                if ([chatType isEqualToString:ChatTypeSingle]) {
+//                    chatModel.Name = person.NickName;
+//                    chatModel.Body = @"hello";
+//                    chatModel.Img = person.HeadPortrait;
+//                }
+//                
+//                [[MyChat sharedClient] sendChat:chatModel];
+//                
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    if (chatView) {
+//                        [chatView chatPushTo:chatModel.SID Name:chatModel.Name];
+//                    }
+//                });
+//                
+//            });
+//            
+//            
+//        }
+//       
+//        
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        
+//    }];
+//
+//}
 
 - (void)updateChat {
     WS(ws);

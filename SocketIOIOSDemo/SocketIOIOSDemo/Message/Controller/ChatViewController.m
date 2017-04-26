@@ -37,9 +37,7 @@
     
     [self initControl];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Send_Chat object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Receive_Chat object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChat:) name:Notification_Update_Chat object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRecentBegin) name:Notification_Get_Recent_Begin object:nil];
     

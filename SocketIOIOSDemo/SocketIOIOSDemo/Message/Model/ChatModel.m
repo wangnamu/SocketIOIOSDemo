@@ -19,6 +19,7 @@
     bean.Time = self.Time;
     bean.Body = self.Body;
     bean.ChatType = self.ChatType;
+    bean.DisplayInRecently = self.DisplayInRecently;
     return bean;
 }
 
@@ -31,6 +32,7 @@
     model.Time = bean.Time;
     model.Body = bean.Body;
     model.ChatType = bean.ChatType;
+    model.DisplayInRecently = bean.DisplayInRecently;
     return model;
 }
 

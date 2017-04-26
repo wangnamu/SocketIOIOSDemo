@@ -102,8 +102,8 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    PersonBean *bean = (PersonBean*)[personListPresenter.dataSource objectAtIndex:indexPath.row];
-    [chatPresenter createChatWithType:ChatTypeSingle ReceivePerson:bean];
+//    PersonBean *bean = (PersonBean*)[personListPresenter.dataSource objectAtIndex:indexPath.row];
+//    [chatPresenter createChatWithType:ChatTypeSingle ReceivePerson:bean];
 }
 
 

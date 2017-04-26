@@ -19,7 +19,11 @@
 
 - (void)createOrUpdateChat:(ChatBean*)bean;
 
+
+
 - (RLMResults<ChatBean*>*)getChat;
+
+- (RLMResults<ChatBean*>*)getContact;
 
 - (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString*)chatID;
 
