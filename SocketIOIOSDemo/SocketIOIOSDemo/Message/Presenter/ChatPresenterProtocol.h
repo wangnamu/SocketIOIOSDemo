@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
-- (void)loadData;
+
 //- (void)createChatWithType:(NSString*)chatType
 //             ReceivePerson:(PersonBean*)person;
 - (void)updateChat;

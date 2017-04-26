@@ -43,7 +43,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRecentFinish) name:Notification_Get_Recent_Finish object:nil];
     
-    [chatPresenter loadData];
+    [chatPresenter updateChat];
     
 }
 

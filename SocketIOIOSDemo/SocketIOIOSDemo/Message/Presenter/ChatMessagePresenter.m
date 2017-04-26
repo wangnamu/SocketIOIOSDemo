@@ -107,10 +107,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         @synchronized (dataSource) {
             [dataSource addObject:model];
+            if (chatMessageView) {
+                [chatMessageView insertChatMessageToCell:dataSource.count-1];
+            }
         }
-        if (chatMessageView) {
-            [chatMessageView insertChatMessageToCell:dataSource.count-1];
-        }
+        
     });
 }
 
@@ -146,9 +147,7 @@
     model.ChatID = chatID;
     model.SendStatusType = SendStatusTypeSending;
     [[MyChat sharedClient] sendChatMessage:model after:^(ChatMessageModel *m) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [ws insertChatMessage:m];
-        });
+        [ws insertChatMessage:m];
     }];
     
     NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };

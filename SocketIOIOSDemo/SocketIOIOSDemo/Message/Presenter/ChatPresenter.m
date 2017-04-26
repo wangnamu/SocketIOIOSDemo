@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void)loadData {
+- (void)updateChat {
     
     if (dataSource.count > 0) {
         [dataSource removeAllObjects];
@@ -98,13 +98,7 @@
 //
 //}
 
-- (void)updateChat {
-    WS(ws);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ws loadData];
-    });
-    
-}
+
 
 
 
