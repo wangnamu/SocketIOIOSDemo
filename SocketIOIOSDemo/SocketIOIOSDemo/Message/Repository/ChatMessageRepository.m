@@ -83,6 +83,13 @@
         if (result.count > 0) {
             ChatBean *chatBean = result.firstObject;
             
+            NSLog(@"chatbeantime->%ld",chatBean.Time);
+            NSLog(@"chatbeanbody->%@",chatBean.Body);
+            
+            NSLog(@"chatmessagetime->%ld",item.Time);
+            NSLog(@"chatmessagename->%@",item.NickName);
+            NSLog(@"chatmessagebody->%@",item.Body);
+            
             if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
                 chatBean.Body = item.Body;
                 chatBean.Time = item.Time;
@@ -114,7 +121,6 @@
     [realm addOrUpdateObjectsFromArray:beans];
     
     [realm commitWriteTransaction];
-    
     
 }
 

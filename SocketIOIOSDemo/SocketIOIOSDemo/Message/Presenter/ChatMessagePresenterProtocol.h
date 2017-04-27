@@ -23,13 +23,11 @@
 
 - (void)reloadDataWithChatID:(NSString*)chatID;
 
-- (void)updateDataWithChatID:(NSString *)chatID;
-
 - (void)sendText:(NSString*)body
           ChatID:(NSString*)chatID;
 
-//- (void)insertChatMessage:(ChatMessageModel*)model;
-//- (void)updateChatMessage:(ChatMessageModel*)model;
+- (void)insertChatMessage:(ChatMessageModel*)model;
+- (void)updateChatMessage:(ChatMessageModel*)model;
 
 
 

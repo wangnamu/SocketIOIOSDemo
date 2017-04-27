@@ -12,9 +12,8 @@
 - (void)reloadDataComplete;
 - (void)loadMoreDataComplete;
 
-//- (void)insertChatMessageToCell:(NSInteger)row;
-//- (void)updateChatMessageForCell:(NSInteger)row;
-
+- (void)insertChatMessageToCell:(NSInteger)row;
+- (void)updateChatMessageForCell:(NSInteger)row;
 
 - (void)reloadData;
 
