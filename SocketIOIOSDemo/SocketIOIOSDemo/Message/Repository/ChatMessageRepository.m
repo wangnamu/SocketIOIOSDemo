@@ -82,20 +82,12 @@
         RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
         if (result.count > 0) {
             ChatBean *chatBean = result.firstObject;
-            
-            NSLog(@"chatbeantime->%ld",chatBean.Time);
-            NSLog(@"chatbeanbody->%@",chatBean.Body);
-            
-            NSLog(@"chatmessagetime->%ld",item.Time);
-            NSLog(@"chatmessagename->%@",item.NickName);
-            NSLog(@"chatmessagebody->%@",item.Body);
-            
+             
             if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
                 chatBean.Body = item.Body;
                 chatBean.Time = item.Time;
                 chatBean.DisplayInRecently = YES;
             }
-            
             else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
                 chatBean.Body = [NSString stringWithFormat:@"%@:%@",item.NickName,item.Body];
                 chatBean.Time = item.Time;

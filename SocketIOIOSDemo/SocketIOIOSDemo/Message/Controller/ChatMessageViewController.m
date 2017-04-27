@@ -186,18 +186,23 @@ static NSInteger const elapsedTime = 15;
 
 
 - (void)insertChatMessageToCell:(NSInteger)row {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
-    [table beginUpdates];
-    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [table endUpdates];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
+//    [table beginUpdates];
+//    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    [table endUpdates];
+//    [self scrollToBottom:YES];
+    [table reloadData];
     [self scrollToBottom:YES];
+
 }
 
 - (void)updateChatMessageForCell:(NSInteger)row {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
-    [table beginUpdates];
-    [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [table endUpdates];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
+//    [table beginUpdates];
+//    [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    [table endUpdates];
+    [table reloadData];
+    [self scrollToBottom:YES];
 }
 
 

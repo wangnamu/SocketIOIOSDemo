@@ -109,6 +109,23 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         @synchronized (dataSource) {
             [dataSource addObject:model];
+            
+            dataSource = [NSMutableArray arrayWithArray:[dataSource sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                
+                ChatMessageModel* model1 = (ChatMessageModel*)obj1;
+                ChatMessageModel* model2 = (ChatMessageModel*)obj2;
+                
+                if (model1.Time > model2.Time) {
+                    return NSOrderedDescending;
+                }
+                
+                if (model1.Time < model2.Time) {
+                    return NSOrderedAscending;
+                }
+                
+                return NSOrderedSame;
+            }]];
+            
             if (chatMessageView) {
                 [chatMessageView insertChatMessageToCell:dataSource.count-1];
             }
@@ -123,9 +140,26 @@
             NSInteger index = [dataSource indexOfObject:model];
             @synchronized (dataSource) {
                 [dataSource replaceObjectAtIndex:index withObject:model];
-            }
-            if (chatMessageView) {
-                [chatMessageView updateChatMessageForCell:index];
+                
+                dataSource = [NSMutableArray arrayWithArray:[dataSource sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    
+                    ChatMessageModel* model1 = (ChatMessageModel*)obj1;
+                    ChatMessageModel* model2 = (ChatMessageModel*)obj2;
+                    
+                    if (model1.Time > model2.Time) {
+                        return NSOrderedDescending;
+                    }
+                    
+                    if (model1.Time < model2.Time) {
+                        return NSOrderedAscending;
+                    }
+                    
+                    return NSOrderedSame;
+                }]];
+                
+                if (chatMessageView) {
+                    [chatMessageView updateChatMessageForCell:index];
+                }
             }
         }
     });
