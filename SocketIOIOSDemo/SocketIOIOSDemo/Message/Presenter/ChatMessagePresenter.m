@@ -103,34 +103,74 @@
 }
 
 
-- (void)insertChatMessage:(ChatMessageModel *)model {
-    dispatch_async(dispatch_get_main_queue(), ^{
+
+- (void)updateDataWithChatID:(NSString *)chatID {
+    
+    isLoading = YES;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
+        
         @synchronized (dataSource) {
-            [dataSource addObject:model];
-            if (chatMessageView) {
-                [chatMessageView insertChatMessageToCell:dataSource.count-1];
+            
+            if (dataSource.count > 0) {
+                [dataSource removeAllObjects];
             }
+            
+            NSInteger start = result.count > pageSize ? result.count - pageSize : 0;
+            
+            NSLog(@"start->%ld",(long)start);
+            
+            for (NSInteger i = start; i < result.count; i++) {
+                ChatMessageBean *bean = result[i];
+                [dataSource addObject:[ChatMessageModel fromBean:bean]];
+            }
+            
+            hasMore = start > 0 ? YES : NO;
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(chatMessageView) {
+                    [chatMessageView reloadDataComplete];
+                    isLoading = NO;
+                }
+            });
         }
         
     });
 }
 
-- (void)updateChatMessage:(ChatMessageModel *)model {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (dataSource.count > 0 && [dataSource containsObject:model]) {
-            NSInteger index = [dataSource indexOfObject:model];
-            @synchronized (dataSource) {
-                [dataSource replaceObjectAtIndex:index withObject:model];
-            }
-            if (chatMessageView) {
-                [chatMessageView updateChatMessageForCell:index];
-            }
-        }
-    });
-}
+
+
+
+//- (void)insertChatMessage:(ChatMessageModel *)model {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        @synchronized (dataSource) {
+//            [dataSource addObject:model];
+//            if (chatMessageView) {
+//                [chatMessageView insertChatMessageToCell:dataSource.count-1];
+//            }
+//        }
+//        
+//    });
+//}
+//
+//- (void)updateChatMessage:(ChatMessageModel *)model {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (dataSource.count > 0 && [dataSource containsObject:model]) {
+//            NSInteger index = [dataSource indexOfObject:model];
+//            @synchronized (dataSource) {
+//                [dataSource replaceObjectAtIndex:index withObject:model];
+//            }
+//            if (chatMessageView) {
+//                [chatMessageView updateChatMessageForCell:index];
+//            }
+//        }
+//    });
+//}
 
 - (void)sendText:(NSString*)body
-          ChatID:(id)chatID {
+          ChatID:(NSString*)chatID {
     
     WS(ws);
     
@@ -147,7 +187,8 @@
     model.ChatID = chatID;
     model.SendStatusType = SendStatusTypeSending;
     [[MyChat sharedClient] sendChatMessage:model after:^(ChatMessageModel *m) {
-        [ws insertChatMessage:m];
+        //[ws insertChatMessage:m];
+        [ws updateDataWithChatID:chatID];
     }];
     
     NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
