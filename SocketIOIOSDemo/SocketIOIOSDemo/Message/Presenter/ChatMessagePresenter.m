@@ -16,12 +16,15 @@
 @implementation ChatMessagePresenter
 @synthesize chatMessageView,dataSource;
 @synthesize pageSize,hasMore,isLoading;
+@synthesize queue;
 
 - (instancetype)initWithView:(id<ChatMessageViewProtocol>)view {
     self = [super init];
     if (self) {
         chatMessageView = view;
         dataSource = [[NSMutableArray alloc] init];
+        
+        queue = dispatch_queue_create("com.ufo.socketio.chatMessageQueue", NULL);
         
         pageSize = 10;
         hasMore = NO;
@@ -32,26 +35,24 @@
 
 - (void)reloadDataWithChatID:(NSString *)chatID {
     
-    isLoading = YES;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_barrier_async(queue,^{
+        
+        isLoading = YES;
+        
         RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
-        
-        @synchronized (dataSource) {
-            
-            if (dataSource.count > 0) {
-                [dataSource removeAllObjects];
-            }
-            
-            NSInteger start = result.count > pageSize ? result.count - pageSize : 0;
-        
-            for (NSInteger i = start; i < result.count; i++) {
-                ChatMessageBean *bean = result[i];
-                [dataSource addObject:[ChatMessageModel fromBean:bean]];
-            }
-            
-            hasMore = start > 0 ? YES : NO;
+
+        if (dataSource.count > 0) {
+            [dataSource removeAllObjects];
         }
+        
+        NSInteger start = result.count > pageSize ? result.count - pageSize : 0;
+        
+        for (NSInteger i = start; i < result.count; i++) {
+            ChatMessageBean *bean = result[i];
+            [dataSource addObject:[ChatMessageModel fromBean:bean]];
+        }
+        
+        hasMore = start > 0 ? YES : NO;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if(chatMessageView) {
@@ -61,35 +62,28 @@
         });
         
     });
+    
 }
 
 - (void)loadMoreDataWithChatID:(NSString *)chatID {
     
-    isLoading = YES;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_barrier_async(queue,^{
+        
+        isLoading = YES;
         
         sleep(1);
         
         RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
         
-        @synchronized (dataSource) {
-            
-            NSInteger start = dataSource.count + 1;
-            
-            NSInteger length = result.count - start > pageSize ? result.count - start - pageSize : -1;
+        NSInteger start = dataSource.count + 1;
+        NSInteger length = result.count - start > pageSize ? result.count - start - pageSize : -1;
         
-
-            for (NSInteger i = result.count - start; i > length; i--) {
-                ChatMessageBean *bean = result[i];
-                [dataSource insertObject:[ChatMessageModel fromBean:bean] atIndex:0];
-            }
-
-            
-            hasMore = length > 0 ? YES : NO;
-
+        for (NSInteger i = result.count - start; i > length; i--) {
+            ChatMessageBean *bean = result[i];
+            [dataSource insertObject:[ChatMessageModel fromBean:bean] atIndex:0];
         }
         
+        hasMore = length > 0 ? YES : NO;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if(chatMessageView) {
@@ -106,9 +100,44 @@
 
 
 - (void)insertChatMessage:(ChatMessageModel *)model {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @synchronized (dataSource) {
-            [dataSource addObject:model];
+    
+    dispatch_barrier_async(queue,^{
+        [dataSource addObject:model];
+        
+        dataSource = [NSMutableArray arrayWithArray:[dataSource sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            
+            ChatMessageModel* model1 = (ChatMessageModel*)obj1;
+            ChatMessageModel* model2 = (ChatMessageModel*)obj2;
+            
+            if (model1.Time > model2.Time) {
+                return NSOrderedDescending;
+            }
+            
+            if (model1.Time < model2.Time) {
+                return NSOrderedAscending;
+            }
+            
+            return NSOrderedSame;
+        }]];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(chatMessageView) {
+                [chatMessageView updateChatMessageCell];
+            }
+        });
+
+    });
+    
+}
+
+- (void)updateChatMessage:(ChatMessageModel *)model {
+    
+    dispatch_barrier_async(queue,^{
+        if (dataSource.count > 0 && [dataSource containsObject:model]) {
+            NSInteger index = [dataSource indexOfObject:model];
+            
+            [dataSource replaceObjectAtIndex:index withObject:model];
             
             dataSource = [NSMutableArray arrayWithArray:[dataSource sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 
@@ -125,44 +154,16 @@
                 
                 return NSOrderedSame;
             }]];
-            
-            if (chatMessageView) {
-                [chatMessageView insertChatMessageToCell:dataSource.count-1];
-            }
-        }
-        
-    });
-}
 
-- (void)updateChatMessage:(ChatMessageModel *)model {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (dataSource.count > 0 && [dataSource containsObject:model]) {
-            NSInteger index = [dataSource indexOfObject:model];
-            @synchronized (dataSource) {
-                [dataSource replaceObjectAtIndex:index withObject:model];
-                
-                dataSource = [NSMutableArray arrayWithArray:[dataSource sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                    
-                    ChatMessageModel* model1 = (ChatMessageModel*)obj1;
-                    ChatMessageModel* model2 = (ChatMessageModel*)obj2;
-                    
-                    if (model1.Time > model2.Time) {
-                        return NSOrderedDescending;
-                    }
-                    
-                    if (model1.Time < model2.Time) {
-                        return NSOrderedAscending;
-                    }
-                    
-                    return NSOrderedSame;
-                }]];
-                
+            dispatch_async(dispatch_get_main_queue(), ^{
                 if (chatMessageView) {
-                    [chatMessageView updateChatMessageForCell:index];
+                    [chatMessageView updateChatMessageCell];
                 }
-            }
+            });
+            
         }
     });
+    
 }
 
 - (void)sendText:(NSString*)body
@@ -188,40 +189,28 @@
     
     NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
     
-    
     [[AFNetworkingClient sharedClient] POST:@"sendText" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
         if (chatMessageView) {
+            NSDictionary *res = (NSDictionary *)responseObject;
+            [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                return @{
+                         @"SID" : @"sid",
+                         @"SenderID" : @"senderID",
+                         @"Title" : @"title",
+                         @"Body" : @"body",
+                         @"Time" : @"time",
+                         @"MessageType" : @"messageType",
+                         @"NickName" : @"nickName",
+                         @"HeadPortrait" : @"headPortrait",
+                         @"ChatID" : @"chatID",
+                         @"Thumbnail" : @"thumbnail",
+                         @"Original" : @"original",
+                         };
+            }];
+            ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:res];
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                NSDictionary *res = (NSDictionary *)responseObject;
-                
-                [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-                    return @{
-                             @"SID" : @"sid",
-                             @"SenderID" : @"senderID",
-                             @"Title" : @"title",
-                             @"Body" : @"body",
-                             @"Time" : @"time",
-                             @"MessageType" : @"messageType",
-                             @"NickName" : @"nickName",
-                             @"HeadPortrait" : @"headPortrait",
-                             @"ChatID" : @"chatID",
-                             @"Thumbnail" : @"thumbnail",
-                             @"Original" : @"original",
-                             };
-                }];
-                
-                ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:res];
-                NSLog(@"insert call back");
-                [[MyChat sharedClient] sendChatMessage:chatMessageModel];
-                
-            });
-            
+            [[MyChat sharedClient] sendChatMessage:chatMessageModel];
         }
-        
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];

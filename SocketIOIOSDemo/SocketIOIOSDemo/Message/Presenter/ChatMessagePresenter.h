@@ -13,6 +13,8 @@
 @interface ChatMessagePresenter : NSObject<ChatMessagePresenterProtocol>
 
 @property (nonatomic,weak) id<ChatMessageViewProtocol> chatMessageView;
+@property (nonatomic, strong) dispatch_queue_t queue;
+
 
 - (instancetype)initWithView:(id<ChatMessageViewProtocol>)view;
 

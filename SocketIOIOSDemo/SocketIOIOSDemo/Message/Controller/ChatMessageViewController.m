@@ -139,7 +139,6 @@ static NSInteger const elapsedTime = 15;
 - (void)onNotifySend:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
     if([model.ChatID isEqualToString:currentChatID]) {
-        NSLog(@"send");
         [chatMessagePresenter updateChatMessage:model];
     }
 }
@@ -147,7 +146,6 @@ static NSInteger const elapsedTime = 15;
 - (void)onNotifyReceive:(NSNotification*)notification {
     ChatMessageModel *model = [notification object];
     if ([model.ChatID isEqualToString:currentChatID]) {
-        NSLog(@"receive");
         [chatMessagePresenter insertChatMessage:model];
     }
 }
@@ -185,26 +183,25 @@ static NSInteger const elapsedTime = 15;
 }
 
 
-- (void)insertChatMessageToCell:(NSInteger)row {
+//- (void)insertChatMessageToCell:(NSInteger)row {
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
 //    [table beginUpdates];
 //    [table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 //    [table endUpdates];
 //    [self scrollToBottom:YES];
-    [table reloadData];
-    [self scrollToBottom:YES];
-
-}
-
-- (void)updateChatMessageForCell:(NSInteger)row {
+//}
+//
+//- (void)updateChatMessageForCell:(NSInteger)row {
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
 //    [table beginUpdates];
 //    [table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 //    [table endUpdates];
+//}
+
+- (void)updateChatMessageCell {
     [table reloadData];
     [self scrollToBottom:YES];
 }
-
 
 
 #pragma mark tableView

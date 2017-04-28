@@ -183,6 +183,7 @@
 }
 
 - (void)sendChatMessage:(ChatMessageModel *)model {
+    
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];
         [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];

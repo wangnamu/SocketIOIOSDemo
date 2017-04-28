@@ -10,8 +10,8 @@
 #import "UserInfoRepository.h"
 #import "MyChat.h"
 
-//static NSString* socketUrl = @"http://192.168.16.61:3000";
-static NSString* socketUrl = @"http://192.168.19.87:3000";
+static NSString* socketUrl = @"http://192.168.19.79:3000";
+//static NSString* socketUrl = @"http://192.168.19.87:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
