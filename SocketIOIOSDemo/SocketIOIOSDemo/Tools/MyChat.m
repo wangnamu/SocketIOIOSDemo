@@ -46,10 +46,10 @@
         
         long last = [DateUtils timeNow];
         long current = [DateUtils timeNow];
-        RLMResults<ChatBean*> *beans = [[ChatMessageRepository sharedClient] getChat];
+        RLMResults<ChatBean*> *chatBeans = [[ChatMessageRepository sharedClient] getChat];
         
-        if (beans.count > 0) {
-            last = beans.firstObject.Time;
+        if (chatBeans.count > 0) {
+            last = chatBeans.firstObject.CreateTime;
         }
        
         __block dispatch_semaphore_t sem = dispatch_semaphore_create(0);
@@ -57,10 +57,9 @@
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-        NSDictionary *params = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
+        NSDictionary *chatlistParams = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
 
-        
-        [[AFNetworkingClient sharedClient] GET:@"chatList" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [[AFNetworkingClient sharedClient] GET:@"chatList" parameters:chatlistParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             NSArray *res = (NSArray *)responseObject;
        
@@ -73,6 +72,7 @@
                              @"Name" : @"name",
                              @"Img" : @"img",
                              @"Time" : @"time",
+                             @"CreateTime" : @"createTime",
                              @"Body" : @"body",
                              @"ChatType" : @"chatType"
                              };
@@ -91,7 +91,15 @@
 
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
-        [[AFNetworkingClient sharedClient] GET:@"chatMessageList" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        RLMResults<ChatMessageBean*> *chatMessageBeans = [[ChatMessageRepository sharedClient] getChatMessage];
+        
+        if (chatMessageBeans.count > 0) {
+            last = chatMessageBeans.firstObject.Time;
+        }
+        
+        NSDictionary *chatMessageListParams = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
+        
+        [[AFNetworkingClient sharedClient] GET:@"chatMessageList" parameters:chatMessageListParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
             NSArray *res = (NSArray *)responseObject;
             

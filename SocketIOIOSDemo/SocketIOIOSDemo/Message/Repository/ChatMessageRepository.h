@@ -15,17 +15,11 @@
 
 + (instancetype)sharedClient;
 
-- (void)createChatMessage:(NSArray*)beans;
-
-- (void)createOrUpdateChat:(ChatBean*)bean;
-
-
-
+- (void)createChatMessage:(NSArray*)chatMessageBeans;
+- (void)createOrUpdateChat:(ChatBean*)chatBean;
 - (RLMResults<ChatBean*>*)getChat;
-
+- (RLMResults<ChatMessageBean*>*)getChatMessage;
 - (RLMResults<ChatBean*>*)getContact;
-
 - (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString*)chatID;
-
 
 @end

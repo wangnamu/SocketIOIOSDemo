@@ -60,7 +60,7 @@ static NSString* socketUrl = @"http://192.168.19.79:3000";
         
         [socket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             
-            NSLog(@"socket connected");
+            NSLog(@"socket connecting");
             
             SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
             model.SID = userInfoBean.SID;
@@ -76,6 +76,7 @@ static NSString* socketUrl = @"http://192.168.19.79:3000";
             
             if (socket != nil) {
                 [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
+                    NSLog(@"socket connected");
                     NSLog(@"login->%@",args);
                     if (args != nil && args.count > 0 && [[args firstObject] isEqualToString:@"NO ACK"]) {
                         [socket reconnect];
@@ -113,24 +114,7 @@ static NSString* socketUrl = @"http://192.168.19.79:3000";
             NSDictionary *dic = [[data objectAtIndex:0] mj_JSONObject];
             SocketIOMessage *msg = [SocketIOMessage mj_objectWithKeyValues:dic];
             
-            if ([msg.OthersType isEqualToString:OthersTypeChat]) {
-                
-//                [ChatModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-//                    return @{
-//                             @"SID" : @"SID",
-//                             @"Users" : @"Users",
-//                             @"Name" : @"Name",
-//                             @"Img" : @"Img",
-//                             @"Time" : @"Time",
-//                             @"Body" : @"Body",
-//                             @"ChatType" : @"ChatType"
-//                             };
-//                }];
-//                
-//                ChatModel *chatModel = [ChatModel mj_objectWithKeyValues:msg.Others];
-//                [[MyChat sharedClient] receiveChat:chatModel];
-            }
-            else if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
+            if ([msg.OthersType isEqualToString:OthersTypeMessage]) {
                 
                 [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
                     return @{

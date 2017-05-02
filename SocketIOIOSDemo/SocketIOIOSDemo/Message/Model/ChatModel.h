@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSString* Name;
 @property (nonatomic,strong) NSString* Img;
 @property (nonatomic,assign) long Time;
+@property (nonatomic,assign) long CreateTime;
 @property (nonatomic,strong) NSString* Body;
 @property (nonatomic,strong) NSString* ChatType;
 

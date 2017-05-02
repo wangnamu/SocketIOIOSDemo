@@ -21,19 +21,19 @@
 }
 
 
-- (void)createOrUpdateChat:(ChatBean *)bean {
+- (void)createOrUpdateChat:(ChatBean *)chatBean {
     RLMRealm *realm = [RLMRealm defaultRealm];
     
-    RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",bean.SID];
+    RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",chatBean.SID];
     if (result.count > 0) {
-        bean.DisplayInRecently = result.firstObject.DisplayInRecently;
+        chatBean.DisplayInRecently = result.firstObject.DisplayInRecently;
         [realm beginWriteTransaction];
-        [realm addOrUpdateObject:bean];
+        [realm addOrUpdateObject:chatBean];
         [realm commitWriteTransaction];
     }
     else {
         [realm beginWriteTransaction];
-        [realm addObject:bean];
+        [realm addObject:chatBean];
         [realm commitWriteTransaction];
     }
     
@@ -42,6 +42,11 @@
 
 - (RLMResults<ChatBean*>*)getChat {
     RLMResults<ChatBean*> *beans = [[ChatBean objectsWhere:@"DisplayInRecently = YES"] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+    return beans;
+}
+
+- (RLMResults<ChatMessageBean*>*)getChatMessage {
+    RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean allObjects] sortedResultsUsingKeyPath:@"Time" ascending:NO];
     return beans;
 }
 
@@ -57,42 +62,94 @@
 }
 
 
-- (void)createChatMessage:(NSArray*)beans {
+- (void)createChatMessage:(NSArray*)chatMessageBeans {
     
-    NSMutableArray *chatArray = [[NSMutableArray alloc] init];
+    NSMutableArray *chatMessageArray = [[NSMutableArray alloc] init];
     
     NSMutableSet *set = [NSMutableSet set];
-    [beans enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [chatMessageBeans enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [set addObject:obj[@"ChatID"]];
     }];
     [set enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ChatID = %@", obj];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"Time" ascending:NO];
         
-        NSArray *group = [beans filteredArrayUsingPredicate:predicate];
+        NSArray *group = [chatMessageBeans filteredArrayUsingPredicate:predicate];
         NSArray *top = [group sortedArrayUsingDescriptors:@[sortDescriptor]];
         
-        [chatArray addObject:[top firstObject]];
+        [chatMessageArray addObject:[top firstObject]];
     }];
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     
-    for (ChatMessageBean *item in chatArray) {
-        RLMResults<ChatBean*> *result = [ChatBean objectsWhere:@"SID = %@",item.ChatID];
-        if (result.count > 0) {
-            ChatBean *chatBean = result.firstObject;
-             
-            if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-                chatBean.Body = item.Body;
-                chatBean.Time = item.Time;
-                chatBean.DisplayInRecently = YES;
+    for (ChatMessageBean *chatMessageItem in chatMessageArray) {
+        RLMResults<ChatBean*> *chatBeanResult = [ChatBean objectsWhere:@"SID = %@",chatMessageItem.ChatID];
+        if (chatBeanResult.count > 0) {
+            
+            ChatBean *chatBean = chatBeanResult.firstObject;
+            
+            /*-test-*/
+            
+            RLMResults<ChatMessageBean*> *messageBeanResult = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatMessageItem.ChatID] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+            
+            if (messageBeanResult.count > 0) {
+                
+                ChatMessageBean* chatMessageBeanOldest = messageBeanResult.firstObject;
+                
+                if (chatMessageItem.Time < chatMessageBeanOldest.Time) {
+                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+                        chatBean.Body = chatMessageBeanOldest.Body;
+                        chatBean.Time = chatMessageBeanOldest.Time;
+                        chatBean.DisplayInRecently = YES;
+                    }
+                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageBeanOldest.NickName,chatMessageBeanOldest.Body];
+                        chatBean.Time = chatMessageBeanOldest.Time;
+                        chatBean.DisplayInRecently = YES;
+                    }
+                }
+                else {
+                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+                        chatBean.Body = chatMessageItem.Body;
+                        chatBean.Time = chatMessageItem.Time;
+                        chatBean.DisplayInRecently = YES;
+                    }
+                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+                        chatBean.Time = chatMessageItem.Time;
+                        chatBean.DisplayInRecently = YES;
+                    }
+                }
             }
-            else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-                chatBean.Body = [NSString stringWithFormat:@"%@:%@",item.NickName,item.Body];
-                chatBean.Time = item.Time;
-                chatBean.DisplayInRecently = YES;
+            else {
+                
+                if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+                    chatBean.Body = chatMessageItem.Body;
+                    chatBean.Time = chatMessageItem.Time;
+                    chatBean.DisplayInRecently = YES;
+                }
+                else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+                    chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+                    chatBean.Time = chatMessageItem.Time;
+                    chatBean.DisplayInRecently = YES;
+                }
+                
             }
+            
+            /*--*/
+            
+//            if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+//                chatBean.Body = chatMessageItem.Body;
+//                chatBean.Time = chatMessageItem.Time;
+//                chatBean.DisplayInRecently = YES;
+//            }
+//            else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+//                chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+//                chatBean.Time = chatMessageItem.Time;
+//                chatBean.DisplayInRecently = YES;
+//            }
+  
             
         }
         else {
@@ -110,7 +167,7 @@
         }
     }
     
-    [realm addOrUpdateObjectsFromArray:beans];
+    [realm addOrUpdateObjectsFromArray:chatMessageBeans];
     
     [realm commitWriteTransaction];
     
