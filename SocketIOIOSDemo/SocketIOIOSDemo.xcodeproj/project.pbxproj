@@ -15,7 +15,6 @@
 		BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F87A11E67F8140089C110 /* ChatMessageModel.m */; };
 		BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */ = {isa = PBXBuildFile; fileRef = BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */; };
 		BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */; };
-		BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */; };
 		BB4A868B1E5FDC2C0038E9D8 /* ChatMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */; };
 		BB4A868F1E5FF7CE0038E9D8 /* ChatMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868E1E5FF7CE0038E9D8 /* ChatMessageViewController.m */; };
 		BB4CA0A11E63FC0E0026AC6C /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4CA09F1E63FC0E0026AC6C /* ChatTableViewCell.m */; };
@@ -36,10 +35,6 @@
 		BB7985111E260B1D00552F88 /* SocketIOIOSDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7985101E260B1D00552F88 /* SocketIOIOSDemoTests.m */; };
 		BB79851C1E260B1D00552F88 /* SocketIOIOSDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB79851B1E260B1D00552F88 /* SocketIOIOSDemoUITests.m */; };
 		BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC11E53F5F10050756C /* SettingViewController.m */; };
-		BBA6EFC51E5419F20050756C /* PersonBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC41E5419F20050756C /* PersonBean.m */; };
-		BBA6EFC91E541E090050756C /* PersonListPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFC81E541E090050756C /* PersonListPresenter.m */; };
-		BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */; };
-		BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */; };
 		BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8DA1E4C178F007980D0 /* UserInfoBean.m */; };
 		BBAFF8DE1E4C3E41007980D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8DD1E4C3E41007980D0 /* LoginViewController.m */; };
 		BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAFF8E01E4C3FA7007980D0 /* UserInfoRepository.m */; };
@@ -104,8 +99,6 @@
 		BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIONotify.m; sourceTree = "<group>"; };
 		BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListViewController.h; sourceTree = "<group>"; };
-		BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListViewController.m; sourceTree = "<group>"; };
 		BB4A86821E5FBEDE0038E9D8 /* ChatMessageViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessageViewProtocol.h; sourceTree = "<group>"; };
 		BB4A86891E5FDC2C0038E9D8 /* ChatMessagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessagePresenter.h; sourceTree = "<group>"; };
 		BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessagePresenter.m; sourceTree = "<group>"; };
@@ -151,15 +144,6 @@
 		BB79851D1E260B1D00552F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBA6EFC01E53F5F10050756C /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		BBA6EFC11E53F5F10050756C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		BBA6EFC31E5419F20050756C /* PersonBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonBean.h; sourceTree = "<group>"; };
-		BBA6EFC41E5419F20050756C /* PersonBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonBean.m; sourceTree = "<group>"; };
-		BBA6EFC61E541D2C0050756C /* PersonListViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonListViewProtocol.h; sourceTree = "<group>"; };
-		BBA6EFC71E541E090050756C /* PersonListPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListPresenter.h; sourceTree = "<group>"; };
-		BBA6EFC81E541E090050756C /* PersonListPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListPresenter.m; sourceTree = "<group>"; };
-		BBA6EFCA1E541E2F0050756C /* PersonListPresenterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonListPresenterProtocol.h; sourceTree = "<group>"; };
-		BBA6EFCB1E5427D00050756C /* PersonListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonListTableViewCell.h; sourceTree = "<group>"; };
-		BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonListTableViewCell.m; sourceTree = "<group>"; };
-		BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonListTableViewCell.xib; sourceTree = "<group>"; };
 		BBAFF8D91E4C178F007980D0 /* UserInfoBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoBean.h; sourceTree = "<group>"; };
 		BBAFF8DA1E4C178F007980D0 /* UserInfoBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoBean.m; sourceTree = "<group>"; };
 		BBAFF8DC1E4C3E41007980D0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -267,64 +251,6 @@
 				BB476E511E51A89C00A7F8C7 /* View */,
 			);
 			path = Message;
-			sourceTree = "<group>";
-		};
-		BB476E361E51A1D300A7F8C7 /* Person */ = {
-			isa = PBXGroup;
-			children = (
-				BB476E3B1E51A2AF00A7F8C7 /* Controller */,
-				BB476E3A1E51A2AF00A7F8C7 /* Model */,
-				BB476E391E51A2AF00A7F8C7 /* Presenter */,
-				BB476E381E51A2AF00A7F8C7 /* Repository */,
-				BB476E371E51A2AF00A7F8C7 /* View */,
-			);
-			path = Person;
-			sourceTree = "<group>";
-		};
-		BB476E371E51A2AF00A7F8C7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BBA6EFC61E541D2C0050756C /* PersonListViewProtocol.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BB476E381E51A2AF00A7F8C7 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		BB476E391E51A2AF00A7F8C7 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				BBA6EFC71E541E090050756C /* PersonListPresenter.h */,
-				BBA6EFC81E541E090050756C /* PersonListPresenter.m */,
-				BBA6EFCA1E541E2F0050756C /* PersonListPresenterProtocol.h */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		BB476E3A1E51A2AF00A7F8C7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BBA6EFC31E5419F20050756C /* PersonBean.h */,
-				BBA6EFC41E5419F20050756C /* PersonBean.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		BB476E3B1E51A2AF00A7F8C7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				BB476E3F1E51A62B00A7F8C7 /* PersonListViewController.h */,
-				BB476E401E51A62B00A7F8C7 /* PersonListViewController.m */,
-				BBA6EFCB1E5427D00050756C /* PersonListTableViewCell.h */,
-				BBA6EFCC1E5427D00050756C /* PersonListTableViewCell.m */,
-				BBA6EFCD1E5427D00050756C /* PersonListTableViewCell.xib */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		BB476E4C1E51A89C00A7F8C7 /* Controller */ = {
@@ -458,7 +384,6 @@
 				BB77149B1E2C91590015CFA3 /* SocketIO */,
 				BB476E341E51A1D300A7F8C7 /* Setting */,
 				BB476E351E51A1D300A7F8C7 /* Message */,
-				BB476E361E51A1D300A7F8C7 /* Person */,
 				BBEDD6F81E4C100300FA8B07 /* Login */,
 				BB7984F61E260B1D00552F88 /* Supporting Files */,
 				BB77149A1E2C8EB60015CFA3 /* SocketIOIOSDemo.entitlements */,
@@ -770,7 +695,6 @@
 			files = (
 				BB7985061E260B1D00552F88 /* LaunchScreen.storyboard in Resources */,
 				BB4CA0A21E63FC0E0026AC6C /* ChatTableViewCell.xib in Resources */,
-				BBA6EFCF1E5427D00050756C /* PersonListTableViewCell.xib in Resources */,
 				BBE46D9B1EADCA96002911D9 /* ContactTableViewCell.xib in Resources */,
 				BB7985031E260B1D00552F88 /* Assets.xcassets in Resources */,
 			);
@@ -845,12 +769,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBA6EFC51E5419F20050756C /* PersonBean.m in Sources */,
 				BBE46D9F1EADD2BD002911D9 /* ContactPresenter.m in Sources */,
 				BB7714A41E2C9B220015CFA3 /* SocketIOManager.m in Sources */,
 				BBF08D2A1E4D633600241CEF /* AFNetworkingClient.m in Sources */,
 				BBF52A091E5E7EC500A16F8C /* ImageUtils.m in Sources */,
-				BBA6EFC91E541E090050756C /* PersonListPresenter.m in Sources */,
 				BBF5B8201E66763800DCA96E /* RealmConfig.m in Sources */,
 				BBAFF8DB1E4C178F007980D0 /* UserInfoBean.m in Sources */,
 				BB517F881E557B6C0023C5B6 /* ChatMessageBean.m in Sources */,
@@ -862,7 +784,6 @@
 				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,
 				BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */,
 				BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */,
-				BBA6EFCE1E5427D00050756C /* PersonListTableViewCell.m in Sources */,
 				BBF08D301E4D633600241CEF /* DateUtils.m in Sources */,
 				BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */,
 				BBF08D331E4D853300241CEF /* ResultModel.m in Sources */,
@@ -882,7 +803,6 @@
 				BB517F7F1E5553850023C5B6 /* ChatViewController.m in Sources */,
 				BB517F931E55945F0023C5B6 /* ChatPresenter.m in Sources */,
 				BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */,
-				BB476E411E51A62B00A7F8C7 /* PersonListViewController.m in Sources */,
 				BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */,
 				BBE46D9A1EADCA96002911D9 /* ContactTableViewCell.m in Sources */,
 			);
