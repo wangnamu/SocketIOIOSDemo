@@ -57,7 +57,7 @@
 
 
 - (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString *)chatID {
-    RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatID] sortedResultsUsingKeyPath:@"Time" ascending:YES];
+    RLMResults<ChatMessageBean*> *beans = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatID] sortedResultsUsingKeyPath:@"LocalTime" ascending:YES];
     return beans;
 }
 
@@ -78,7 +78,7 @@
         NSArray *top = [group sortedArrayUsingDescriptors:@[sortDescriptor]];
         
         [chatMessageArray addObject:[top firstObject]];
-    }];
+    }];    
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
@@ -91,64 +91,64 @@
             
             /*-test-*/
             
-            RLMResults<ChatMessageBean*> *messageBeanResult = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatMessageItem.ChatID] sortedResultsUsingKeyPath:@"Time" ascending:NO];
-            
-            if (messageBeanResult.count > 0) {
-                
-                ChatMessageBean* chatMessageBeanOldest = messageBeanResult.firstObject;
-                
-                if (chatMessageItem.Time < chatMessageBeanOldest.Time) {
-                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-                        chatBean.Body = chatMessageBeanOldest.Body;
-                        chatBean.Time = chatMessageBeanOldest.Time;
-                        chatBean.DisplayInRecently = YES;
-                    }
-                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageBeanOldest.NickName,chatMessageBeanOldest.Body];
-                        chatBean.Time = chatMessageBeanOldest.Time;
-                        chatBean.DisplayInRecently = YES;
-                    }
-                }
-                else {
-                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-                        chatBean.Body = chatMessageItem.Body;
-                        chatBean.Time = chatMessageItem.Time;
-                        chatBean.DisplayInRecently = YES;
-                    }
-                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
-                        chatBean.Time = chatMessageItem.Time;
-                        chatBean.DisplayInRecently = YES;
-                    }
-                }
-            }
-            else {
-                
-                if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-                    chatBean.Body = chatMessageItem.Body;
-                    chatBean.Time = chatMessageItem.Time;
-                    chatBean.DisplayInRecently = YES;
-                }
-                else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-                    chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
-                    chatBean.Time = chatMessageItem.Time;
-                    chatBean.DisplayInRecently = YES;
-                }
-                
-            }
+//            RLMResults<ChatMessageBean*> *messageBeanResult = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatMessageItem.ChatID] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+//            
+//            if (messageBeanResult.count > 0) {
+//                
+//                ChatMessageBean* chatMessageBeanOldest = messageBeanResult.firstObject;
+//                
+//                if (chatMessageItem.Time < chatMessageBeanOldest.Time) {
+//                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+//                        chatBean.Body = chatMessageBeanOldest.Body;
+//                        chatBean.Time = chatMessageBeanOldest.Time;
+//                        chatBean.DisplayInRecently = YES;
+//                    }
+//                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+//                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageBeanOldest.NickName,chatMessageBeanOldest.Body];
+//                        chatBean.Time = chatMessageBeanOldest.Time;
+//                        chatBean.DisplayInRecently = YES;
+//                    }
+//                }
+//                else {
+//                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+//                        chatBean.Body = chatMessageItem.Body;
+//                        chatBean.Time = chatMessageItem.Time;
+//                        chatBean.DisplayInRecently = YES;
+//                    }
+//                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+//                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+//                        chatBean.Time = chatMessageItem.Time;
+//                        chatBean.DisplayInRecently = YES;
+//                    }
+//                }
+//            }
+//            else {
+//                
+//                if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+//                    chatBean.Body = chatMessageItem.Body;
+//                    chatBean.Time = chatMessageItem.Time;
+//                    chatBean.DisplayInRecently = YES;
+//                }
+//                else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+//                    chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+//                    chatBean.Time = chatMessageItem.Time;
+//                    chatBean.DisplayInRecently = YES;
+//                }
+//                
+//            }
             
             /*--*/
             
-//            if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-//                chatBean.Body = chatMessageItem.Body;
-//                chatBean.Time = chatMessageItem.Time;
-//                chatBean.DisplayInRecently = YES;
-//            }
-//            else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-//                chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
-//                chatBean.Time = chatMessageItem.Time;
-//                chatBean.DisplayInRecently = YES;
-//            }
+            if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
+                chatBean.Body = chatMessageItem.Body;
+                chatBean.Time = chatMessageItem.Time;
+                chatBean.DisplayInRecently = YES;
+            }
+            else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
+                chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
+                chatBean.Time = chatMessageItem.Time;
+                chatBean.DisplayInRecently = YES;
+            }
   
             
         }
@@ -170,6 +170,26 @@
     [realm addOrUpdateObjectsFromArray:chatMessageBeans];
     
     [realm commitWriteTransaction];
+    
+}
+
+
+
+- (void)updateChatMessage:(ChatMessageBean *)chatMessageBean {
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    
+    RLMResults<ChatMessageBean*> *result = [ChatMessageBean objectsWhere:@"SID = %@",chatMessageBean.SID];
+    
+    if (result.count > 0) {
+        
+        chatMessageBean.LocalTime = result.firstObject.LocalTime;
+        
+        [realm beginWriteTransaction];
+        [realm addOrUpdateObject:chatMessageBean];
+        [realm commitWriteTransaction];
+        
+    }
     
 }
 

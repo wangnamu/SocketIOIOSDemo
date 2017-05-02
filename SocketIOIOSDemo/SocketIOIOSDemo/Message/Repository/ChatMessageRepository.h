@@ -10,12 +10,14 @@
 #import "ChatMessageBean.h"
 #import "ChatBean.h"
 #import "ChatMessageBean.h"
+#import "DateUtils.h"
 
 @interface ChatMessageRepository : NSObject
 
 + (instancetype)sharedClient;
 
 - (void)createChatMessage:(NSArray*)chatMessageBeans;
+- (void)updateChatMessage:(ChatMessageBean*)chatMessageBean;
 - (void)createOrUpdateChat:(ChatBean*)chatBean;
 - (RLMResults<ChatBean*>*)getChat;
 - (RLMResults<ChatMessageBean*>*)getChatMessage;

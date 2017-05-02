@@ -42,6 +42,7 @@
     bean.Thumbnail = self.Thumbnail;
     bean.Original = self.Original;
     bean.SendStatusType = self.SendStatusType;
+    bean.LocalTime = self.LocalTime;
     return bean;
 }
 
@@ -59,6 +60,7 @@
     model.Thumbnail = bean.Thumbnail;
     model.Original = bean.Original;
     model.SendStatusType = bean.SendStatusType;
+    model.LocalTime = bean.LocalTime;
     return model;
 }
 

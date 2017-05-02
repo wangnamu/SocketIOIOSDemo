@@ -17,6 +17,7 @@
     bean.Name = self.Name;
     bean.Img = self.Img;
     bean.Time = self.Time;
+    bean.CreateTime = self.CreateTime;
     bean.Body = self.Body;
     bean.ChatType = self.ChatType;
     bean.DisplayInRecently = self.DisplayInRecently;
@@ -30,6 +31,7 @@
     model.Name = bean.Name;
     model.Img = bean.Img;
     model.Time = bean.Time;
+    model.CreateTime = bean.CreateTime;
     model.Body = bean.Body;
     model.ChatType = bean.ChatType;
     model.DisplayInRecently = bean.DisplayInRecently;

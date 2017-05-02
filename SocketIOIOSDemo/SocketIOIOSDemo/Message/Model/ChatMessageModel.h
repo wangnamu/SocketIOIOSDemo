@@ -27,6 +27,8 @@
 
 @property (nonatomic,assign) int SendStatusType;// 发送状态
 
+/*--------local--------*/
+@property (nonatomic,assign) long LocalTime;
 
 - (BOOL)isHost;
 

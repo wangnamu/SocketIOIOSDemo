@@ -44,7 +44,7 @@
         });
         
         
-        long last = [DateUtils timeNow];
+        long last = 0;
         long current = [DateUtils timeNow];
         RLMResults<ChatBean*> *chatBeans = [[ChatMessageRepository sharedClient] getChat];
         
@@ -123,6 +123,7 @@
                 
                 
                 ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:dic];
+                chatMessageModel.LocalTime = [DateUtils timeNow];
                 [dataChatMessage addObject:[chatMessageModel toBean]];
             }
 
@@ -184,6 +185,7 @@
 - (void)sendChatMessage:(ChatMessageModel *)model after:(void(^)(ChatMessageModel*))block {
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];
+        bean.LocalTime = [DateUtils timeNow];
         [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
         block(model);
         [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Chat object:nil];
@@ -194,7 +196,7 @@
     
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];
-        [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
+        [[ChatMessageRepository sharedClient] updateChatMessage:model];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Send_Message object:model];
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Chat object:nil];
@@ -205,6 +207,7 @@
 - (void)receiveChatMessage:(ChatMessageModel *)model {
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];
+        bean.LocalTime = [DateUtils timeNow];
         [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Receive_Message object:model];

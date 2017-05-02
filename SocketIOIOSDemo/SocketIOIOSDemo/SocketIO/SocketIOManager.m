@@ -134,7 +134,6 @@ static NSString* socketUrl = @"http://192.168.19.79:3000";
                 
                 
                 ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:msg.Others];
-                
                 [[MyChat sharedClient] receiveChatMessage:chatMessageModel];
             }
             
