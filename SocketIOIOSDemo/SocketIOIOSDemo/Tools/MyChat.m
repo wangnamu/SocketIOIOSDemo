@@ -96,6 +96,9 @@
         if (chatMessageBeans.count > 0) {
             last = chatMessageBeans.firstObject.Time;
         }
+        else {
+            last = [DateUtils timeNow];
+        }
         
         NSDictionary *chatMessageListParams = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
         
@@ -196,7 +199,7 @@
     
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];
-        [[ChatMessageRepository sharedClient] updateChatMessage:model];
+        [[ChatMessageRepository sharedClient] updateChatMessage:bean];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Send_Message object:model];
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Chat object:nil];
