@@ -10,7 +10,6 @@
 #import "ChatViewController.h"
 #import "ContactViewController.h"
 #import "SettingViewController.h"
-#import "SocketIOManager.h"
 
 @interface MainViewController ()
 

@@ -89,56 +89,6 @@
             
             ChatBean *chatBean = chatBeanResult.firstObject;
             
-            /*-test-*/
-            
-//            RLMResults<ChatMessageBean*> *messageBeanResult = [[ChatMessageBean objectsWhere:@"ChatID = %@",chatMessageItem.ChatID] sortedResultsUsingKeyPath:@"Time" ascending:NO];
-//            
-//            if (messageBeanResult.count > 0) {
-//                
-//                ChatMessageBean* chatMessageBeanOldest = messageBeanResult.firstObject;
-//                
-//                if (chatMessageItem.Time < chatMessageBeanOldest.Time) {
-//                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-//                        chatBean.Body = chatMessageBeanOldest.Body;
-//                        chatBean.Time = chatMessageBeanOldest.Time;
-//                        chatBean.DisplayInRecently = YES;
-//                    }
-//                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-//                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageBeanOldest.NickName,chatMessageBeanOldest.Body];
-//                        chatBean.Time = chatMessageBeanOldest.Time;
-//                        chatBean.DisplayInRecently = YES;
-//                    }
-//                }
-//                else {
-//                    if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-//                        chatBean.Body = chatMessageItem.Body;
-//                        chatBean.Time = chatMessageItem.Time;
-//                        chatBean.DisplayInRecently = YES;
-//                    }
-//                    else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-//                        chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
-//                        chatBean.Time = chatMessageItem.Time;
-//                        chatBean.DisplayInRecently = YES;
-//                    }
-//                }
-//            }
-//            else {
-//                
-//                if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
-//                    chatBean.Body = chatMessageItem.Body;
-//                    chatBean.Time = chatMessageItem.Time;
-//                    chatBean.DisplayInRecently = YES;
-//                }
-//                else if ([chatBean.ChatType isEqualToString:ChatTypeGroup]) {
-//                    chatBean.Body = [NSString stringWithFormat:@"%@:%@",chatMessageItem.NickName,chatMessageItem.Body];
-//                    chatBean.Time = chatMessageItem.Time;
-//                    chatBean.DisplayInRecently = YES;
-//                }
-//                
-//            }
-            
-            /*--*/
-            
             if ([chatBean.ChatType isEqualToString:ChatTypeSingle]) {
                 chatBean.Body = chatMessageItem.Body;
                 chatBean.Time = chatMessageItem.Time;

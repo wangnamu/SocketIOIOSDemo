@@ -191,11 +191,13 @@
         bean.LocalTime = [DateUtils timeNow];
         [[ChatMessageRepository sharedClient] createChatMessage:[NSArray arrayWithObjects:bean, nil]];
         block(model);
-        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Chat object:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Chat object:nil];
+        });
     }];
 }
 
-- (void)sendChatMessage:(ChatMessageModel *)model {
+- (void)updateChatMessage:(ChatMessageModel *)model {
     
     [queue addOperationWithBlock:^{
         ChatMessageBean *bean = [model toBean];

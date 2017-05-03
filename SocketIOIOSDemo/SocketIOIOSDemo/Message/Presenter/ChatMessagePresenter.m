@@ -176,7 +176,7 @@
             }];
             ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:res];
             
-            [[MyChat sharedClient] sendChatMessage:chatMessageModel];
+            [[MyChat sharedClient] updateChatMessage:chatMessageModel];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

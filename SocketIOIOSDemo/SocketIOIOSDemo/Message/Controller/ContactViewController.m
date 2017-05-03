@@ -44,6 +44,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)initControl {
     
     self.navigationItem.title = @"联系人";

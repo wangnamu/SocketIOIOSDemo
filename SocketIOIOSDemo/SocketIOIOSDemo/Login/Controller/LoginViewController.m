@@ -106,8 +106,8 @@
     MainViewController *mainViewController = [[MainViewController alloc] init];
     self.view.window.rootViewController = mainViewController;
     
-    [[SocketIOManager sharedClient] connect];
     [[MyChat sharedClient] getRecent];
+    [[SocketIOManager sharedClient] connect];
 }
 
 - (void)loginFail:(NSString *)errorMsg {

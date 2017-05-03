@@ -12,7 +12,7 @@
 
 static NSString* const Notification_Update_Chat = @"update_chat";
 static NSString* const Notification_Update_Contact = @"update_contact";
-static NSString* const Notification_Send_Message =@"send_message";
+static NSString* const Notification_Send_Message = @"send_message";
 static NSString* const Notification_Receive_Message = @"receive_message";
 static NSString* const Notification_Get_Recent_Begin = @"get_recent_begin";
 static NSString* const Notification_Get_Recent_Finish = @"get_recent_finish";
@@ -28,7 +28,7 @@ static NSString* const Notification_Get_Recent_Finish = @"get_recent_finish";
 //- (void)sendChat:(ChatModel*)model;
 //- (void)receiveChat:(ChatModel*)model;
 
-- (void)sendChatMessage:(ChatMessageModel*)model;
+- (void)updateChatMessage:(ChatMessageModel*)model;
 - (void)sendChatMessage:(ChatMessageModel *)model after:(void(^)(ChatMessageModel*))block;
 - (void)receiveChatMessage:(ChatMessageModel *)model;
 
