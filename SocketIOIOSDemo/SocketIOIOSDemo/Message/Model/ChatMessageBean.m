@@ -15,12 +15,5 @@
     return @"SID";
 }
 
-- (BOOL)isHost {
-    NSString *currentUserID = [[UserInfoRepository sharedClient] currentUser].SID;
-    if ([currentUserID isEqualToString:self.SenderID]) {
-        return YES;
-    }
-    return NO;
-}
 
 @end

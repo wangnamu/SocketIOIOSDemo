@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,9 +20,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SYr-Mh-TtN">
-                        <rect key="frame" x="17" y="7" width="55" height="56"/>
+                        <rect key="frame" x="16" y="7" width="56" height="56"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="55" id="jxW-db-eeM"/>
+                            <constraint firstAttribute="width" constant="56" id="jxW-db-eeM"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSo-nu-t3C">
@@ -56,7 +56,7 @@
                     <constraint firstItem="yC3-jL-ifJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="N1c-8X-feI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="iwY-0B-EI0" secondAttribute="trailing" constant="8" id="Vyo-S9-f3A"/>
                     <constraint firstItem="RSo-nu-t3C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="72" id="W91-Mv-Vbq"/>
-                    <constraint firstItem="SYr-Mh-TtN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="WOm-eD-z18"/>
+                    <constraint firstItem="SYr-Mh-TtN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="WOm-eD-z18"/>
                     <constraint firstAttribute="trailingMargin" secondItem="yC3-jL-ifJ" secondAttribute="trailing" constant="8" id="ZVH-cS-NVk"/>
                     <constraint firstItem="SYr-Mh-TtN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="lhT-vx-cHT"/>
                     <constraint firstItem="iwY-0B-EI0" firstAttribute="top" secondItem="yC3-jL-ifJ" secondAttribute="top" constant="28" id="v5A-E1-tc6"/>

@@ -52,8 +52,8 @@
             last = chatBeans.firstObject.CreateTime;
         }
        
-        __block dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-        __block NSMutableArray *dataChatMessage = [[NSMutableArray alloc] init];
+        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        NSMutableArray *dataChatMessage = [[NSMutableArray alloc] init];
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 

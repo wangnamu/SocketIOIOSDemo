@@ -157,27 +157,27 @@
     NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
     
     [[AFNetworkingClient sharedClient] POST:@"sendText" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (chatMessageView) {
-            NSDictionary *res = (NSDictionary *)responseObject;
-            [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-                return @{
-                         @"SID" : @"sid",
-                         @"SenderID" : @"senderID",
-                         @"Title" : @"title",
-                         @"Body" : @"body",
-                         @"Time" : @"time",
-                         @"MessageType" : @"messageType",
-                         @"NickName" : @"nickName",
-                         @"HeadPortrait" : @"headPortrait",
-                         @"ChatID" : @"chatID",
-                         @"Thumbnail" : @"thumbnail",
-                         @"Original" : @"original",
-                         };
-            }];
-            ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:res];
-            
-            [[MyChat sharedClient] updateChatMessage:chatMessageModel];
-        }
+        
+        NSDictionary *res = (NSDictionary *)responseObject;
+        [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return @{
+                     @"SID" : @"sid",
+                     @"SenderID" : @"senderID",
+                     @"Title" : @"title",
+                     @"Body" : @"body",
+                     @"Time" : @"time",
+                     @"MessageType" : @"messageType",
+                     @"NickName" : @"nickName",
+                     @"HeadPortrait" : @"headPortrait",
+                     @"ChatID" : @"chatID",
+                     @"Thumbnail" : @"thumbnail",
+                     @"Original" : @"original",
+                     };
+        }];
+        ChatMessageModel *chatMessageModel = [ChatMessageModel mj_objectWithKeyValues:res];
+        chatMessageModel.SendStatusType = SendStatusTypeSended;
+        [[MyChat sharedClient] updateChatMessage:chatMessageModel];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];

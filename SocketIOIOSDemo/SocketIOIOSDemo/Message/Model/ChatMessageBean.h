@@ -45,6 +45,4 @@ static NSString* const MessageTypeEmoji = @"emoji";
 /*--------local--------*/
 @property (nonatomic,assign) long LocalTime;
 
-- (BOOL)isHost;
-
 @end
