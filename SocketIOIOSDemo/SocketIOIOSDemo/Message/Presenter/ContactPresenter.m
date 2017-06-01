@@ -13,12 +13,17 @@
 
 @implementation ContactPresenter
 @synthesize contactView,dataSource;
+@synthesize queue,sem;
 
 - (instancetype)initWithView:(id<ContactViewProtocol>)view {
     self = [super init];
     if (self) {
         contactView = view;
         dataSource = [[NSMutableArray alloc] init];
+        
+        queue = dispatch_queue_create("com.ufo.socketio.contactQueue", NULL);
+        sem = dispatch_semaphore_create(0);
+        
     }
     return self;
 }
@@ -26,21 +31,26 @@
 
 - (void)loadData {
  
-    if (dataSource.count > 0) {
-        [dataSource removeAllObjects];
-    }
-    
-    RLMResults<ChatBean*> *result = [[ChatMessageRepository sharedClient] getContact];
-    for (ChatBean* bean in result) {
-        [dataSource addObject:[ChatModel fromBean:bean]];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_barrier_async(queue,^{
+        
+        NSArray *result = [[ChatMessageRepository sharedClient] getContact];
+        
         if(contactView) {
-            [contactView refreshData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (dataSource.count > 0) {
+                    [dataSource removeAllObjects];
+                }
+                [dataSource addObjectsFromArray:result];
+                [contactView refreshData];
+                
+                dispatch_semaphore_signal(sem);
+            });
+        } else {
+            dispatch_semaphore_signal(sem);
         }
+
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
     });
-    
     
 }
 

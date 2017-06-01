@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ChatMessageBean.h"
+#import "ChatMessageModel.h"
 #import "ChatBean.h"
-#import "ChatMessageBean.h"
+#import "ChatModel.h"
 #import "DateUtils.h"
 
 @interface ChatMessageRepository : NSObject
@@ -19,9 +20,14 @@
 - (void)createChatMessage:(NSArray*)chatMessageBeans;
 - (void)updateChatMessage:(ChatMessageBean*)chatMessageBean;
 - (void)createOrUpdateChat:(ChatBean*)chatBean;
-- (RLMResults<ChatBean*>*)getChat;
-- (RLMResults<ChatMessageBean*>*)getChatMessage;
-- (RLMResults<ChatBean*>*)getContact;
-- (RLMResults<ChatMessageBean*>*)getChatMessageByChatID:(NSString*)chatID;
+
+- (ChatModel*)getChatLast;
+- (NSArray*)getChat;
+- (ChatMessageModel*)getChatMessageLast;
+- (NSArray*)getChatMessage;
+- (NSArray*)getContact;
+- (NSArray*)getChatMessageByChatID:(NSString*)chatID Begin:(NSInteger)begin End:(NSInteger)end;
+- (NSInteger)getChatMessageSizeByChatID:(NSString*)chatID;
+
 
 @end

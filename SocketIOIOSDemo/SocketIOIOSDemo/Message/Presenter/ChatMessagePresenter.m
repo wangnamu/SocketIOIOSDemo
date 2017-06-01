@@ -16,7 +16,7 @@
 @implementation ChatMessagePresenter
 @synthesize chatMessageView,dataSource;
 @synthesize pageSize,hasMore,isLoading;
-@synthesize queue;
+@synthesize queue,sem;
 
 - (instancetype)initWithView:(id<ChatMessageViewProtocol>)view {
     self = [super init];
@@ -25,6 +25,7 @@
         dataSource = [[NSMutableArray alloc] init];
         
         queue = dispatch_queue_create("com.ufo.socketio.chatMessageQueue", NULL);
+        sem = dispatch_semaphore_create(0);
         
         pageSize = 10;
         hasMore = NO;
@@ -37,32 +38,37 @@
     
     dispatch_barrier_async(queue,^{
         
-        isLoading = YES;
+        isLoading = true;
         
-        RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
-
-        if (dataSource.count > 0) {
-            [dataSource removeAllObjects];
-        }
+        NSInteger totalCount = [[ChatMessageRepository sharedClient] getChatMessageSizeByChatID:chatID];
         
-        NSInteger start = result.count > pageSize ? result.count - pageSize : 0;
+        NSInteger start = totalCount > pageSize ? totalCount - pageSize : 0;
         
-        for (NSInteger i = start; i < result.count; i++) {
-            ChatMessageBean *bean = result[i];
-            [dataSource addObject:[ChatMessageModel fromBean:bean]];
-        }
+        NSArray *array = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID Begin:start End:totalCount];
         
-        hasMore = start > 0 ? YES : NO;
+        hasMore = start > 0;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(chatMessageView) {
+        if (chatMessageView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                if (dataSource.count > 0) {
+                    [dataSource removeAllObjects];
+                }
+                [dataSource addObjectsFromArray:array];
                 [chatMessageView reloadDataComplete];
                 isLoading = NO;
-            }
-        });
+                
+                dispatch_semaphore_signal(sem);
+                
+            });
+        } else {
+            dispatch_semaphore_signal(sem);
+        }
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
     });
-    
+
 }
 
 - (void)loadMoreDataWithChatID:(NSString *)chatID {
@@ -73,24 +79,36 @@
         
         sleep(1);
         
-        RLMResults<ChatMessageBean*> *result = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID];
+        NSInteger start = dataSource.count;
         
-        NSInteger start = dataSource.count + 1;
-        NSInteger length = result.count - start > pageSize ? result.count - start - pageSize : -1;
+        NSInteger totalCount = [[ChatMessageRepository sharedClient] getChatMessageSizeByChatID:chatID];
         
-        for (NSInteger i = result.count - start; i > length; i--) {
-            ChatMessageBean *bean = result[i];
-            [dataSource insertObject:[ChatMessageModel fromBean:bean] atIndex:0];
-        }
+        NSInteger length = totalCount - start > pageSize ? totalCount - start - pageSize : 0;
         
-        hasMore = length > 0 ? YES : NO;
+        NSArray *array = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID Begin:length End:totalCount-start];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(chatMessageView) {
+        hasMore = length > 0;
+        
+        if (chatMessageView) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (dataSource.count > 0) {
+                    for (NSInteger i=array.count-1; i>=0; i--) {
+                         [dataSource insertObject:array[i] atIndex:0];
+                    }
+                }
                 [chatMessageView loadMoreDataComplete];
                 isLoading = NO;
-            }
-        });
+
+                dispatch_semaphore_signal(sem);
+            });
+            
+        } else {
+            dispatch_semaphore_signal(sem);
+        }
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
     });
     
@@ -102,14 +120,20 @@
 - (void)insertChatMessage:(ChatMessageModel *)model {
     
     dispatch_barrier_async(queue,^{
-        [dataSource addObject:model];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(chatMessageView) {
+        if (chatMessageView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [dataSource addObject:model];
                 [chatMessageView updateChatMessageCell];
-            }
-        });
-
+                
+                dispatch_semaphore_signal(sem);
+            });
+        } else {
+            dispatch_semaphore_signal(sem);
+        }
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        
     });
     
 }
@@ -117,18 +141,23 @@
 - (void)updateChatMessage:(ChatMessageModel *)model {
     
     dispatch_barrier_async(queue,^{
-        if (dataSource.count > 0 && [dataSource containsObject:model]) {
-            NSInteger index = [dataSource indexOfObject:model];
-            
-            [dataSource replaceObjectAtIndex:index withObject:model];
-            
+        
+        if (chatMessageView) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (chatMessageView) {
+                if (dataSource.count > 0 && [dataSource containsObject:model]) {
+                    NSInteger index = [dataSource indexOfObject:model];
+                    [dataSource replaceObjectAtIndex:index withObject:model];
                     [chatMessageView updateChatMessageCell];
                 }
+                dispatch_semaphore_signal(sem);
             });
-            
         }
+        else {
+            dispatch_semaphore_signal(sem);
+        }
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        
     });
     
 }

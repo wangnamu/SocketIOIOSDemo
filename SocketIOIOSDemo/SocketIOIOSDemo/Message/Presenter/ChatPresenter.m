@@ -16,31 +16,43 @@
 
 @implementation ChatPresenter
 @synthesize chatView,dataSource;
+@synthesize queue,sem;
 
 - (instancetype)initWithView:(id<ChatViewProtocol>)view {
     self = [super init];
     if (self) {
         chatView = view;
         dataSource = [[NSMutableArray alloc] init];
+        
+        queue = dispatch_queue_create("com.ufo.socketio.chatQueue", NULL);
+        sem = dispatch_semaphore_create(0);
+        
     }
     return self;
 }
 
 - (void)updateChat {
     
-    if (dataSource.count > 0) {
-        [dataSource removeAllObjects];
-    }
-    
-    RLMResults<ChatBean*> *result = [[ChatMessageRepository sharedClient] getChat];
-    for (ChatBean *bean in result) {
-        [dataSource addObject:[ChatModel fromBean:bean]];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_barrier_async(queue,^{
+ 
+        NSArray *result = [[ChatMessageRepository sharedClient] getChat];
+        
         if(chatView) {
-            [chatView refreshData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (dataSource.count > 0) {
+                    [dataSource removeAllObjects];
+                }
+                [dataSource addObjectsFromArray:result];
+                [chatView refreshData];
+                
+                dispatch_semaphore_signal(sem);
+            });
+        } else {
+            dispatch_semaphore_signal(sem);
         }
+        
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        
     });
     
 }

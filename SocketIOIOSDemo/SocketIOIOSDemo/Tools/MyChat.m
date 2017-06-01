@@ -46,10 +46,10 @@
         
         long last = 0;
         long current = [DateUtils timeNow];
-        RLMResults<ChatBean*> *chatBeans = [[ChatMessageRepository sharedClient] getChat];
+        ChatModel *chatLast = [[ChatMessageRepository sharedClient] getChatLast];
         
-        if (chatBeans.count > 0) {
-            last = chatBeans.firstObject.CreateTime;
+        if (chatLast != nil) {
+            last = chatLast.CreateTime;
         }
        
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
@@ -91,10 +91,10 @@
 
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
-        RLMResults<ChatMessageBean*> *chatMessageBeans = [[ChatMessageRepository sharedClient] getChatMessage];
+        ChatMessageModel *chatMessageLast = [[ChatMessageRepository sharedClient] getChatMessageLast];
         
-        if (chatMessageBeans.count > 0) {
-            last = chatMessageBeans.firstObject.Time;
+        if (chatMessageLast != nil) {
+            last = chatMessageLast.Time;
         }
         else {
             last = [DateUtils timeNow];

@@ -13,6 +13,8 @@
 @interface ContactPresenter : NSObject<ContactPresenterProtocol>
 
 @property (nonatomic,weak) id<ContactViewProtocol> contactView;
+@property (nonatomic, strong) dispatch_queue_t queue;
+@property (nonatomic, strong) dispatch_semaphore_t sem;
 
 - (instancetype)initWithView:(id<ContactViewProtocol>)view;
 

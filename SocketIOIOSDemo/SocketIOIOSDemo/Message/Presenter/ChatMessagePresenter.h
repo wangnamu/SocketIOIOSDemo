@@ -14,7 +14,7 @@
 
 @property (nonatomic,weak) id<ChatMessageViewProtocol> chatMessageView;
 @property (nonatomic, strong) dispatch_queue_t queue;
-
+@property (nonatomic, strong) dispatch_semaphore_t sem;
 
 - (instancetype)initWithView:(id<ChatMessageViewProtocol>)view;
 

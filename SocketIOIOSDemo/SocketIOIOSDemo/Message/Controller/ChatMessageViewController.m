@@ -432,6 +432,7 @@ static NSInteger const elapsedTime = 15;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
+    [inputToolbar changeKeyboradNormal];
 }
 
 

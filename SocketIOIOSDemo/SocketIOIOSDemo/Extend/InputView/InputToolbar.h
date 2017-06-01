@@ -30,6 +30,7 @@
 
 @property (nonatomic, weak) id<InputToolbarDelegate> delegate;
 
+-(void)changeKeyboradNormal;
 
 @end
 

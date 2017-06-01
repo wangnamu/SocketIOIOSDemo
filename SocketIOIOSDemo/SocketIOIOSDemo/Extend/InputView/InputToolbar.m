@@ -156,6 +156,7 @@
     
 }
 
+
 - (void)doSend:(UIButton*)sender {
     
     if([self.contentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) {
@@ -183,6 +184,13 @@
         [delegate customButtonPressed:tag];
     }
 }
+
+- (void)changeKeyboradNormal {
+    self.addButton.selected = NO;
+    self.contentTextView.inputView = nil;
+    [self.contentTextView reloadInputViews];
+}
+
 
 
 @end
