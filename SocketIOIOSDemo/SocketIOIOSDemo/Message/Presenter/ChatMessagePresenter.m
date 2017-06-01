@@ -73,16 +73,17 @@
 
 - (void)loadMoreDataWithChatID:(NSString *)chatID {
     
+    NSInteger start = dataSource.count;
+    
+    NSInteger totalCount = [[ChatMessageRepository sharedClient] getChatMessageSizeByChatID:chatID];
+    
     dispatch_barrier_async(queue,^{
         
         isLoading = YES;
         
         sleep(1);
         
-        NSInteger start = dataSource.count;
-        
-        NSInteger totalCount = [[ChatMessageRepository sharedClient] getChatMessageSizeByChatID:chatID];
-        
+       
         NSInteger length = totalCount - start > pageSize ? totalCount - start - pageSize : 0;
         
         NSArray *array = [[ChatMessageRepository sharedClient] getChatMessageByChatID:chatID Begin:length End:totalCount-start];

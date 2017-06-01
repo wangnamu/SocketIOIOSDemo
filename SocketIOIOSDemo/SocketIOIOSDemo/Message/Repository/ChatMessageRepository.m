@@ -129,7 +129,7 @@
 
 - (ChatModel *)getChatLast {
     
-    RLMResults<ChatBean*> *beans = [[ChatBean objectsWhere:@"DisplayInRecently = YES"] sortedResultsUsingKeyPath:@"Time" ascending:NO];
+    RLMResults<ChatBean*> *beans = [[ChatBean allObjects] sortedResultsUsingKeyPath:@"Time" ascending:NO];
     if (beans.count > 0) {
         ChatModel *model = [ChatModel fromBean:beans.firstObject];
         return model;
