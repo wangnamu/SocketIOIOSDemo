@@ -14,6 +14,7 @@
 #import "MainViewController.h"
 #import "SocketIOManager.h"
 #import "MyChat.h"
+#import "SocketIOLoginStatus.h"
 
 @interface LoginViewController ()<LoginViewProtocol>
 
@@ -29,6 +30,23 @@
 
 @synthesize presenter;
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _isKickedOff = NO;
+    }
+    return self;
+}
+
+- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff {
+    self = [super init];
+    if (self) {
+        _isKickedOff = isKickedOff;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -36,9 +54,16 @@
     presenter = [[LoginPresenter alloc] initWithView:self];
     [self initControl];
     
-    [self.tbUserName setText:@"wangnan"];
-    [self.tbPassWord setText:@"123"];
+    [SocketIOLoginStatus setNeedToCheck:NO];
+    
+    if (_isKickedOff) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"检测到您的账号已在其它设备登录，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -57,6 +82,7 @@
     self.tbPassWord = [[UITextField alloc] init];
     self.tbPassWord.placeholder = @"请输入密码";
     self.tbPassWord.backgroundColor = [UIColor whiteColor];
+    self.tbPassWord.secureTextEntry = YES;
     [self.view addSubview:self.tbPassWord];
     
     self.btnOK = [[UIButton alloc] init];
@@ -91,7 +117,6 @@
     }];
 
 }
-
 
 - (void)sumbit:(id)sender {
     [presenter loginUserName:self.tbUserName.text PassWord:self.tbPassWord.text];

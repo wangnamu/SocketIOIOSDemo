@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController {
+    BOOL _isKickedOff;
+}
+
+- (instancetype)init;
+
+- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff;
 
 @end

@@ -58,6 +58,8 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     [[SocketIOManager sharedClient] disconnect];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -76,6 +78,7 @@
         [[SocketIOManager sharedClient] connect];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kickoff) name:Notification_Socketio_Kickoff object:nil];
     
 }
 
@@ -208,6 +211,16 @@
     
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
    
+}
+
+#pragma mark
+
+- (void)kickoff {
+    [[UserInfoRepository sharedClient] logoff];
+    [[SocketIOManager sharedClient] disconnect];
+    
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithIsKickedOff:YES];
+    self.window.rootViewController = loginViewController;
 }
 
 

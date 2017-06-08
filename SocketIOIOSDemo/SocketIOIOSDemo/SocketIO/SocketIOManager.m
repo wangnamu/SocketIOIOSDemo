@@ -9,9 +9,10 @@
 #import "SocketIOManager.h"
 #import "UserInfoRepository.h"
 #import "MyChat.h"
+#import "SocketIOLoginStatus.h"
 
-static NSString* socketUrl = @"http://192.168.19.223:3000";
-//static NSString* socketUrl = @"http://192.168.19.87:3000";
+static NSString* socketUrl = @"http://192.168.16.61:3000";
+//static NSString* socketUrl = @"http://192.168.19.92:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -75,13 +76,54 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
             NSString* json = [model mj_JSONString];
             
             if (socket != nil) {
-                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
-                    NSLog(@"socket connected");
-                    NSLog(@"login->%@",args);
-                    if (args != nil && args.count > 0 && [[args firstObject] isEqualToString:@"NO ACK"]) {
-                        [socket reconnect];
-                    }
-                }];
+                
+                if ([SocketIOLoginStatus isNeedToCheck]) {
+                    
+                    [[socket emitWithAck:@"checkkickoff" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
+                        if (args != nil && args.count > 0) {
+                            NSLog(@"login callback ->%@",args);
+                            if ([[args firstObject] isEqualToString:@"NO ACK"]) {
+                                [socket reconnect];
+                            }
+                            else if([[args firstObject] isEqualToString:@"TRUE"]) {
+                                [SocketIOLoginStatus setNeedToCheck:YES];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:nil];
+                            }
+                            else {
+                                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args1) {
+                                    if (args1 != nil && args1.count > 0) {
+                                        if ([[args firstObject] isEqualToString:@"NO ACK"]) {
+                                            [socket reconnect];
+                                        } else {
+                                            [SocketIOLoginStatus setNeedToCheck:YES];
+                                        }
+                                    }
+                                }];
+                            }
+                            
+                        }
+                    }];
+                    
+                }
+                else {
+                    
+                    [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
+                        NSLog(@"socket connected");
+                        if (args != nil && args.count > 0) {
+                            NSLog(@"login callback ->%@",args);
+                            if ([[args firstObject] isEqualToString:@"NO ACK"]) {
+                                [socket reconnect];
+                            }
+                            else {
+                                NSLog(@"login->%@",args);
+                                [SocketIOLoginStatus setNeedToCheck:YES];
+                            }
+                            
+                        }
+                    }];
+                    
+                }
+ 
             }
             
         }];
@@ -93,7 +135,6 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
         [socket on:@"reconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"reconnect---%@",data);
         }];
-        
         
         [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"kickoff---%@",data);
@@ -139,10 +180,7 @@ static NSString* socketUrl = @"http://192.168.19.223:3000";
             
         }];
 
-        
-
         [socket connect];
-        
         
         return YES;
     }
