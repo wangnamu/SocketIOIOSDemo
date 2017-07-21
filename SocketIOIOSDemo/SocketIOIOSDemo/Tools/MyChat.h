@@ -32,6 +32,6 @@ static NSString* const Notification_Get_Recent_Finish = @"get_recent_finish";
 - (void)sendChatMessage:(ChatMessageModel *)model after:(void(^)(ChatMessageModel*))block;
 - (void)receiveChatMessage:(ChatMessageModel *)model;
 
-- (void)getRecent;
+- (void)getRecent:(void(^)(void))block;
 
 @end

@@ -36,7 +36,7 @@
 }
 
 
-- (void)getRecent {
+- (void)getRecent:(void (^)(void))block {
     [queue addOperationWithBlock:^{
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -152,6 +152,10 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Update_Contact object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Get_Recent_Finish object:nil];
         });
+        
+        if (block) {
+            block();
+        }
         
     }];
 

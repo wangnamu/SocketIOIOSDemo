@@ -9,10 +9,10 @@
 #import "SocketIOManager.h"
 #import "UserInfoRepository.h"
 #import "MyChat.h"
-#import "SocketIOLoginStatus.h"
+#import "SocketIOResponse.h"
 
-static NSString* socketUrl = @"http://192.168.16.61:3000";
-//static NSString* socketUrl = @"http://192.168.19.92:3000";
+//static NSString* socketUrl = @"http://192.168.16.61:3000";
+static NSString* socketUrl = @"http://192.168.19.86:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -42,7 +42,7 @@ static NSString* socketUrl = @"http://192.168.16.61:3000";
     return socket;
 }
 
-- (BOOL)connect {
+- (BOOL)connect:(BOOL)checkStatus {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *deviceToken = [userDefaults objectForKey:@"deviceToken"];
@@ -69,7 +69,7 @@ static NSString* socketUrl = @"http://192.168.16.61:3000";
             model.NickName = userInfoBean.NickName;
             
             model.DeviceToken = deviceToken;
-            model.Project = @"SocketIODemo";
+            model.CheckStatus = checkStatus;
             model.DeviceType = @"IOS";
             model.LoginTime = [[NSDate date] timeIntervalSince1970] * 1000;
             
@@ -77,52 +77,28 @@ static NSString* socketUrl = @"http://192.168.16.61:3000";
             
             if (socket != nil) {
                 
-                if ([SocketIOLoginStatus isNeedToCheck]) {
-                    
-                    [[socket emitWithAck:@"checkkickoff" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
-                        if (args != nil && args.count > 0) {
-                            NSLog(@"login callback ->%@",args);
-                            if ([[args firstObject] isEqualToString:@"NO ACK"]) {
-                                [socket reconnect];
-                            }
-                            else if([[args firstObject] isEqualToString:@"TRUE"]) {
-                                [SocketIOLoginStatus setNeedToCheck:YES];
-                                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:nil];
-                            }
-                            else {
-                                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args1) {
-                                    if (args1 != nil && args1.count > 0) {
-                                        if ([[args firstObject] isEqualToString:@"NO ACK"]) {
-                                            [socket reconnect];
-                                        } else {
-                                            [SocketIOLoginStatus setNeedToCheck:YES];
-                                        }
-                                    }
-                                }];
+                [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
+                    NSLog(@"socket connecting");
+                    if (args != nil && args.count > 0) {
+                        NSLog(@"login callback ->%@",args);
+                        if ([[args firstObject] isEqualToString:@"NO ACK"]) {
+                            [socket reconnect];
+                        }
+                        else {
+                            
+                            NSDictionary *dic = [[args firstObject] mj_JSONObject];
+                            SocketIOResponse *socketIOResponse = [SocketIOResponse mj_objectWithKeyValues:dic];
+                            
+                            if (socketIOResponse.IsSuccess) {
+                                NSLog(@"login success");
+                            } else {
+                                NSLog(@"login error msg->%@",socketIOResponse.Message);
+                                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:socketIOResponse.Message];
                             }
                             
                         }
-                    }];
-                    
-                }
-                else {
-                    
-                    [[socket emitWithAck:@"login" with:@[json]] timingOutAfter:30 callback:^(NSArray* args) {
-                        NSLog(@"socket connected");
-                        if (args != nil && args.count > 0) {
-                            NSLog(@"login callback ->%@",args);
-                            if ([[args firstObject] isEqualToString:@"NO ACK"]) {
-                                [socket reconnect];
-                            }
-                            else {
-                                NSLog(@"login->%@",args);
-                                [SocketIOLoginStatus setNeedToCheck:YES];
-                            }
-                            
-                        }
-                    }];
-                    
-                }
+                    }
+                }];
  
             }
             
@@ -138,7 +114,13 @@ static NSString* socketUrl = @"http://192.168.16.61:3000";
         
         [socket on:@"kickoff" callback:^(NSArray* data, SocketAckEmitter* ack) {
             NSLog(@"kickoff---%@",data);
-            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:nil];
+            
+            NSDictionary *dic = [[data objectAtIndex:0] mj_JSONObject];
+            SocketIOResponse *resp = [SocketIOResponse mj_objectWithKeyValues:dic];
+            
+            NSLog(@"kickoff msg---%@",resp.Message);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Socketio_Kickoff object:resp.Message];
         }];
         
         [socket on:@"notifyotherplatforms" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -194,6 +176,26 @@ static NSString* socketUrl = @"http://192.168.16.61:3000";
     }
     return YES;
 }
+
+- (void)loginOff {
+    UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
+    
+    if (userInfoBean == nil) {
+        return;
+    }
+    
+    if (socket == nil) {
+        return;
+    }
+    
+    SocketIOUserInfo *model = [[SocketIOUserInfo alloc] init];
+    model.SID = userInfoBean.SID;
+    model.DeviceType = @"IOS";
+    
+    NSString *json = [model mj_JSONString];
+    [socket emit:@"logoff" with:@[json]];
+}
+
 
 - (void)notifyOtherPlatforms:(SocketIONotify*)notify {
     if(socket != nil && socket.status == SocketIOClientStatusConnected) {

@@ -223,7 +223,6 @@ static NSInteger const elapsedTime = 15;
             [act startAnimating];
         }
         
-        
         return loadCell;
     }
     else {

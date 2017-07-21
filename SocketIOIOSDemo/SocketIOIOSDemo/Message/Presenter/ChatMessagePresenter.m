@@ -168,23 +168,29 @@
     
     WS(ws);
     
+    UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
+    
+    if (userInfoBean == nil) {
+        return;
+    }
+    
     NSString *messageID = [[NSUUID UUID] UUIDString];
     ChatMessageModel *model = [[ChatMessageModel alloc] init];
     model.SID = messageID;
-    model.SenderID = [[UserInfoRepository sharedClient] currentUser].SID;
-    model.Title = [[UserInfoRepository sharedClient] currentUser].NickName;
+    model.SenderID = userInfoBean.SID;
+    model.Title = userInfoBean.NickName;
     model.Body = body;
     model.Time = [DateUtils timeNow];
     model.MessageType = MessageTypeText;
-    model.NickName = [[UserInfoRepository sharedClient] currentUser].NickName;
-    model.HeadPortrait = [[UserInfoRepository sharedClient] currentUser].HeadPortrait;
+    model.NickName = userInfoBean.NickName;
+    model.HeadPortrait = userInfoBean.HeadPortrait;
     model.ChatID = chatID;
     model.SendStatusType = SendStatusTypeSending;
     [[MyChat sharedClient] sendChatMessage:model after:^(ChatMessageModel *m) {
         [ws insertChatMessage:m];
     }];
     
-    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":[[UserInfoRepository sharedClient] currentUser].SID };
+    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":userInfoBean.SID };
     
     [[AFNetworkingClient sharedClient] POST:@"sendText" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

@@ -10,10 +10,12 @@
 
 @interface LoginViewController : UIViewController {
     BOOL _isKickedOff;
+    NSString* _message;
 }
 
 - (instancetype)init;
 
-- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff;
+- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff
+                            Message:(NSString*)message;
 
 @end

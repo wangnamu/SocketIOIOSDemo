@@ -42,6 +42,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    [self initActive];
+    
     return YES;
 }
 
@@ -59,6 +61,7 @@
     
     [[SocketIOManager sharedClient] disconnect];
     
+    NSLog(@"DidEnterBackground");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -66,20 +69,12 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [self initActive];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    UserInfoBean *bean = [[UserInfoRepository sharedClient] currentUser];
-    if (bean != nil) {
-        [RealmConfig setUp:bean.UserName];
-        [[MyChat sharedClient] getRecent];
-        [[SocketIOManager sharedClient] connect];
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kickoff) name:Notification_Socketio_Kickoff object:nil];
-    
 }
 
 
@@ -99,7 +94,7 @@
     if ([userDefaults objectForKey:@"deviceToken"] == nil) {
         [userDefaults setObject:deviceString forKey:@"deviceToken"];
         [userDefaults synchronize];
-        [[SocketIOManager sharedClient] connect];
+        [[SocketIOManager sharedClient] connect:NO];
     }
     
 }
@@ -208,18 +203,35 @@
 
 
 - (void)initHUD {
-    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-   
+}
+
+- (void)initActive {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    UserInfoBean *bean = [[UserInfoRepository sharedClient] currentUser];
+    if (bean != nil) {
+        [RealmConfig setUp:bean.UserName];
+        [[MyChat sharedClient] getRecent:^{
+            [[SocketIOManager sharedClient] connect:YES];
+        }];
+    }
+    NSLog(@"initActive");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kickoff:) name:Notification_Socketio_Kickoff object:nil];
 }
 
 #pragma mark
 
-- (void)kickoff {
+- (void)kickoff:(NSNotification *)notification {
+    
     [[UserInfoRepository sharedClient] logoff];
     [[SocketIOManager sharedClient] disconnect];
     
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithIsKickedOff:YES];
+    NSLog(@"kick off");
+    
+    NSString *msg = [notification object];
+    
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithIsKickedOff:YES Message:msg];
     self.window.rootViewController = loginViewController;
 }
 

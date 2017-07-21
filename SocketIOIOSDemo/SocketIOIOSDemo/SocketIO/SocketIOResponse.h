@@ -10,4 +10,7 @@
 
 @interface SocketIOResponse : NSObject
 
+@property (nonatomic,assign) BOOL IsSuccess;
+@property (nonatomic,copy) NSString* Message;
+
 @end

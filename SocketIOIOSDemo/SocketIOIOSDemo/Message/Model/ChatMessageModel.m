@@ -20,9 +20,11 @@
 }
 
 - (BOOL)isHost {
-    NSString *currentUserID = [[UserInfoRepository sharedClient] currentUser].SID;
-    if ([currentUserID isEqualToString:self.SenderID]) {
-        return YES;
+    if([[UserInfoRepository sharedClient] currentUser] != nil){
+        NSString *currentUserID = [[UserInfoRepository sharedClient] currentUser].SID;
+        if ([currentUserID isEqualToString:self.SenderID]) {
+            return YES;
+        }
     }
     return NO;
 }

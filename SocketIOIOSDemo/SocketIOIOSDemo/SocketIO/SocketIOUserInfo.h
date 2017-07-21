@@ -16,6 +16,6 @@
 @property (nonatomic,assign) long LoginTime;// 最近一次登录时间
 @property (nonatomic,copy) NSString* DeviceType;// 设备类型
 @property (nonatomic,copy) NSString* DeviceToken;// 设备证书
-@property (nonatomic,copy) NSString* Project;// 所属项目
+@property (nonatomic,assign) BOOL CheckStatus;// 检查是否已经在其它移动设备上登录过
 
 @end

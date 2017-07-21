@@ -14,7 +14,6 @@
 #import "MainViewController.h"
 #import "SocketIOManager.h"
 #import "MyChat.h"
-#import "SocketIOLoginStatus.h"
 
 @interface LoginViewController ()<LoginViewProtocol>
 
@@ -38,10 +37,12 @@
     return self;
 }
 
-- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff {
+- (instancetype)initWithIsKickedOff:(BOOL)isKickedOff
+                            Message:(NSString *)message {
     self = [super init];
     if (self) {
         _isKickedOff = isKickedOff;
+        _message = message;
     }
     return self;
 }
@@ -54,10 +55,9 @@
     presenter = [[LoginPresenter alloc] initWithView:self];
     [self initControl];
     
-    [SocketIOLoginStatus setNeedToCheck:NO];
-    
+ 
     if (_isKickedOff) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"检测到您的账号已在其它设备登录，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:_message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
@@ -131,8 +131,10 @@
     MainViewController *mainViewController = [[MainViewController alloc] init];
     self.view.window.rootViewController = mainViewController;
     
-    [[MyChat sharedClient] getRecent];
-    [[SocketIOManager sharedClient] connect];
+    [[MyChat sharedClient] getRecent:^{
+        [[SocketIOManager sharedClient] connect:NO];
+    }];
+    
 }
 
 - (void)loginFail:(NSString *)errorMsg {

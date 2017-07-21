@@ -30,8 +30,10 @@ static NSString* const OthersTypeMessage = @"message";
 
 - (SocketIOClient*)getSocket;
 
-- (BOOL)connect;
+- (BOOL)connect:(BOOL)checkStatus;
 - (BOOL)disconnect;
+
+- (void)loginOff;
 
 - (void)notifyOtherPlatforms:(SocketIONotify*)notify;
 - (void)sendNews:(SocketIOMessage*)msg;

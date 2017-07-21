@@ -13,14 +13,14 @@ static NSString* const ChatTypeGroup = @"groupChat";
 
 @interface ChatBean : RLMObject
 
-@property (nonatomic,copy) NSString* SID;
-@property (nonatomic,copy) NSString* Users;
-@property (nonatomic,copy) NSString* Name;
-@property (nonatomic,copy) NSString* Img;
-@property (nonatomic,assign) long Time;
-@property (nonatomic,assign) long CreateTime;
-@property (nonatomic,copy) NSString* Body;
-@property (nonatomic,copy) NSString* ChatType;
+@property NSString* SID;
+@property NSString* Users;
+@property NSString* Name;
+@property NSString* Img;
+@property long Time;
+@property long CreateTime;
+@property NSString* Body;
+@property NSString* ChatType;
 
 //custom in client
 @property (nonatomic,assign) BOOL DisplayInRecently;

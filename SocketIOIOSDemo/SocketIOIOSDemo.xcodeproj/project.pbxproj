@@ -13,7 +13,6 @@
 		BB09EC351EA9FB2E00871E4F /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB09EC341EA9FB2E00871E4F /* ContactViewController.m */; };
 		BB1F879C1E67AB0E0089C110 /* MyChat.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F879B1E67AB0E0089C110 /* MyChat.m */; };
 		BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1F87A11E67F8140089C110 /* ChatMessageModel.m */; };
-		BB3F0B5A1EE682CC00B0000F /* SocketIOLoginStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3F0B591EE682CC00B0000F /* SocketIOLoginStatus.m */; };
 		BB46505D1E2EFA1B00FABB62 /* SocketIONotify.m in Sources */ = {isa = PBXBuildFile; fileRef = BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */; };
 		BB476E3E1E51A3B600A7F8C7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB476E3D1E51A3B600A7F8C7 /* MainViewController.m */; };
 		BB4A868B1E5FDC2C0038E9D8 /* ChatMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4A868A1E5FDC2C0038E9D8 /* ChatMessagePresenter.m */; };
@@ -50,6 +49,7 @@
 		BBF52A0F1E5EC4B100A16F8C /* ChatMessageRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF52A0E1E5EC4B100A16F8C /* ChatMessageRepository.m */; };
 		BBF5B8201E66763800DCA96E /* RealmConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF5B81E1E66763800DCA96E /* RealmConfig.m */; };
 		BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF5B8241E66B4D600DCA96E /* ChatModel.m */; };
+		BBFB3CF21F1F4D7200801C6C /* SocketIOResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFB3CF11F1F4D7200801C6C /* SocketIOResponse.m */; };
 		BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */; };
 /* End PBXBuildFile section */
 
@@ -96,8 +96,6 @@
 		BB1F879B1E67AB0E0089C110 /* MyChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChat.m; sourceTree = "<group>"; };
 		BB1F87A01E67F8140089C110 /* ChatMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageModel.h; sourceTree = "<group>"; };
 		BB1F87A11E67F8140089C110 /* ChatMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageModel.m; sourceTree = "<group>"; };
-		BB3F0B581EE682CC00B0000F /* SocketIOLoginStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOLoginStatus.h; sourceTree = "<group>"; };
-		BB3F0B591EE682CC00B0000F /* SocketIOLoginStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOLoginStatus.m; sourceTree = "<group>"; };
 		BB46505B1E2EFA1B00FABB62 /* SocketIONotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIONotify.h; sourceTree = "<group>"; };
 		BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIONotify.m; sourceTree = "<group>"; };
 		BB476E3C1E51A3B600A7F8C7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -180,6 +178,8 @@
 		BBF5B81E1E66763800DCA96E /* RealmConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmConfig.m; sourceTree = "<group>"; };
 		BBF5B8231E66B4D600DCA96E /* ChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatModel.h; sourceTree = "<group>"; };
 		BBF5B8241E66B4D600DCA96E /* ChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatModel.m; sourceTree = "<group>"; };
+		BBFB3CF01F1F4D7200801C6C /* SocketIOResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOResponse.h; sourceTree = "<group>"; };
+		BBFB3CF11F1F4D7200801C6C /* SocketIOResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOResponse.m; sourceTree = "<group>"; };
 		BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOMessage.h; sourceTree = "<group>"; };
 		BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOMessage.m; sourceTree = "<group>"; };
 		BBFC98CB1E38837900DB5A7D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -351,8 +351,8 @@
 				BB46505C1E2EFA1B00FABB62 /* SocketIONotify.m */,
 				BBFC98B21E384C1500DB5A7D /* SocketIOMessage.h */,
 				BBFC98B31E384C1500DB5A7D /* SocketIOMessage.m */,
-				BB3F0B581EE682CC00B0000F /* SocketIOLoginStatus.h */,
-				BB3F0B591EE682CC00B0000F /* SocketIOLoginStatus.m */,
+				BBFB3CF01F1F4D7200801C6C /* SocketIOResponse.h */,
+				BBFB3CF11F1F4D7200801C6C /* SocketIOResponse.m */,
 			);
 			path = SocketIO;
 			sourceTree = "<group>";
@@ -789,7 +789,6 @@
 				BBA6EFC21E53F5F10050756C /* SettingViewController.m in Sources */,
 				BBAFF8E11E4C3FA7007980D0 /* UserInfoRepository.m in Sources */,
 				BBF5B8251E66B4D600DCA96E /* ChatModel.m in Sources */,
-				BB3F0B5A1EE682CC00B0000F /* SocketIOLoginStatus.m in Sources */,
 				BBF08D301E4D633600241CEF /* DateUtils.m in Sources */,
 				BBFC98B41E384C1500DB5A7D /* SocketIOMessage.m in Sources */,
 				BBF08D331E4D853300241CEF /* ResultModel.m in Sources */,
@@ -811,6 +810,7 @@
 				BB01A6F51E9F60320075B23F /* InputToolbar.m in Sources */,
 				BB1F87A21E67F8140089C110 /* ChatMessageModel.m in Sources */,
 				BBE46D9A1EADCA96002911D9 /* ContactTableViewCell.m in Sources */,
+				BBFB3CF21F1F4D7200801C6C /* SocketIOResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
