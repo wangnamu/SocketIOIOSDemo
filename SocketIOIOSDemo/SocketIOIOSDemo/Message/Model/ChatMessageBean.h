@@ -28,6 +28,7 @@ static NSString* const MessageTypeEmoji = @"emoji";
 
 @property NSString* SID;// 主键
 @property NSString* SenderID;// 发送人ID
+@property NSString* SenderDeviceToken;// 发送人设备编号
 @property NSString* Title;// 标题
 @property NSString* Body;//内容
 @property long Time;// 时间

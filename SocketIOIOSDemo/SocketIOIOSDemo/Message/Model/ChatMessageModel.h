@@ -13,6 +13,7 @@
 
 @property (nonatomic,copy) NSString* SID;// 主键
 @property (nonatomic,copy) NSString* SenderID;// 发送人ID
+@property (nonatomic,copy) NSString* SenderDeviceToken;// 发送人设备编号
 @property (nonatomic,copy) NSString* Title;// 标题
 @property (nonatomic,copy) NSString* Body;//内容
 @property (nonatomic,assign) long Time;// 时间

@@ -169,8 +169,11 @@
     WS(ws);
     
     UserInfoBean *userInfoBean = [[UserInfoRepository sharedClient] currentUser];
+  
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
-    if (userInfoBean == nil) {
+    
+    if (userInfoBean == nil || deviceToken == nil) {
         return;
     }
     
@@ -178,6 +181,7 @@
     ChatMessageModel *model = [[ChatMessageModel alloc] init];
     model.SID = messageID;
     model.SenderID = userInfoBean.SID;
+    model.SenderDeviceToken = deviceToken;
     model.Title = userInfoBean.NickName;
     model.Body = body;
     model.Time = [DateUtils timeNow];
@@ -190,7 +194,7 @@
         [ws insertChatMessage:m];
     }];
     
-    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":userInfoBean.SID };
+    NSDictionary *params = @{ @"chatID":chatID,@"body":body,@"messageID":messageID,@"senderID":userInfoBean.SID,@"senderDeviceToken":deviceToken };
     
     [[AFNetworkingClient sharedClient] POST:@"sendText" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -199,6 +203,7 @@
             return @{
                      @"SID" : @"sid",
                      @"SenderID" : @"senderID",
+                     @"SenderDeviceToken":@"senderDeviceToken",
                      @"Title" : @"title",
                      @"Body" : @"body",
                      @"Time" : @"time",

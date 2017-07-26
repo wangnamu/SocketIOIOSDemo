@@ -34,6 +34,7 @@
     ChatMessageBean *bean = [[ChatMessageBean alloc] init];
     bean.SID = self.SID;
     bean.SenderID = self.SenderID;
+    bean.SenderDeviceToken = self.SenderDeviceToken;
     bean.Title = self.Title;
     bean.Body = self.Body;
     bean.Time = self.Time;
@@ -52,6 +53,7 @@
     ChatMessageModel *model = [[ChatMessageModel alloc] init];
     model.SID = bean.SID;
     model.SenderID = bean.SenderID;
+    model.SenderDeviceToken = bean.SenderDeviceToken;
     model.Title = bean.Title;
     model.Body = bean.Body;
     model.Time = bean.Time;

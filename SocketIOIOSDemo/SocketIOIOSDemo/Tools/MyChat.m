@@ -112,6 +112,7 @@
                     return @{
                              @"SID" : @"sid",
                              @"SenderID" : @"senderID",
+                             @"SenderDeviceToken":@"senderDeviceToken",
                              @"Title" : @"title",
                              @"Body" : @"body",
                              @"Time" : @"time",

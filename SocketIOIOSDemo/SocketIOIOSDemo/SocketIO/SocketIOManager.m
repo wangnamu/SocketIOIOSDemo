@@ -12,7 +12,7 @@
 #import "SocketIOResponse.h"
 
 //static NSString* socketUrl = @"http://192.168.16.61:3000";
-static NSString* socketUrl = @"http://192.168.19.106:3000";
+static NSString* socketUrl = @"http://192.168.19.84:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
@@ -143,6 +143,7 @@ static NSString* socketUrl = @"http://192.168.19.106:3000";
                     return @{
                              @"SID" : @"SID",
                              @"SenderID" : @"SenderID",
+                             @"SenderDeviceToken":@"SenderDeviceToken",
                              @"Title" : @"Title",
                              @"Body" : @"Body",
                              @"Time" : @"Time",
