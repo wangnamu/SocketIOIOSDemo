@@ -12,7 +12,7 @@
 #import "SocketIOResponse.h"
 
 //static NSString* socketUrl = @"http://192.168.16.61:3000";
-static NSString* socketUrl = @"http://192.168.19.84:3000";
+static NSString* socketUrl = @"http://192.168.3.5:3000";
 
 @implementation SocketIOManager
 @synthesize socket;
