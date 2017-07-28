@@ -100,7 +100,7 @@
             last = [DateUtils timeNow];
         }
         
-        NSDictionary *chatMessageListParams = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"senderDeviceToken":[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"],@"last":@(last),@"current":@(current)};
+        NSDictionary *chatMessageListParams = @{@"userID":[[UserInfoRepository sharedClient] currentUser].SID,@"last":@(last),@"current":@(current)};
         
         [[AFNetworkingClient sharedClient] GET:@"chatMessageList" parameters:chatMessageListParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
