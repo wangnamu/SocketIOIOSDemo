@@ -10,9 +10,7 @@
 
 @implementation ResultModel
 
-
-+ (NSDictionary *)mj_replacedKeyFromPropertyName
-{
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{
                 @"IsSuccess" : @"isSuccess",
                 @"Data" : @"data",

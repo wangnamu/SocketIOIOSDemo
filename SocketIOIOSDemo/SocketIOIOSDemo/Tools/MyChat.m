@@ -106,7 +106,11 @@
     
             NSArray *res = (NSArray *)responseObject;
             
-            for (NSDictionary *dic in res) {
+            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES];
+            
+            NSArray *sortArray = [res sortedArrayUsingDescriptors:@[sortDescriptor]];
+            
+            for (NSDictionary *dic in sortArray) {
                 
                 [ChatMessageModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
                     return @{
