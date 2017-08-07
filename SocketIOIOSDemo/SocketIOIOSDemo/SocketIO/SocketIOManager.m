@@ -33,7 +33,7 @@ static NSString* socketUrl = @"http://192.168.19.211:3000";
     self = [super init];
     if (self) {
         NSURL* url = [[NSURL alloc] initWithString:socketUrl];
-        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @NO, @"transports": @[@"websocket"]}];
+        socket = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @NO, @"forceWebsockets": @YES }];
     }
     return self;
 }
